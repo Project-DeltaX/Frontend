@@ -1,5 +1,5 @@
 import { Box,Button, Typography,Grid,Link, Icon } from "@mui/material";
-import pass from "../Images/messenger.svg";
+import pass from "../../Images/messenger.svg";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import React from "react";

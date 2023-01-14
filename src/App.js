@@ -1,26 +1,17 @@
-import './App.css';
-import Dashboard from './pages/Dashboard';
-import LoginPage from "./pages/LoginPage";
-import CreateNewAccount from './pages/createNewAccount';
-import ForgotPassword from './pages/ForgotPassword';
-import NewPassword from './pages/NewPassword';
-import EmailConfirmation from './pages/EmailConfirmation';
-import SuccessfulPasswordReset from './pages/SuccessfulPasswordReset';
-import Verification from './pages/Verification';
+import "./App.css";
+import Layout from "./components/Layout";
+import LoginPage from "./pages/UserAuthentication/LoginPage";
+import CreateNewAccount from "./pages/UserAuthentication/createNewAccount";
+import NewPassword from "./pages/UserAuthentication/NewPassword";
+import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
+import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
+import Verification from "./pages/UserAuthentication/Verification";
+import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 
 function App() {
   return (
     <div>
-      <LoginPage />
-      <Dashboard/>
-      <CreateNewAccount/>
-  <ForgotPassword/>
-
-  <NewPassword />
-  <EmailConfirmation/>
-  <Verification />
-<SuccessfulPasswordReset/>
-
+      <Layout><LoginPage/></Layout>
     </div>
   );
 }

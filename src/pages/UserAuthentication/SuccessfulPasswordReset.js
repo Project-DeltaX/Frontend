@@ -1,5 +1,5 @@
 import { Box,Button, Typography,Grid,Link } from "@mui/material";
-import pass from "../Images/Authentication.svg";
+import pass from "../../Images/Authentication.svg";
 
 import React from "react";
 import { CenterFocusStrong } from "@mui/icons-material";

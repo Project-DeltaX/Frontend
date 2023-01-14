@@ -1,5 +1,5 @@
 import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
-import pass from "../Images/ForgotPassword.svg";
+import pass from "../../Images/ForgotPassword.svg";
 
 import React from "react";
 

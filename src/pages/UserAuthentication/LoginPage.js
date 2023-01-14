@@ -1,8 +1,8 @@
 import { Gradient } from "@mui/icons-material";
 import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
 import React from "react";
-import LoginImg  from "../Images/Login.svg";
-import '../App.css';
+import LoginImg  from "../../Images/Login.svg";
+import '../../App.css';
 
 
 

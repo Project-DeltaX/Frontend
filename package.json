@@ -40,5 +40,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@iconify/icons-clarity": "^1.2.8",
+    "@iconify/icons-fa-solid": "^1.2.4",
+    "@iconify/icons-material-symbols": "^1.2.25",
+    "@iconify/react": "^4.0.1"
   }
 }
