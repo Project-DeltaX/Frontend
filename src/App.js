@@ -7,11 +7,24 @@ import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
+import UserProfile from "./pages/AccountSettings/UserProfile";
+import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
+import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
+import { BrowserRouter , Route,Routes } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <Layout><LoginPage/></Layout>
+      <Routes>
+        <Route path="/" element={<LoginPage/>} />
+        <Route path="/createNewAccount" element={<CreateNewAccount/>} />
+        <Route path="/forgotPassword" element={<ForgotPassword/>} />
+        <Route path="/adminHome" element={<AdminHomePage/>}/>
+        
+      </Routes>
+      
+      {/* <AdminHomePage/> */}
+      {/* <CommitteeMemberHomePage/> */}
     </div>
   );
 }

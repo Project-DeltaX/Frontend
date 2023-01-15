@@ -42,9 +42,13 @@
     ]
   },
   "devDependencies": {
+    "@iconify/icons-carbon": "^1.2.14",
     "@iconify/icons-clarity": "^1.2.8",
     "@iconify/icons-fa-solid": "^1.2.4",
     "@iconify/icons-material-symbols": "^1.2.25",
-    "@iconify/react": "^4.0.1"
+    "@iconify/icons-openmoji": "^1.2.19",
+    "@iconify/icons-pepicons-pop": "^1.2.3",
+    "@iconify/react": "^4.0.1",
+    "react-router-dom": "^6.6.2"
   }
 }
