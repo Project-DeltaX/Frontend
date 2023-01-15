@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Grid, Stack } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
@@ -135,7 +136,7 @@ const HeaderBar = () => {
               <EditIcon />
               Edit Profile
             </MenuItem>
-            <MenuItem onClick={handleClose} disableRipple>
+            <MenuItem onClick={handleClose}  LinkComponent={Link} to={"/"}>
               <LogoutIcon />
               Logout
             </MenuItem>

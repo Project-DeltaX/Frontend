@@ -1,7 +1,8 @@
-import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
+import { TextField,Box,Button, Typography, Grid } from "@mui/material";
 import pass from "../../Images/ForgotPassword.svg";
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const ForgotPassword = ()  => {
@@ -45,7 +46,7 @@ const ForgotPassword = ()  => {
  </Grid>
     </Grid>
     <Grid pb={1}>
-            <Button sx={{marginTop:3, borderRadius:4 ,fontFamily:"Abril Fatface",color:"black",bgcolor:"#EB5E57"}}  variant="contained" color="warning"  ><b>SEND</b></Button>
+            <Button sx={{marginTop:3, borderRadius:4 ,fontFamily:"Abril Fatface",color:"black",bgcolor:"#EB5E57"}}  variant="contained" color="warning" ><b>SEND</b></Button>
 
     </Grid>
 

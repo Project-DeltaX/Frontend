@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { Component, useState } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -17,13 +17,44 @@ import Tabs from "@mui/material/Tabs";
 import { Icon } from "@iconify/react";
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
-import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import SettingsIcon from '@mui/icons-material/Settings';
+import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { DragIndicator } from "@mui/icons-material";
+import interviewIcon from "@iconify/icons-openmoji/interview";
+import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
+import cvIcon from "@iconify/icons-pepicons-pop/cv";
+import autoScheduleOutline from "@iconify/icons-material-symbols/auto-schedule-outline";
 
-const Navbar = () => {
-  const [Navvalue,setNavvalue] = React.useState();
+import { useLocation, Link } from "react-router-dom";
+
+// const MenuArr = ["Dashboard", "User Management", "Account"];
+const AIconArr = [
+  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
+  <Icon icon={userCog} color="#e8e1fa" width="24" height="24" />,
+  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
+];
+const CIconArr = [
+  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
+  <Icon icon={cvIcon} color="#e8e1fa" width="24" height="24" />,
+  <Icon icon={autoScheduleOutline} color="#e8e1fa" width="24" height="24" />,
+  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
+];
+
+const PIconArr = [
+  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
+  <Icon icon={interviewIcon} color="#e8e1fa" width="24" height="24" />,
+  <Icon icon={chartEvaluation} color="#e8e1fa" width="24" height="24" />,
+  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
+];
+const IIconArr = [
+  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
+];
+
+const Navbar = (props) => {
+  const [Navvalue, setNavvalue] = React.useState();
+  const { pathname } = useLocation();
+
   return (
     <side>
       <Toolbar>
@@ -44,37 +75,39 @@ const Navbar = () => {
       >
         Main Menu
       </Divider>
-      <List >
-        {["Dashboard", "User Management", "Account"].map((text, index) => (
-          <ListItem key={text} disablePadding value={Navvalue} onChange={(e,Navvalue) => {setNavvalue(Navvalue) } }  >
-            <ListItemButton >
-              <ListItemIcon>
-                {index === 0 ? (
-                  <Icon
-                    icon={dashboardSolidBadged}
-                    color="#e8e1fa"
-                    width="24"
-                    height="24"
-                  />
-                ) : index === 1 ? (
-                  <Icon icon={userCog} color="#e8e1fa" width="24" height="24" />
-                ) : (
-                  <SwitchAccountIcon width="24" height="24" sx={{ color:"#e8e1fa"  }} />
-                )}
-              </ListItemIcon>
-              <ListItemText
-              
-              primary={text}
-              primaryTypographyProps={{
-                fontFamily: "Poppins, sans-serif",
-                color:"#e8e1fa",
-                backgroundColor: 'text-shadow(2px 2px 5px #FB8257)',
-                // text-shadow: 1px 1px 3px #FB8257,/
-                fontSize: 16,
-              }}
-            />
-              
-            </ListItemButton>
+      <List>
+        {props.MenuArr.map((text, index) => (
+          <ListItem
+            key={text}
+            disablePadding
+            value={Navvalue}
+            onChange={(e, Navvalue) => {
+              setNavvalue(Navvalue);
+            }}
+          >
+            {/* <Link to={`${text}`}> */}
+              <ListItemButton Component={Link} to={`/adminHome/${text}`} isActive={pathname===`${text}`}>
+                <ListItemIcon>
+                  {props.IconArr === "AIconArr"
+                    ? AIconArr[index]
+                    : props.IconArr === "CIconArr"
+                    ? CIconArr[index]
+                    : props.IconArr === "PIconArr"
+                    ? PIconArr[index]
+                    : IIconArr[index]}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  primaryTypographyProps={{
+                    fontFamily: "Poppins",
+                    color: "#e8e1fa",
+                    backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
+                    // text-shadow: 1px 1px 3px #FB8257,/
+                    fontSize: 16,
+                  }}
+                />
+              </ListItemButton>
+            {/* </Link> */}
           </ListItem>
         ))}
       </List>
@@ -94,7 +127,19 @@ const Navbar = () => {
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index === 0 ? <SupportAgentIcon width="24" height="24" sx={{ color:"#e8e1fa"  }} /> : <SettingsIcon width="24" height="24" sx={{ color:"#e8e1fa"  }} />}
+                {index === 0 ? (
+                  <SupportAgentIcon
+                    width="24"
+                    height="24"
+                    sx={{ color: "#e8e1fa" }}
+                  />
+                ) : (
+                  <SettingsIcon
+                    width="24"
+                    height="24"
+                    sx={{ color: "#e8e1fa" }}
+                  />
+                )}
               </ListItemIcon>
               <ListItemText
                 primary={text}
@@ -109,9 +154,8 @@ const Navbar = () => {
           </ListItem>
         ))}
       </List>
-      </side>
+    </side>
   );
 };
 
 export default Navbar;
-

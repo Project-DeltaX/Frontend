@@ -1,4 +1,5 @@
 import React from "react";
+import '../App.css';
 import { Grid, Toolbar } from "@mui/material";
 import { Paper } from "@mui/material";
 import Navbar from "./Navbar/navbar";
@@ -7,7 +8,8 @@ import HeaderBar from "./Header/HeaderBar";
 import AppBar from "@mui/material/AppBar";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-const drawerWidth = 230;
+const drawerWidth = 245;
+
 const Layout=(props) =>{
   return (
     // <Box sx={{ display: 'flex' }}>
@@ -37,7 +39,7 @@ const Layout=(props) =>{
         variant="permanent"
         anchor="left"
       >
-        <Navbar />
+        <Navbar MenuArr={props.MenuArr} IconArr={props.IconArr}/>
       </Drawer>
       <Box
         component="main"
