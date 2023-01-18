@@ -1,8 +1,9 @@
-import { Box,Button, Typography,Grid,Link } from "@mui/material";
+import { Box,Button, Typography,Grid } from "@mui/material";
 import pass from "../../Images/Authentication.svg";
 
 import React from "react";
 import { CenterFocusStrong } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 
 const SuccessfulPasswordReset = ()  => {
@@ -31,9 +32,10 @@ const SuccessfulPasswordReset = ()  => {
                 >
                     <img src={pass} width='200px'/>
 
-                    <Grid container direction="column">
+                    <Grid container direction="column" alignContent={'center'}>
 
                       <Typography color="#E8E1FA" variant="h5" padding={4} textAlign='center' fontFamily="Abril Fatface">Sucessful password Reset</Typography>
+                      <Typography color="blue" variant="h7" alignContent={'center'}  marginLeft={'100px'} component={Link} to={"/"}>click to Login</Typography>
          
                     </Grid>
    

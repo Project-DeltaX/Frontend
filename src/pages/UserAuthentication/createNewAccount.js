@@ -1,4 +1,4 @@
-import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
+import { TextField,Box,Button, Typography, Grid } from "@mui/material";
 
 import React from "react";
 import InputLabel from '@mui/material/InputLabel';
@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Link } from "react-router-dom";
 
 const CreateNewAccount = ()  => {
     const [role, setRole] = React.useState('');
@@ -91,7 +92,7 @@ const CreateNewAccount = ()  => {
     </Grid>
  </Grid>
     </Grid>
-    <Button sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
+    <Button LinkComponent={Link} to={'/createacc'} sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
 
      </Box>
      </form>

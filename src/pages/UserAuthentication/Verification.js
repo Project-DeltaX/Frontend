@@ -1,4 +1,5 @@
-import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
+import { TextField,Box,Button, Typography, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import React from "react";
 import InputLabel from '@mui/material/InputLabel';
@@ -6,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+
 
 const Verification = ()  => {
     // const [age, setAge] = React.useState('');
@@ -83,7 +85,7 @@ const Verification = ()  => {
     </Grid>
 
     <Grid padding={3}>
-           <Button sx={{marginTop:3, borderRadius:4 , color:"black",bgcolor:"#EB5E57",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>Verify</b></Button>
+           <Button  LinkComponent={Link} to={'/Emailconfirmationpage'} sx={{marginTop:3, borderRadius:4 , color:"black",bgcolor:"#EB5E57",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>Verify</b></Button>
  
     </Grid>
 

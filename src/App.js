@@ -20,6 +20,10 @@ function App() {
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
         <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/verification" element={<Verification/>} />
+        <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
+        <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
+        <Route path="createacc" element={<EmailConfirmation/>} />
         
       </Routes>
       
