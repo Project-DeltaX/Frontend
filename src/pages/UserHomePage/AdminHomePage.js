@@ -2,22 +2,9 @@ import React from "react";
 import '../../App.css';
 import Layout from "../../components/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UserProfile from "../AccountSettings/UserProfile";
 import LoginPage from "../UserAuthentication/LoginPage";
-// const MenuArr = [
-//   {
-//     text: "Dashboard",
-//     // path: "/dashboard",
-//   },
-//   {
-//     text: "User Management",
-//     // path: "/user Management",
-//   },{
-//     text: "Account",
-//     // path: "/account",
-//   },
 
-// ];
+
 
 const MenuArr = [
   "Dashboard", 

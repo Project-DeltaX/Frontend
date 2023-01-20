@@ -7,7 +7,6 @@ import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
-import UserProfile from "./pages/AccountSettings/UserProfile";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import { BrowserRouter , Route,Routes } from "react-router-dom";
