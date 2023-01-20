@@ -86,7 +86,7 @@ const Navbar = (props) => {
             }}
           >
             {/* <Link to={`${text}`}> */}
-              <ListItemButton Component={Link} to={`/adminHome/${text}`} isActive={pathname===`${text}`}>
+              <ListItemButton Component={Link} to={`/${text}`} isActive={pathname===`${text}`}>
                 <ListItemIcon>
                   {props.IconArr === "AIconArr"
                     ? AIconArr[index]
