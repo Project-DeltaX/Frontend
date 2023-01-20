@@ -11,11 +11,12 @@ import UserProfile from "./pages/AccountSettings/UserProfile";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import { BrowserRouter , Route,Routes } from "react-router-dom";
+import Interview from "./pages/Interview&evaluation/Interview";
 
 function App() {
   return (
     <div>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -25,10 +26,10 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes>
+      </Routes> */}
+      {/* <Interview/> */}
+      <CommitteeMemberHomePage/>
       
-      {/* <AdminHomePage/> */}
-      {/* <CommitteeMemberHomePage/> */}
     </div>
   );
 }

@@ -43,7 +43,7 @@ const Layout=(props) =>{
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1,ml:`${drawerWidth}px`, p: 3 }}
+        sx={{ flexGrow: 1,ml:`${drawerWidth}px`, p: 3 ,bgcolor: "#E8E1FA"}}
       >
         <Toolbar />
         {props.children}
