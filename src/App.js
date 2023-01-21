@@ -7,7 +7,6 @@ import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
-import UserProfile from "./pages/AccountSettings/UserProfile";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import { BrowserRouter , Route,Routes } from "react-router-dom";
@@ -20,6 +19,10 @@ function App() {
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
         <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/verification" element={<Verification/>} />
+        <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
+        <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
+        <Route path="createacc" element={<EmailConfirmation/>} />
         
       </Routes>
       

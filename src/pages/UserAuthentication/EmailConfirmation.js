@@ -46,9 +46,9 @@ After receiving the email follow the link provided to complete your registration
                   
     </Grid>
 
-    <Grid padding={3}>
+    {/* <Grid padding={3}>
         <Button sx={{ display: "flex", justifyContent:'space-between', marginTop:3, borderRadius:4,color:"black", width:"90px",fontFamily:"Abril Fatface",bgcolor:"#EB5E57"}}  variant="contained"  color="warning"  ><b>Next</b><ArrowForwardIcon sx={{width :'18px', height:'18px'}}/></Button>
-    </Grid>
+    </Grid> */}
 
     <Grid padding={2}>
         <hr width='500px' color="white" alignItems='center' ></hr>

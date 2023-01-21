@@ -46,7 +46,7 @@ const ForgotPassword = ()  => {
  </Grid>
     </Grid>
     <Grid pb={1}>
-            <Button sx={{marginTop:3, borderRadius:4 ,fontFamily:"Abril Fatface",color:"black",bgcolor:"#EB5E57"}}  variant="contained" color="warning" ><b>SEND</b></Button>
+            <Button LinkComponent={Link} to={'/verification'} sx={{marginTop:3, borderRadius:4 ,fontFamily:"Abril Fatface",color:"black",bgcolor:"#EB5E57"}}  variant="contained" color="warning" ><b>SEND</b></Button>
 
     </Grid>
 

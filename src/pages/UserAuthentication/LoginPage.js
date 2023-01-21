@@ -45,7 +45,7 @@ const LoginPage = ()  => {
                     <Typography color="#E8E1FA" variant="h5" padding={2} textAlign='center' fontFamily="Abril Fatface"><b>LOGIN</b></Typography>
                     <TextField sx={{input : {color:'#8C8B8B',bgcolor:'#fff',borderRadius:'20px',width:'300px' } }}  margin="normal" type={'text'}  variant="outlined" placeholder="User Name" />
                     <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',width:'300px'}}} margin="normal" type={'password'} variant="outlined" placeholder="Password" />
-                    <Typography color="#E8E1FA" variant="h7" alignSelf="flex-end" component={Link} to={"/forgotPassword"}><i>Forgot password</i></Typography>
+                    <Typography color="blue" variant="h7" alignSelf="flex-end" component={Link} to={"/forgotPassword"}><i>Forgot password</i></Typography>
                     
                     <Button LinkComponent={Link} to={'/adminHome'} sx={{marginTop:3, borderRadius:3, bgcolor:'#EB5E57',fontFamily:"Abril Fatface",color:"black"}} variant="contained" color="warning" ><b>Login</b></Button>
                     <Typography color="#E8E1FA" variant="h7" padding={2} textAlign='center' fontFamily="Abril Fatface">New to 99x IMS? <Link to={"/createNewAccount"}><i> Create New Account</i></Link></Typography>

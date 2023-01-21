@@ -7,13 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import AppleIcon from "@mui/icons-material/Apple";
-import { color, Container, flexbox } from "@mui/system";
-import { Grid } from "@mui/material";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
 import { Icon } from "@iconify/react";
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
@@ -25,6 +19,7 @@ import interviewIcon from "@iconify/icons-openmoji/interview";
 import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
 import autoScheduleOutline from "@iconify/icons-material-symbols/auto-schedule-outline";
+import PropTypes from 'prop-types';
 
 import { useLocation, Link } from "react-router-dom";
 
@@ -50,6 +45,41 @@ const PIconArr = [
 const IIconArr = [
   <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
 ];
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
+
 
 const Navbar = (props) => {
   const [Navvalue, setNavvalue] = React.useState();
@@ -85,28 +115,31 @@ const Navbar = (props) => {
               setNavvalue(Navvalue);
             }}
           >
-            {/* <Link to={`${text}`}> */}
-              <ListItemButton Component={Link} to={`/${text}`} isActive={pathname===`${text}`}>
-                <ListItemIcon>
-                  {props.IconArr === "AIconArr"
-                    ? AIconArr[index]
-                    : props.IconArr === "CIconArr"
-                    ? CIconArr[index]
-                    : props.IconArr === "PIconArr"
-                    ? PIconArr[index]
-                    : IIconArr[index]}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  primaryTypographyProps={{
-                    fontFamily: "Poppins",
-                    color: "#e8e1fa",
-                    backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
-                    // text-shadow: 1px 1px 3px #FB8257,/
-                    fontSize: 16,
-                  }}
-                />
-              </ListItemButton>
+            <ListItemButton
+              Component={Link}
+              to={`/${text}`}
+              isActive={pathname === `${text}`}
+            >
+              <ListItemIcon>
+                {props.IconArr === "AIconArr"
+                  ? AIconArr[index]
+                  : props.IconArr === "CIconArr"
+                  ? CIconArr[index]
+                  : props.IconArr === "PIconArr"
+                  ? PIconArr[index]
+                  : IIconArr[index]}
+              </ListItemIcon>
+              <ListItemText
+                primary={text}
+                primaryTypographyProps={{
+                  fontFamily: "Poppins",
+                  color: "#e8e1fa",
+                  backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
+                  // text-shadow: 1px 1px 3px #FB8257,/
+                  fontSize: 16,
+                }}
+              />
+            </ListItemButton>
             {/* </Link> */}
           </ListItem>
         ))}

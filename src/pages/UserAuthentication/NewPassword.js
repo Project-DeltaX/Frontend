@@ -1,6 +1,7 @@
-import { TextField,Box,Button, Typography,Link, Grid } from "@mui/material";
+import { TextField,Box,Button, Typography, Grid } from "@mui/material";
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const NewPassword = ()  => {
@@ -67,7 +68,7 @@ const NewPassword = ()  => {
                    
     </Grid>
     <Grid padding={3}>
-            <Button sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>Confirm</b></Button>
+            <Button  LinkComponent={Link} to={'/newpw'} sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>Confirm</b></Button>
 
     </Grid>
 
