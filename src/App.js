@@ -10,11 +10,34 @@ import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import { BrowserRouter , Route,Routes } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "@fontsource/poppins"
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Poppins',
+    },
+    h4: {
+      fontSize:'26px',
+      fontWeight: 600,
+    },
+    h6:{
+      fontSize:'18px',
+      color:"#e8e1fa"
+    }
+  },
+  stack:{
+    
+  }
+});
+
 
 function App() {
   return (
     <div>
-      <Routes>
+      <ThemeProvider theme={theme}>
+      {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -24,10 +47,11 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes>
+      </Routes> */}
       
-      {/* <AdminHomePage/> */}
+      <AdminHomePage/>
       {/* <CommitteeMemberHomePage/> */}
+      </ThemeProvider>
     </div>
   );
 }

@@ -20,6 +20,7 @@ import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
 import autoScheduleOutline from "@iconify/icons-material-symbols/auto-schedule-outline";
 import PropTypes from 'prop-types';
+import { Box } from "@mui/system";
 
 import { useLocation, Link } from "react-router-dom";
 
@@ -45,6 +46,8 @@ const PIconArr = [
 const IIconArr = [
   <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
 ];
+
+
 
 
 function TabPanel(props) {
@@ -85,6 +88,12 @@ const Navbar = (props) => {
   const [Navvalue, setNavvalue] = React.useState();
   const { pathname } = useLocation();
 
+  const [Sidevalue, setSidevalue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setSidevalue(newValue);
+  };
+
   return (
     <side>
       <Toolbar>
@@ -110,15 +119,14 @@ const Navbar = (props) => {
           <ListItem
             key={text}
             disablePadding
-            value={Navvalue}
-            onChange={(e, Navvalue) => {
-              setNavvalue(Navvalue);
-            }}
+            value={Sidevalue}
+            onChange={handleChange}
           >
             <ListItemButton
               Component={Link}
               to={`/${text}`}
               isActive={pathname === `${text}`}
+              // {...a11yProps(index)}
             >
               <ListItemIcon>
                 {props.IconArr === "AIconArr"
@@ -135,7 +143,7 @@ const Navbar = (props) => {
                   fontFamily: "Poppins",
                   color: "#e8e1fa",
                   backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
-                  // text-shadow: 1px 1px 3px #FB8257,/
+                  // text-shadow: 1px 1px 3px #FB8257
                   fontSize: 16,
                 }}
               />
