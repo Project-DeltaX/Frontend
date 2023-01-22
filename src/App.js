@@ -25,6 +25,13 @@ const theme = createTheme({
     h6:{
       fontSize:'18px',
       color:"#e8e1fa"
+    },
+    body2:{
+      color:'#E8E1FA',
+    },
+    h5:{
+      color:'#E8E1FA',
+      fontSize:'26px',
     }
   },
   stack:{
