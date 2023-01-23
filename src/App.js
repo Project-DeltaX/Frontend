@@ -36,6 +36,12 @@ const theme = createTheme({
   },
   stack:{
     
+  },
+  TableCell:{
+    allVariants:{
+      color:'#E8E1FA'
+    }
+    
   }
 });
 
