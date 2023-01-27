@@ -6,6 +6,9 @@ import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
 
+
+
+
 const LoginPage = () => {
   return (
     <div>
@@ -20,7 +23,7 @@ const LoginPage = () => {
             fontSize="80px"
             fontFamily="Abril Fatface"
             sx={{
-              color: "#E9E2FB"
+              color: "#E9E2FB",
             }}
           >
             <b> Let's create impactful digital produts</b>
@@ -30,6 +33,7 @@ const LoginPage = () => {
         <Grid item sm={5} >
           <form>
             <Box
+              // className={classes.customBox}
               display="flex"
               flexDirection={"column"}
               maxWidth="fit content"
@@ -60,8 +64,8 @@ const LoginPage = () => {
               <TextField
                 size="small"
                 sx={{
-                  "& fieldset": { border: 'none',},
-                  
+                  "& fieldset": { border: "none" },
+
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
@@ -76,7 +80,7 @@ const LoginPage = () => {
               />
               <TextField
                 sx={{
-                  "& fieldset": { border: 'none',},
+                  "& fieldset": { border: "none" },
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",

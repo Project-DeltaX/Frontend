@@ -7,7 +7,7 @@ import HeaderBar from "./Header/HeaderBar";
 import AppBar from "@mui/material/AppBar";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import { backgroundStyle } from "./Header/styles";
+import { backgroundStyle } from "../styles";
 const drawerWidth = 245;
 
 const Layout=(props) =>{
@@ -29,6 +29,7 @@ const Layout=(props) =>{
         PaperProps={{
           sx: {
             backgroundColor: "#27144B",
+            backgroundImage: `url(${"static/src/img/main.jpg"})`,
             width: drawerWidth,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
@@ -44,7 +45,7 @@ const Layout=(props) =>{
       <Box
       
         component="main"
-        sx={{ flexGrow: 1,ml:`${drawerWidth}px`, p: 3, marginTop:"50px" }}
+        sx={{ flexGrow: 1,ml:`${drawerWidth-23}px`, p: 3, marginTop:"50px"}}
       >
        
         {props.children}

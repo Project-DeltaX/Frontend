@@ -9,10 +9,13 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { BrowserRouter , Route,Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import "@fontsource/poppins"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "@fontsource/poppins";
+import Bg01 from "../src/Images/BackgroundImg01.jpg";
+import { RotateLeftOutlined } from "@mui/icons-material";
 
+//"#e8e1fa"
 const theme = createTheme({
   typography: {
     allVariants: {
@@ -25,32 +28,18 @@ const theme = createTheme({
     h6:{
       fontSize:'18px',
       color:"#e8e1fa"
-    },
-    body2:{
-      color:'#E8E1FA',
-    },
-    h5:{
-      color:'#E8E1FA',
-      fontSize:'26px',
     }
   },
   stack:{
     
-  },
-  TableCell:{
-    allVariants:{
-      color:'#E8E1FA'
-    }
-    
   }
 });
-
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      {/* <Routes>
+        <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -60,10 +49,10 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes> */}
-      
-      <AdminHomePage/>
-      {/* <CommitteeMemberHomePage/> */}
+      </Routes>
+
+        {/* <AdminHomePage /> */}
+        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );
