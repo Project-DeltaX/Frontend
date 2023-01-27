@@ -4,6 +4,7 @@ import React from "react";
 import LoginImg from "../../Images/Login.svg";
 import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
+import "../UserAuthentication/Authentication.css";
 
 const LoginPage = () => {
   return (
@@ -13,11 +14,14 @@ const LoginPage = () => {
           <Typography
             variant="h3"
             marginTop={30}
-            marginLeft={15}
+            marginLeft={{ md: 5, lg: 7, xl: 10 }}
             padding={0}
             textAlign="left"
             fontSize="80px"
             fontFamily="Abril Fatface"
+            sx={{
+              color: "#E9E2FB"
+            }}
           >
             <b> Let's create impactful digital produts</b>
           </Typography>
@@ -31,9 +35,9 @@ const LoginPage = () => {
               maxWidth="fit content"
               alignItems="center"
               justifyContent={"center"}
-              margin={17}
+              margin={{ md: 5, lg: 12, xl: 10 }}
               marginTop={15}
-              padding={13}
+              padding={{ md: 5, lg: 7, xl: 15 }}
               borderRadius={20}
               boxShadow={"5px 5px 10px #ccc"}
               bgcolor="#27144B"
@@ -54,7 +58,10 @@ const LoginPage = () => {
                 <b>LOGIN</b>
               </Typography>
               <TextField
+                size="small"
                 sx={{
+                  "& fieldset": { border: 'none',},
+                  
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
@@ -69,6 +76,7 @@ const LoginPage = () => {
               />
               <TextField
                 sx={{
+                  "& fieldset": { border: 'none',},
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
@@ -80,10 +88,11 @@ const LoginPage = () => {
                 type={"password"}
                 variant="outlined"
                 placeholder="Password"
+                size="small"
               />
               <Typography
                 color="blue"
-                variant="h7"
+                variant="body2"
                 alignSelf="flex-end"
                 component={Link}
                 to={"/forgotPassword"}
@@ -108,13 +117,14 @@ const LoginPage = () => {
               </Button>
               <Typography
                 color="#E8E1FA"
-                variant="h7"
+                variant="h6"
                 padding={2}
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
                 New to 99x IMS?{" "}
                 <Link to={"/createNewAccount"}>
+                  <br />
                   <i> Create New Account</i>
                 </Link>
               </Typography>
