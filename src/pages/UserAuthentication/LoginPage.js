@@ -9,11 +9,11 @@ const LoginPage = () => {
   return (
     <div>
       <Grid container spacing={0.2}>
-        <Grid item sm={7}>
+        <Grid item sm={7} >
           <Typography
             variant="h3"
             marginTop={30}
-            marginLeft={15}
+            marginLeft={{sm:6, md:8}}
             padding={0}
             textAlign="left"
             fontSize="80px"
@@ -23,7 +23,7 @@ const LoginPage = () => {
           </Typography>
         </Grid>
 
-        <Grid item sm={5}>
+        <Grid item sm={5} >
           <form>
             <Box
               display="flex"
@@ -31,8 +31,8 @@ const LoginPage = () => {
               maxWidth="fit content"
               alignItems="center"
               justifyContent={"center"}
-              margin={17}
-              marginTop={15}
+              margin={{md:10,lg:12}}
+              marginTop={10}
               padding={13}
               borderRadius={20}
               boxShadow={"5px 5px 10px #ccc"}
@@ -83,7 +83,7 @@ const LoginPage = () => {
               />
               <Typography
                 color="blue"
-                variant="h7"
+                variant="body2"
                 alignSelf="flex-end"
                 component={Link}
                 to={"/forgotPassword"}
@@ -108,14 +108,14 @@ const LoginPage = () => {
               </Button>
               <Typography
                 color="#E8E1FA"
-                variant="h7"
+                variant="h6"
                 padding={2}
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
                 New to 99x IMS?{" "}
                 <Link to={"/createNewAccount"}>
-                  <i> Create New Account</i>
+                  <br/><i> Create New Account</i>
                 </Link>
               </Typography>
             </Box>
