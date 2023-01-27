@@ -1,13 +1,16 @@
-import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import "../../App.css";
 import { Stack } from "@mui/system";
 import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
 import React, { useState } from "react";
 import "../AccountSettings/OAccount.css";
-import { navStyle } from "../../components/Header/styles";
+import { navStyle } from "../../styles";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Profile from "./components/Profile";
+import { navigationActiveStyle } from "../../styles";
+
 
 //,#2C165D,#27144B,#e8e1fa
 
@@ -49,11 +52,20 @@ const OAccount = () => {
     <div>
       <Box>
         <Grid container direction={"column"} rowSpacing={2}>
-          <Grid item md={4} container direction={"column"} rowSpacing={2} position="fixed">
-            <Grid item md={3} lg={4} >
+          <Grid
+            item
+            md={4}
+            container
+            direction={"column"}
+            rowSpacing={1}
+            position="fixed"
+            sx={{ backgroundColor: "#e8e1fa", boxShadow: 3 }}
+            padding={1}
+          >
+            <Grid item md={3} lg={4} paddingLeft={3}>
               <Typography variant="h4">Account Settings</Typography>
             </Grid>
-            <Grid item md={3} lg={4}>
+            <Grid item md={3} lg={4} paddingLeft={5}>
               <Box
                 display={"flex"}
                 justifyContent={"center"}
@@ -68,51 +80,36 @@ const OAccount = () => {
                   padding: "20px",
                 }}
               >
-                <Stack
+                <Tabs
                   direction={{ xs: "column", sm: "row" }}
+                  value={Cvalue}
+                  onChange={handleChange}
                   divider={
                     <Divider
                       sx={{ bgcolor: "#e8e1fa" }}
                       orientation="vertical"
                       variant="middle"
                       flexItem
-                      value={Cvalue}
-                      onChange={handleChange}
                     />
                   }
                   spacing={2}
                 >
-                  <Typography variant="h6" {...a11yProps(0)}>Profile</Typography>
-                  <Typography variant="h6" {...a11yProps(1)}>Notifications</Typography>
-                  <Typography variant="h6" {...a11yProps(2)}>Security & Privacy</Typography>
-                </Stack>
+                  <Typography variant="h6" {...a11yProps(0)}>
+                    Profile
+                  </Typography>
+                  <Typography variant="h6" {...a11yProps(1)}>
+                    Notifications
+                  </Typography>
+                  <Typography variant="h6" {...a11yProps(2)}>
+                    Security & Privacy
+                  </Typography>
+                </Tabs>
               </Box>
             </Grid>
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <ContentPanel value={Cvalue} index={0}>
-              <Paper
-                sx={{
-                  width: "70%",
-                  height: "620px",
-                  color: "#1168DC",
-                  /* From https://css.glass */
-                  // background: "rgba(47, 24, 113, 0.87)",
-                  // borderRadius: "16px",
-                  // boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                  // backdropFilter: "blur(5.8px)",
-                  // webkitBackdropEffect: " blur(5.8px)",
-                  // border: "1px solid rgba(47, 24, 113, 0.3)",
-
-                  background:
-                    " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
-                  borderRadius: "16px",
-                  padding: "30px",
-                }}
-                elevation={16}
-              >
-                Personal Details
-              </Paper>
+              <Profile />
             </ContentPanel>
           </Grid>
         </Grid>
