@@ -9,35 +9,59 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { BrowserRouter , Route,Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import "@fontsource/poppins"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "@fontsource/poppins";
+import Bg01 from "../src/Images/BackgroundImg01.jpg";
+import { RotateLeftOutlined } from "@mui/icons-material";
 
+//"#e8e1fa"
 const theme = createTheme({
-  typography: {
-    allVariants: {
-      fontFamily: 'Poppins',
+  overrides: {
+    Layout: {
+      backgroundColor:"#000000"
     },
-    h4: {
-      fontSize:'26px',
-      fontWeight: 600,
-    },
-    h6:{
-      fontSize:'18px',
-      color:"#e8e1fa"
-    }
-  },
-  stack:{
     
+    typography: {
+      allVariants: {
+        fontFamily: "Poppins",
+      },
+      h4: {
+        fontSize: "30px",
+        fontWeight: 600,
+      },
+      h6: {
+        fontSize: "18px",
+        color: "#e8e1fa",
+      },
+      h5: {
+        fontSize: "22px",
+        color: "#1168DC",
+        fontWeight: 500,
+      },
+    },
+    stack: {},
+    MuiTextField: {
+      
+    },
+  },
+  MuiListItem: {
+    root: {
+      "&.Mui-selected": {
+        backgroundColor: "black",
+        "&:hover": {
+          backgroundColor: "red"
+        }
+      }
+    }
   }
 });
-
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      {/* <Routes>
+        <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -47,10 +71,10 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes> */}
-      
-      <AdminHomePage/>
-      {/* <CommitteeMemberHomePage/> */}
+      </Routes>
+
+        {/* <AdminHomePage /> */}
+        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );
