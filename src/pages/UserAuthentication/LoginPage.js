@@ -4,6 +4,7 @@ import React from "react";
 import LoginImg from "../../Images/Login.svg";
 import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
+import "../UserAuthentication/Authentication.css";
 
 const LoginPage = () => {
   return (
@@ -13,11 +14,14 @@ const LoginPage = () => {
           <Typography
             variant="h3"
             marginTop={30}
-            marginLeft={{sm:6, md:8}}
+            marginLeft={{ md: 5, lg: 7, xl: 10 }}
             padding={0}
             textAlign="left"
             fontSize="80px"
             fontFamily="Abril Fatface"
+            sx={{
+              color: "#E9E2FB"
+            }}
           >
             <b> Let's create impactful digital produts</b>
           </Typography>
@@ -31,8 +35,8 @@ const LoginPage = () => {
               maxWidth="fit content"
               alignItems="center"
               justifyContent={"center"}
-              margin={{md:10,lg:12}}
-              marginTop={10}
+              margin={17}
+              marginTop={15}
               padding={13}
               borderRadius={20}
               boxShadow={"5px 5px 10px #ccc"}
@@ -54,7 +58,10 @@ const LoginPage = () => {
                 <b>LOGIN</b>
               </Typography>
               <TextField
+                size="small"
                 sx={{
+                  "& fieldset": { border: 'none',},
+                  
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
@@ -69,6 +76,7 @@ const LoginPage = () => {
               />
               <TextField
                 sx={{
+                  "& fieldset": { border: 'none',},
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
@@ -80,6 +88,7 @@ const LoginPage = () => {
                 type={"password"}
                 variant="outlined"
                 placeholder="Password"
+                size="small"
               />
               <Typography
                 color="blue"
@@ -115,7 +124,7 @@ const LoginPage = () => {
               >
                 New to 99x IMS?{" "}
                 <Link to={"/createNewAccount"}>
-                  <br/><i> Create New Account</i>
+                  <i> Create New Account</i>
                 </Link>
               </Typography>
             </Box>
