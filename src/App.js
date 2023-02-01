@@ -17,43 +17,21 @@ import { RotateLeftOutlined } from "@mui/icons-material";
 
 //"#e8e1fa"
 const theme = createTheme({
-  overrides: {
-    Layout: {
-      backgroundColor:"#000000"
+  typography: {
+    allVariants: {
+      fontFamily: 'Poppins',
     },
-    
-    typography: {
-      allVariants: {
-        fontFamily: "Poppins",
-      },
-      h4: {
-        fontSize: "30px",
-        fontWeight: 600,
-      },
-      h6: {
-        fontSize: "18px",
-        color: "#e8e1fa",
-      },
-      h5: {
-        fontSize: "22px",
-        color: "#1168DC",
-        fontWeight: 500,
-      },
+    h4: {
+      fontSize:'26px',
+      fontWeight: 600,
     },
-    stack: {},
-    MuiTextField: {
-      
-    },
-  },
-  MuiListItem: {
-    root: {
-      "&.Mui-selected": {
-        backgroundColor: "black",
-        "&:hover": {
-          backgroundColor: "red"
-        }
-      }
+    h6:{
+      fontSize:'18px',
+      color:"#e8e1fa"
     }
+  },
+  stack:{
+    
   }
 });
 
@@ -61,7 +39,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Routes>
+        {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -71,9 +49,9 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes>
+      </Routes> */}
 
-        {/* <AdminHomePage /> */}
+        <AdminHomePage />
         {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
