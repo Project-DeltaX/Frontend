@@ -109,7 +109,7 @@ const OAccount = () => {
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <ContentPanel value={Cvalue} index={0}>
-              <Profile />
+              <Profile/>
             </ContentPanel>
           </Grid>
         </Grid>

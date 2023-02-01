@@ -1,15 +1,49 @@
 import React from "react";
-import { Grid, Paper, svgIconClasses, Typography } from "@mui/material";
+import { Grid, styled, Paper, Typography } from "@mui/material";
 import ProfilePic from "../../../Images/ProfilePic01.svg";
 import TextField from "@mui/material/TextField";
+import "../../AccountSettings/OAccount.css";
+import { borderColor } from "@mui/system";
+import { withStyles } from "@mui/material";
+import dayjs from "dayjs";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const PersonalDetails =[
-    {
-        
-    }
-]
+const CssTextField = styled(TextField)({
+  "& 	.MuiInputBase-root": {
+    color: "#E8E1FA",
+  },
+  "& label.Mui-focused": {
+    color: "#E8E1FA",
+    borderColor: "#E8E1FA",
+  },
+  "& .MuiInputLabel-root": {
+    color: "#E8E1FA",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& .Mui-focused": {
+      borderColor: "#E8E1FA",
+    },
+    "& fieldset": {
+      color: "#E8E1FA",
+      borderColor: "#E8E1FA",
+    },
+    "&:hover fieldset": {
+      borderColor: "#E8E1FA",
+    },
+  },
+});
+
+const PersonalDetails = [
+  {
+    "Full Name": "Thanusiyan Sivapalasundharam",
+    Gender: "Male",
+  },
+];
 
 const Profile = () => {
+  const [dateValue, setdateValue] = React.useState(dayjs("2023-01-31"));
   return (
     <Paper
       sx={{
@@ -43,14 +77,42 @@ const Profile = () => {
           >
             <img src={ProfilePic} width="230px" height="230px" />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-evenly"}
+          >
+            <CssTextField
               label="Full Name"
               id="name"
-              defaultValue=""
+              defaultValue="Thanusiyan Sivapalasundharm"
               size="small"
-              fullWidth='true'
+              fullWidth="true"
             />
+            <CssTextField
+              label="Gender"
+              id="gender"
+              defaultValue="Male"
+              size="small"
+              fullWidth="true"
+            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                disableFuture
+                label="Responsive"
+                openTo="day"
+                size="small"
+                views={["year", "month", "day"]}
+                value={dateValue}
+                onChange={(newValue) => {
+                  setdateValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6} container spacing={2}>

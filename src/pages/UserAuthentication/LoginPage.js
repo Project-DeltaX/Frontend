@@ -6,12 +6,9 @@ import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
 
-
-
-
 const LoginPage = () => {
   return (
-    <div>
+    <div className="loginbackgorund">
       <Grid container spacing={0.2}>
         <Grid item sm={7}>
           <Typography
@@ -26,14 +23,14 @@ const LoginPage = () => {
               color: "#E9E2FB",
             }}
           >
-            <b> Let's create impactful digital produts</b>
+            <b> Let&apos;s create impactful digital produts</b>
           </Typography>
         </Grid>
 
         <Grid item sm={5}>
           <form>
             <Box
-              // className={classes.customBox}
+              className="logingrad"
               display="flex"
               flexDirection={"column"}
               maxWidth="fit content"
@@ -43,12 +40,7 @@ const LoginPage = () => {
               marginTop={15}
               padding={{ md: 5, lg: 7, xl: 15 }}
               borderRadius={20}
-              boxShadow={"5px 5px 10px #ccc"}
-              bgcolor="#27144B"
-              sx={{
-                background:
-                  " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
-              }}
+              
             >
               {/* <img src={LoginObj} margin="1px" /> */}
               <img src={LoginImg} width="150px" />
