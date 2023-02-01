@@ -24,7 +24,7 @@ import CircularStatus from "./CircularStatus";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
-import UserRoles from "./UserRoles";
+import UserRoles from "./UserRoles/UserRoles";
 import CommonRoles from "./Roles";
 
 const UserManagement = () => {
@@ -101,7 +101,8 @@ const UserManagement = () => {
         <Grid item md={6}>
           <CommonRoles/>
 
-          {/* <UserRoles /> */}
+          <UserRoles />
+          {/* <index.js/> */}
         </Grid>
       </Grid>
     </div>

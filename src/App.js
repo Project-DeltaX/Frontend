@@ -39,7 +39,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Routes>
+        {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -49,9 +49,9 @@ function App() {
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
         
-      </Routes>
+      </Routes> */}
 
-        {/* <AdminHomePage /> */}
+        <AdminHomePage />
         {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>

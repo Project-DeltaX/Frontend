@@ -328,7 +328,7 @@ export default function UserRole() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
+                    <TableRow 
                       hover
                       onClick={(event) => handleClick(event, row.UserName)}
                       role="checkbox"
@@ -336,6 +336,8 @@ export default function UserRole() {
                       tabIndex={-1}
                       key={row.UserName}
                       selected={isItemSelected}
+                      display={'flex'}
+                      justifyContent={'center'}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -354,7 +356,7 @@ export default function UserRole() {
                       >
                         {row.UserName}
                       </TableCell>
-                      <TableCell align="right">{row.Email}</TableCell>
+                      <TableCell align="center">{row.Email}</TableCell>
                       <TableCell align="right">{row.Country}</TableCell>
                       <TableCell align="right">{row.Posting}</TableCell>
                       <TableCell align="right">{row.Status}</TableCell>
