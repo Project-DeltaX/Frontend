@@ -17,44 +17,28 @@ import { RotateLeftOutlined } from "@mui/icons-material";
 
 //"#e8e1fa"
 const theme = createTheme({
+<<<<<<< HEAD
   overrides: {
 
     Layout: {
       backgroundColor:"#000000"
+=======
+  typography: {
+    allVariants: {
+      fontFamily: 'Poppins',
+>>>>>>> origin
     },
-    
-    typography: {
-      allVariants: {
-        fontFamily: "Poppins",
-      },
-      h4: {
-        fontSize: "30px",
-        fontWeight: 600,
-      },
-      h6: {
-        fontSize: "18px",
-        color: "#e8e1fa",
-      },
-      h5: {
-        fontSize: "22px",
-        color: "#1168DC",
-        fontWeight: 500,
-      },
+    h4: {
+      fontSize:'26px',
+      fontWeight: 600,
     },
-    stack: {},
-    MuiTextField: {
-      
-    },
-  },
-  MuiListItem: {
-    root: {
-      "&.Mui-selected": {
-        backgroundColor: "black",
-        "&:hover": {
-          backgroundColor: "red"
-        }
-      }
+    h6:{
+      fontSize:'18px',
+      color:"#e8e1fa"
     }
+  },
+  stack:{
+    
   }
 });
 
