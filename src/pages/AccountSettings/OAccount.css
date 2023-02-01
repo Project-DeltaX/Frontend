@@ -1,8 +1,5 @@
-.text{
-    font-family: "Poppins";
-}
-
-.MuiTypography-root{
-    font-family: "Poppins";
-    font-size: 32px;
-}
+.text_field_color {
+    color: red;
+  }
+  
+  

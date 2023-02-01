@@ -17,9 +17,16 @@ import { RotateLeftOutlined } from "@mui/icons-material";
 
 //"#e8e1fa"
 const theme = createTheme({
+<<<<<<< HEAD
+  overrides: {
+
+    Layout: {
+      backgroundColor:"#000000"
+=======
   typography: {
     allVariants: {
       fontFamily: 'Poppins',
+>>>>>>> origin
     },
     h4: {
       fontSize:'26px',
