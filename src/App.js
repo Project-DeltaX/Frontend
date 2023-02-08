@@ -17,36 +17,55 @@ import { RotateLeftOutlined } from "@mui/icons-material";
 
 //"#e8e1fa"
 const theme = createTheme({
-<<<<<<< HEAD
   overrides: {
-
     Layout: {
-      backgroundColor:"#000000"
-=======
-  typography: {
-    allVariants: {
-      fontFamily: 'Poppins',
->>>>>>> origin
+      backgroundColor: "#000000",
     },
-    h4: {
-      fontSize:'26px',
-      fontWeight: 600,
+
+    typography: {
+      allVariants: {
+        fontFamily: "Poppins",
+      },
+      h4: {
+        fontSize: "30px",
+        fontWeight: 600,
+      },
+      h6: {
+        fontSize: "18px",
+        color: "#e8e1fa",
+      },
+      h5: {
+        fontSize: "22px",
+        color: "#1168DC",
+        fontWeight: 500,
+      },
     },
-    h6:{
-      fontSize:'18px',
-      color:"#e8e1fa"
-    }
+    stack: {},
+    TextField: {
+      allVariants:{
+        fontFamily: "Poppins",
+        fontSize: "30px",
+      }
+    },
   },
-  stack:{
-    
-  }
+  MuiListItem: {
+    root: {
+      "&.Mui-selected": {
+        backgroundColor: "black",
+        "&:hover": {
+          backgroundColor: "red",
+        },
+      },
+    },
+  },
+  stack: {},
 });
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* <Routes>
+        {/* {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
