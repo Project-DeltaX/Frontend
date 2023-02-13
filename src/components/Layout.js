@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import { Grid, Toolbar } from "@mui/material";
 import { Paper } from "@mui/material";
 import Navbar from "./Navbar/navbar";
@@ -10,10 +11,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { backgroundStyle } from "../styles";
 const drawerWidth = 245;
 
-const Layout=(props) =>{
+const Layout = (props) => {
   return (
     // <Box sx={{ display: 'flex' }}>
-    <div >
+    <div>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -21,37 +22,43 @@ const Layout=(props) =>{
           width: `calc(100% - ${drawerWidth + 1}px)`,
           ml: `${drawerWidth}px`,
           backgroundColor: "#27144B",
+          borderRadius: "20px 0px 0px 0px",
         }}
       >
         <HeaderBar />
       </AppBar>
-      <Drawer
-        PaperProps={{
-          sx: {
-            backgroundColor: "#27144B",
-            backgroundImage: `url(${"static/src/img/main.jpg"})`,
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
+      <Box className="sidebar">
+        <Drawer
+          className={"sidebar"}
+          PaperProps={{
+            sx: {
               width: drawerWidth,
+              flexShrink: 0,
+              backgroundColor: "rgba(39, 20, 75, 0.79)",
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+              },
             },
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Navbar MenuArr={props.MenuArr} IconArr={props.IconArr}/>
-      </Drawer>
+          }}
+          variant="permanent"
+          anchor="left"
+        >
+          <Navbar MenuArr={props.MenuArr} IconArr={props.IconArr} />
+        </Drawer>
+      </Box>
       <Box
-      
         component="main"
-        sx={{ flexGrow: 1,ml:`${drawerWidth-23}px`, p: 3, marginTop:"50px"}}
+        sx={{
+          flexGrow: 1,
+          ml: `${drawerWidth - 23}px`,
+          p: 3,
+          marginTop: "50px",
+        }}
       >
-       
         {props.children}
       </Box>
     </div>
   );
-}
+};
 
 export default Layout;

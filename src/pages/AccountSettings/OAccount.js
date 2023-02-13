@@ -1,20 +1,22 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import "../../App.css";
-import { Stack } from "@mui/system";
-import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
+
 import React, { useState } from "react";
 import "../AccountSettings/OAccount.css";
-import { navStyle } from "../../styles";
+
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Profile from "./components/Profile";
 import { navigationActiveStyle } from "../../styles";
+import styled from "styled-components";
 
+//import defined Components
+import Profile from "./components/Profile";
+import SecurityPrivacy from "./components/SecurityPrivacy";
 
 //,#2C165D,#27144B,#e8e1fa
 
-function ContentPanel(props) {
+function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -30,11 +32,12 @@ function ContentPanel(props) {
   );
 }
 
-ContentPanel.propTypes = {
+TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
+
 function a11yProps(index) {
   return {
     id: `${index}`,
@@ -43,11 +46,12 @@ function a11yProps(index) {
 }
 
 const OAccount = () => {
-  const [Cvalue, setCvalue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setCvalue(newValue);
+    setValue(newValue);
   };
+
   return (
     <div>
       <Box>
@@ -58,8 +62,12 @@ const OAccount = () => {
             container
             direction={"column"}
             rowSpacing={1}
-            position="fixed"
-            sx={{ backgroundColor: "#e8e1fa", boxShadow: 3 }}
+            sx={{
+              backgroundColor: "#e8e1fa",
+              boxShadow: 3,
+              position: "fixed",
+              zIndex: 2,
+            }}
             padding={1}
           >
             <Grid item md={3} lg={4} paddingLeft={3}>
@@ -81,36 +89,27 @@ const OAccount = () => {
                 }}
               >
                 <Tabs
-                  direction={{ xs: "column", sm: "row" }}
-                  value={Cvalue}
+                  value={value}
                   onChange={handleChange}
-                  divider={
-                    <Divider
-                      sx={{ bgcolor: "#e8e1fa" }}
-                      orientation="vertical"
-                      variant="middle"
-                      flexItem
-                    />
-                  }
-                  spacing={2}
+                  aria-label="basic tabs example"
                 >
-                  <Typography variant="h6" {...a11yProps(0)}>
-                    Profile
-                  </Typography>
-                  <Typography variant="h6" {...a11yProps(1)}>
-                    Notifications
-                  </Typography>
-                  <Typography variant="h6" {...a11yProps(2)}>
-                    Security & Privacy
-                  </Typography>
+                  <Tab label="Profile" {...a11yProps(0)} />
+                  <Tab label="Notifications" {...a11yProps(1)} />
+                  <Tab label="Security & Privacy" {...a11yProps(2)} />
                 </Tabs>
               </Box>
             </Grid>
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
-            <ContentPanel value={Cvalue} index={0}>
-              <Profile/>
-            </ContentPanel>
+            <TabPanel value={value} index={0}>
+              <Profile />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Item Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <SecurityPrivacy />
+            </TabPanel>
           </Grid>
         </Grid>
       </Box>

@@ -1,25 +1,31 @@
 import React from "react";
-import { Grid, styled, Paper, Typography } from "@mui/material";
+import { Grid, styled, Paper, Typography, Card } from "@mui/material";
 import ProfilePic from "../../../Images/ProfilePic01.svg";
 import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
-import { borderColor } from "@mui/system";
-import { withStyles } from "@mui/material";
-import dayjs from "dayjs";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const CssTextField = styled(TextField)({
+  padding: "8px",
+
   "& 	.MuiInputBase-root": {
     color: "#E8E1FA",
+    fontFamily: "Poppins",
+    fontSize: "18px",
   },
+
+  "& 	.MuiSelect-icon": {
+    color: "#E8E1FA",
+  },
+
   "& label.Mui-focused": {
     color: "#E8E1FA",
     borderColor: "#E8E1FA",
   },
   "& .MuiInputLabel-root": {
     color: "#E8E1FA",
+    fontFamily: "Poppins",
+    fontSize: "16px",
   },
   "& .MuiOutlinedInput-root": {
     "& .Mui-focused": {
@@ -37,18 +43,29 @@ const CssTextField = styled(TextField)({
 
 const PersonalDetails = [
   {
-    "Full Name": "Thanusiyan Sivapalasundharam",
-    Gender: "Male",
+    fullName: "Thanusiyan Sivapalasundharam",
+    gender: "Male",
+    dob: "2000-02-25",
+    nationality: "Srilankan",
+    jobTitle: "SE",
+    Address: {
+      addLane: "25A,school Road",
+      city: "Batticaloa",
+      state: " ",
+      country: "Sri Lanka",
+    },
+    mobileNumber: "0771234567",
+    email: "thanu@gmail.com",
   },
 ];
 
 const Profile = () => {
-  const [dateValue, setdateValue] = React.useState(dayjs("2023-01-31"));
+
   return (
     <Paper
       sx={{
         width: "70%",
-        height: "600px",
+        height: "fit-content",
         color: "#1168DC",
         //   /* From https://css.glass */
         //   background: "rgba(47, 24, 113, 0.87)",
@@ -65,65 +82,134 @@ const Profile = () => {
       elevation={16}
     >
       <Typography variant="h5">Personal Details</Typography>
-      <Grid container spacing={2} direction={"column"}>
-        <Grid item xs={12} sm={6} container spacing={2}>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <img src={ProfilePic} width="230px" height="230px" />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"space-evenly"}
-          >
-            <CssTextField
-              label="Full Name"
-              id="name"
-              defaultValue="Thanusiyan Sivapalasundharm"
-              size="small"
-              fullWidth="true"
-            />
-            <CssTextField
-              label="Gender"
-              id="gender"
-              defaultValue="Male"
-              size="small"
-              fullWidth="true"
-            />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                disableFuture
-                label="Responsive"
-                openTo="day"
-                size="small"
-                views={["year", "month", "day"]}
-                value={dateValue}
-                onChange={(newValue) => {
-                  setdateValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={6} container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            J
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            K
-          </Grid>
-        </Grid>
-      </Grid>
+      {PersonalDetails.map((personalDetails) =>(
+              <Grid container spacing={2} direction={"column"}>
+              <Grid item xs={12} sm={6} md={6} container spacing={2}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <img src={ProfilePic} width="230px" height="230px" />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent={"space-evenly"}>
+                  <CssTextField
+                    label="Full Name"
+                    id="name"
+                    value={personalDetails.fullName}
+                    size="small"
+                    fullWidth="true"
+                  />
+                  <CssTextField
+                    label="Gender"
+                    id="gender"
+                    value={personalDetails.gender}
+                    size="small"
+                    fullWidth="true"
+                  />
+                  <CssTextField
+                    label="Date Of Birth"
+                    id="dob"
+                    value={personalDetails.dob}
+                    size="small"
+                    fullWidth="true"
+                    type="date"
+                    // disabled
+                  />
+                  <CssTextField
+                    label="Nationality"
+                    id="nationality"
+                    value={personalDetails.nationality}
+                    size="small"
+                    fullWidth="true"
+                  />
+                  <CssTextField
+                    label="Job Title"
+                    id="jobtitle"
+                    value={personalDetails.jobTitle}
+                    size="small"
+                    fullWidth="true"
+                  />
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="h5">Address</Typography>
+                  <Grid
+                    item
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"space-evenly"}
+                    marginTop="10px"
+                  >
+                    <CssTextField
+                      label="Address Lane"
+                      id="name"
+                      value={personalDetails.Address.addLane}
+                      size="small"
+                      fullWidth="true"
+                    />
+                    <CssTextField
+                      label="City"
+                      id="name"
+                      value={personalDetails.Address.city}
+                      size="small"
+                      fullWidth="true"
+                    />
+                    <CssTextField
+                      label="State"
+                      id="name"
+                      value={personalDetails.Address.state}
+                      size="small"
+                      fullWidth="true"
+                    />
+                    <CssTextField
+                      label="Country"
+                      id="name"
+                      value={personalDetails.Address.country}
+                      size="small"
+                      fullWidth="true"
+                    />
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="h5">Contact Details</Typography>
+                  <Grid
+                    item
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"space-evenly"}
+                    marginTop="10px"
+                  >
+                    <CssTextField
+                      label="Mobile Number"
+                      id="mnumber"
+                      value={personalDetails.mobileNumber}
+                      size="small"
+                      fullWidth="true"
+                    />
+                    <CssTextField
+                      label="E-mail"
+                      id="email"
+                      value={personalDetails.email}
+                      size="small"
+                      fullWidth="true"
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+              ))}
+      
     </Paper>
   );
 };
