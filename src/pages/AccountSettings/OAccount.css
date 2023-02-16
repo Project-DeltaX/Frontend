@@ -2,4 +2,29 @@
     color: red;
   }
   
+  .MuiTab-labelIcon{
+    color: aqua;
+  }
   
+  .MuiTab-textColorPrimary{
+    color: antiquewhite;
+  }
+  
+  
+  
+  .MuiTab-root {
+    text-decoration-color: #20b2aa;
+  }
+  .MuiTab-root:hover{
+    color: aliceblue;
+  }
+  
+  .MuiTabPanel-root{
+    width: 10px;
+  }
+
+  .MuiInputBase-root {
+    color: "#E8E1FA";
+    font-family: "Poppins";
+    font-size: "18px";
+  }

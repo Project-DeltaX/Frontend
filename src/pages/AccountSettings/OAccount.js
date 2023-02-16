@@ -16,6 +16,7 @@ import SecurityPrivacy from "./components/SecurityPrivacy";
 
 //,#2C165D,#27144B,#e8e1fa
 
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -27,7 +28,7 @@ function TabPanel(props) {
       aria-labelledby={`${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
     </div>
   );
 }
@@ -63,7 +64,7 @@ const OAccount = () => {
             direction={"column"}
             rowSpacing={1}
             sx={{
-              backgroundColor: "#e8e1fa",
+              backgroundColor: "#ffffff",
               boxShadow: 3,
               position: "fixed",
               zIndex: 2,
@@ -82,8 +83,9 @@ const OAccount = () => {
                   width: "fit-content",
                   height: "38px",
                   color: "#1168DC",
-                  background:
-                    " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
+                  backgroundColor: "#bdb2ff",
+                  // background:
+                  //   " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
                   borderRadius: "6px",
                   padding: "20px",
                 }}

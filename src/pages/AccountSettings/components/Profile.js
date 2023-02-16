@@ -1,65 +1,111 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
+import AWS from "aws-sdk";
 import { Grid, styled, Paper, Typography, Card } from "@mui/material";
 import ProfilePic from "../../../Images/ProfilePic01.svg";
 import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
+import "../../../App.css";
+
+// Configure the AWS SDK with your region and credentials
+AWS.config.update({
+  region: "us-east-1",
+  credentials: new AWS.Credentials(
+    "AKIA3PYS7CXZ576OOOME",
+    "ZhmX8FSNd2LxMtyAlFZg9Q3CUEeMNb/Ep0AgeRcn"
+  ),
+});
+
+// Create a new DynamoDB DocumentClient object
+const dynamodb = new AWS.DynamoDB();
 
 
 const CssTextField = styled(TextField)({
   padding: "8px",
 
   "& 	.MuiInputBase-root": {
-    color: "#E8E1FA",
+    color: "#27144B",
     fontFamily: "Poppins",
     fontSize: "18px",
   },
 
   "& 	.MuiSelect-icon": {
-    color: "#E8E1FA",
+    color: "#27144B",
   },
 
   "& label.Mui-focused": {
-    color: "#E8E1FA",
-    borderColor: "#E8E1FA",
+    color: "#27144B",
+    borderColor: "#27144B",
   },
   "& .MuiInputLabel-root": {
-    color: "#E8E1FA",
+    color: "#27144B",
     fontFamily: "Poppins",
     fontSize: "16px",
   },
   "& .MuiOutlinedInput-root": {
     "& .Mui-focused": {
-      borderColor: "#E8E1FA",
+      borderColor: "#27144B",
     },
     "& fieldset": {
-      color: "#E8E1FA",
-      borderColor: "#E8E1FA",
+      color: "#27144B",
+      borderColor: "#27144B",
     },
     "&:hover fieldset": {
-      borderColor: "#E8E1FA",
+      borderColor: "#27144B",
     },
   },
 });
 
-const PersonalDetails = [
-  {
-    fullName: "Thanusiyan Sivapalasundharam",
-    gender: "Male",
-    dob: "2000-02-25",
-    nationality: "Srilankan",
-    jobTitle: "SE",
-    Address: {
-      addLane: "25A,school Road",
-      city: "Batticaloa",
-      state: " ",
-      country: "Sri Lanka",
-    },
-    mobileNumber: "0771234567",
-    email: "thanu@gmail.com",
-  },
-];
+// const PersonalDetails = [
+//   {
+//     fullName: "Thanusiyan Sivapalasundharam",
+//     gender: "Male",
+//     dob: "2000-02-25",
+//     nationality: "Srilankan",
+//     jobTitle: "SE",
+//     Address: {
+//       addLane: "25A,school Road",
+//       city: "Batticaloa",
+//       state: " ",
+//       country: "Sri Lanka",
+//     },
+//     mobileNumber: "0771234567",
+//     email: "thanu@gmail.com",
+//   },
+// ];
 
 const Profile = () => {
+  const [PersonalDetails, setPersonalDetails] = useState([]);
+  useEffect(() =>{
+
+    dynamodb.scan({
+      TableName: 'Profile',
+      Key: {
+        username: { S: 'thanu000' }
+      }
+    }, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const users = data.Items.map(item => {
+          return {
+            username: item.username.S,
+            fullName: item.fullName.S,
+            gender: item.Gender.S,
+            dob:item.DOB.S,
+            nationality: item.Nationality.S,
+            jobTitle: item.JobTitle.S,
+            mobileNumber: item.MobileNumber.S,
+            email: item.Email.S,
+            // add additional attributes as necessary
+          };
+        });
+        setPersonalDetails(users);
+      }
+    });
+  
+  });
+  
+  
 
   return (
     <Paper
@@ -67,6 +113,7 @@ const Profile = () => {
         width: "70%",
         height: "fit-content",
         color: "#1168DC",
+        backgroundColor: "#e4e0ff",
         //   /* From https://css.glass */
         //   background: "rgba(47, 24, 113, 0.87)",
         //   borderRadius: "16px",
@@ -75,14 +122,14 @@ const Profile = () => {
         //   webkitBackdropEffect: " blur(5.8px)",
         //   border: "1px solid rgba(47, 24, 113, 0.3)",
 
-        background: " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
+        // background: " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
         //   borderRadius: "16px",
         padding: "30px",
       }}
       elevation={16}
     >
       <Typography variant="h5">Personal Details</Typography>
-      {PersonalDetails.map((personalDetails) =>(
+      {PersonalDetails.map((Users) =>(
               <Grid container spacing={2} direction={"column"}>
               <Grid item xs={12} sm={6} md={6} container spacing={2}>
                 <Grid
@@ -105,21 +152,21 @@ const Profile = () => {
                   <CssTextField
                     label="Full Name"
                     id="name"
-                    value={personalDetails.fullName}
+                    value={Users.fullName}
                     size="small"
                     fullWidth="true"
                   />
                   <CssTextField
                     label="Gender"
                     id="gender"
-                    value={personalDetails.gender}
+                    value={Users.gender}
                     size="small"
                     fullWidth="true"
                   />
                   <CssTextField
                     label="Date Of Birth"
                     id="dob"
-                    value={personalDetails.dob}
+                    value={Users.dob}
                     size="small"
                     fullWidth="true"
                     type="date"
@@ -128,14 +175,14 @@ const Profile = () => {
                   <CssTextField
                     label="Nationality"
                     id="nationality"
-                    value={personalDetails.nationality}
+                    value={Users.nationality}
                     size="small"
                     fullWidth="true"
                   />
                   <CssTextField
                     label="Job Title"
                     id="jobtitle"
-                    value={personalDetails.jobTitle}
+                    value={Users.jobTitle}
                     size="small"
                     fullWidth="true"
                   />
@@ -154,28 +201,28 @@ const Profile = () => {
                     <CssTextField
                       label="Address Lane"
                       id="name"
-                      value={personalDetails.Address.addLane}
+                      value={Users.Address.addLane}
                       size="small"
                       fullWidth="true"
                     />
                     <CssTextField
                       label="City"
                       id="name"
-                      value={personalDetails.Address.city}
+                      value={Users.Address.city}
                       size="small"
                       fullWidth="true"
                     />
                     <CssTextField
                       label="State"
                       id="name"
-                      value={personalDetails.Address.state}
+                      value={Users.Address.state}
                       size="small"
                       fullWidth="true"
                     />
                     <CssTextField
                       label="Country"
                       id="name"
-                      value={personalDetails.Address.country}
+                      value={Users.Address.country}
                       size="small"
                       fullWidth="true"
                     />
@@ -193,14 +240,14 @@ const Profile = () => {
                     <CssTextField
                       label="Mobile Number"
                       id="mnumber"
-                      value={personalDetails.mobileNumber}
+                      value={Users.mobileNumber}
                       size="small"
                       fullWidth="true"
                     />
                     <CssTextField
                       label="E-mail"
                       id="email"
-                      value={personalDetails.email}
+                      value={Users.email}
                       size="small"
                       fullWidth="true"
                     />
@@ -208,7 +255,7 @@ const Profile = () => {
                 </Grid>
               </Grid>
             </Grid>
-              ))}
+             ))}
       
     </Paper>
   );
