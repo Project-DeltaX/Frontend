@@ -14,6 +14,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
+import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -39,6 +40,9 @@ const theme = createTheme({
         color: "#1168DC",
         fontWeight: 500,
       },
+      body1:{
+        color: "#e8e1fa",
+      }
     },
     stack: {},
     TextField: {
