@@ -6,17 +6,8 @@ import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
 import "../../../App.css";
 
-// Configure the AWS SDK with your region and credentials
-AWS.config.update({
-  region: "us-east-1",
-  credentials: new AWS.Credentials(
-    "AKIA3PYS7CXZ576OOOME",
-    "ZhmX8FSNd2LxMtyAlFZg9Q3CUEeMNb/Ep0AgeRcn"
-  ),
-});
 
-// Create a new DynamoDB DocumentClient object
-const dynamodb = new AWS.DynamoDB();
+
 
 
 const CssTextField = styled(TextField)({
@@ -55,56 +46,25 @@ const CssTextField = styled(TextField)({
   },
 });
 
-// const PersonalDetails = [
-//   {
-//     fullName: "Thanusiyan Sivapalasundharam",
-//     gender: "Male",
-//     dob: "2000-02-25",
-//     nationality: "Srilankan",
-//     jobTitle: "SE",
-//     Address: {
-//       addLane: "25A,school Road",
-//       city: "Batticaloa",
-//       state: " ",
-//       country: "Sri Lanka",
-//     },
-//     mobileNumber: "0771234567",
-//     email: "thanu@gmail.com",
-//   },
-// ];
+const PersonalDetails = [
+  {
+    fullName: "Thanusiyan Sivapalasundharam",
+    gender: "Male",
+    dob: "2000-02-25",
+    nationality: "Srilankan",
+    jobTitle: "SE",
+    Address: {
+      addLane: "25A,school Road",
+      city: "Batticaloa",
+      state: " ",
+      country: "Sri Lanka",
+    },
+    mobileNumber: "0771234567",
+    email: "thanu@gmail.com",
+  },
+];
 
-const Profile = () => {
-  const [PersonalDetails, setPersonalDetails] = useState([]);
-  useEffect(() =>{
-
-    dynamodb.scan({
-      TableName: 'Profile',
-      Key: {
-        username: { S: 'thanu000' }
-      }
-    }, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        const users = data.Items.map(item => {
-          return {
-            username: item.username.S,
-            fullName: item.fullName.S,
-            gender: item.Gender.S,
-            dob:item.DOB.S,
-            nationality: item.Nationality.S,
-            jobTitle: item.JobTitle.S,
-            mobileNumber: item.MobileNumber.S,
-            email: item.Email.S,
-            // add additional attributes as necessary
-          };
-        });
-        setPersonalDetails(users);
-      }
-    });
-  
-  });
-  
+const Profile = () => {  
   
 
   return (

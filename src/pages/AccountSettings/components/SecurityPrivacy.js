@@ -24,24 +24,11 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { hover } from "@testing-library/user-event/dist/hover";
 import { warning } from "@remix-run/router";
 
-// Configure the AWS SDK with your region and credentials
-AWS.config.update({
-  region: "us-east-1",
-  credentials: new AWS.Credentials(
-    "AKIA3PYS7CXZ576OOOME",
-    "ZhmX8FSNd2LxMtyAlFZg9Q3CUEeMNb/Ep0AgeRcn"
-  ),
-});
 
 
 
 
 
-// Create a new DynamoDB DocumentClient object
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-
-// Create a new Lambda service object
-const lambda = new AWS.Lambda();
 
 //Arrays
 const TermsConditions = [
@@ -115,70 +102,15 @@ const SecurityPrivacy = () => {
   const [showOPassword, setShowOPassword] = useState(false);
   const [showNPassword, setShowNPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
-  // const [currentPasswordFromDB, setCurrentPasswordFromDB] = useState('');
-
-  // useEffect(() => {
-  //   const params = {
-  //     TableName: 'credentials',
-  //     Key: { username: 'thanu' },
-  //     ProjectionExpression: 'password'
-  //   };
-  //   dynamodb.get(params, (err, data) => {
-  //     if (err) {
-  //       console.log(`Error fetching current password: ${err}`);
-  //     } else {
-  //       setCurrentPasswordFromDB(data.Item.password);
-  //     }
-  //   });
-  // }, []);
+  const [currentPasswordFromDB, setCurrentPasswordFromDB] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (newPassword !== confirmPassword) {
-      setMessage("Passwords do not match !");
-    }else if (newPassword === confirmPassword && newPassword !== "") {
+    
 
-      const payload = { currentPassword, newPassword, username: 'thanu' };
-      const params = {
-        FunctionName: 'getUserDetail',
-        Payload: JSON.stringify(payload)
-      };
-      lambda.invoke(params, (err, data) => {
-        if (err) {
-          setMessage(`Error updating password: ${err}`);
-        } else {
-          setMessage(data.Payload);
-          setCurrentPassword('');
-          setNewPassword('');
-          setConfirmPassword('');
-        }
-      });
-
-      // // Update the password in DynamoDB
-      // const params = {
-      //   TableName: "credentials",
-      //   Key: { username: "thanu" },
-      //   UpdateExpression: "set #p = :password",
-      //   ExpressionAttributeNames: { "#p": "password" },
-      //   ExpressionAttributeValues: { ":password": newPassword },
-      // };
-      // dynamodb.update(params, (err, data) => {
-      //   if (err) {
-      //     setMessage(`Error updating password: ${err}`);
-      //   } else {
-      //     setMessage("Password successfully changed");
-      //     setCurrentPassword("");
-      //     setNewPassword("");
-      //     setConfirmPassword("");
-      //   }
-      // });
-
-      // setMessage("Password successfully changed");
-      // setCurrentPassword("");
-      // setNewPassword("");
-      // setConfirmPassword("");
+      
     }
-  };
+  
 
   return (
     <Paper
