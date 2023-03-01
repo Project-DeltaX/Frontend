@@ -1,6 +1,7 @@
 //import { Gradient } from "@mui/icons-material";
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import React from "react";
+import { Auth } from 'aws-amplify';
 import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
@@ -8,21 +9,31 @@ import "../UserAuthentication/Authentication.css";
 
 import { useState } from "react";
 
+import { Amplify } from "aws-amplify";
+import awsConfig from "../../aws-exports";
+Amplify.configure(awsConfig);
+
+
+
 
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  // });
 
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-  });
+  // const [errors, setErrors] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    // setUsername(event.target.value)
   };
   //for go to next line
   // const handleKeyDown = (event) => {
@@ -36,34 +47,33 @@ const LoginPage = () => {
   // };
 
 
-  const validate = () => {
-    let usernameError = "";
-    let passwordError = "";
+  // const validate = () => {
+  //   let usernameError = "";
+  //   let passwordError = "";
 
-    if (!formData.username) {
-      usernameError = "Username is required";
-    }
+  //   if (!username) {
+  //     usernameError = "Username is required";
+  //   }
 
-    if (!formData.password) {
-      passwordError = "Password is required";
-    }
+  //   if (!password) {
+  //     passwordError = "Password is required";
+  //   }
 
-    if (usernameError || passwordError) {
-      setErrors({ username: usernameError, password: passwordError });
-      return false;
-    }
+  //   if (usernameError || passwordError) {
+  //     setErrors({ username: usernameError, password: passwordError });
+  //     return false;
+  //   }
 
-    return true;
-  };
-  const handleSubmit = (event) => {
+  //   return true;
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const isValid = validate();
-    if (isValid) {
-      console.log(formData);
-      setFormData({
-        username: "",
-        password: "",
-      });
+    try {
+      const user = await Auth.signIn(username, password);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -136,11 +146,11 @@ const LoginPage = () => {
                 variant="outlined"
                 placeholder="User Name"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
                 // onKeyDown={handleKeyDown}
-                error={!!errors.username}
-                helperText={errors.username}
+                // error={!!errors.username}
+                // helperText={errors.username}
 
 
 
@@ -162,10 +172,10 @@ const LoginPage = () => {
                 size="small"
                 // onKeyDown={handleKeyDown}
                 name="password"
-                value={formData.password}
-                onChange={handleChange}
-                error={!!errors.password}
-                helperText={errors.password}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                // error={!!errors.password}
+                // helperText={errors.password}
 
               />
               <Typography

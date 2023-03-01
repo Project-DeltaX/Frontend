@@ -16,6 +16,15 @@ import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
 import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
+
+//
+
+
+//
+
+
+
+
 //"#e8e1fa"
 const theme = createTheme({
   overrides: {
@@ -69,7 +78,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* {/* <Routes>
+        {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createNewAccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -82,7 +91,7 @@ function App() {
       </Routes> */}
 
         <AdminHomePage />
-        {/* <CommitteeMemberHomePage/> */}
+         {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );

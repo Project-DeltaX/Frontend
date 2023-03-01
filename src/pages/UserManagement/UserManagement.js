@@ -29,8 +29,8 @@ import CommonRoles from "./Roles";
 
 const UserManagement = () => {
   return (
-    <div>
-      <Grid container direction={"column"} rowSpacing={2}>
+    <div  marginRight={"20px"}>
+      <Grid container direction={"column"} rowSpacing={2} marginLeft={"10px"} >
         <Grid item md={3}>
           <Typography>
             <h2>
@@ -45,7 +45,7 @@ const UserManagement = () => {
               <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" color="#E8E1FA" >
                       Committee Members
                     </Typography>
                   </Grid>
@@ -64,7 +64,7 @@ const UserManagement = () => {
               <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" color="#E8E1FA">
                       Panel Members
                     </Typography>
                   </Grid>
@@ -83,7 +83,7 @@ const UserManagement = () => {
               <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" color="#E8E1FA">
                       Interns
                     </Typography>
                   </Grid>
@@ -99,7 +99,7 @@ const UserManagement = () => {
         </Grid>
 
         <Grid item md={6}>
-          <CommonRoles/>
+          {/* <CommonRoles/> */}
 
           <UserRoles />
           {/* <index.js/> */}
