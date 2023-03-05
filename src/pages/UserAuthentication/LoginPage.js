@@ -24,7 +24,7 @@ const LoginPage = () => {
   const {authenticate} = useContext(AccountContext);
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    // setUsername(event.target.value)
   };
   //for go to next line
   // const handleKeyDown = (event) => {
@@ -38,26 +38,27 @@ const LoginPage = () => {
   // };
 
 
-  const validate = () => {
-    let usernameError = "";
-    let passwordError = "";
+  // const validate = () => {
+  //   let usernameError = "";
+  //   let passwordError = "";
 
-    if (!formData.username) {
-      usernameError = "Username is required";
-    }
+  //   if (!username) {
+  //     usernameError = "Username is required";
+  //   }
 
-    if (!formData.password) {
-      passwordError = "Password is required";
-    }
+  //   if (!password) {
+  //     passwordError = "Password is required";
+  //   }
 
-    if (usernameError || passwordError) {
-      setErrors({ username: usernameError, password: passwordError });
-      return false;
-    }
+  //   if (usernameError || passwordError) {
+  //     setErrors({ username: usernameError, password: passwordError });
+  //     return false;
+  //   }
 
-    return true;
-  };
-  const handleSubmit = (event) => {
+  //   return true;
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     authenticate(formData.username,formData.password)
       .then(data => {
@@ -148,11 +149,11 @@ const LoginPage = () => {
                 variant="outlined"
                 placeholder="username"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
                 // onKeyDown={handleKeyDown}
-                error={!!errors.username}
-                helperText={errors.username}
+                // error={!!errors.username}
+                // helperText={errors.username}
 
 
 
@@ -174,10 +175,10 @@ const LoginPage = () => {
                 size="small"
                 // onKeyDown={handleKeyDown}
                 name="password"
-                value={formData.password}
-                onChange={handleChange}
-                error={!!errors.password}
-                helperText={errors.password}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                // error={!!errors.password}
+                // helperText={errors.password}
 
               />
               <Typography

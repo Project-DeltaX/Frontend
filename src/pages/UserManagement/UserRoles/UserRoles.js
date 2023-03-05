@@ -23,6 +23,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { Grid } from "@mui/material";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function createData(UserName, Email, Country, Posting, Status,Role,Edit) {
   return {
@@ -36,21 +38,21 @@ function createData(UserName, Email, Country, Posting, Status,Role,Edit) {
     };
 }
 
-const rows = [
-  createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-  createData('Mahilan', 'mahilan@gmail.com', 'India', 'pm', '','Committee Member',''),
-  createData('Thanusiyan', 'thanusiyan@gmail.com', 'France','th', '','Committee Member',''),
-  createData('Tharanika', 'tharanika@gmail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-  createData('Baakisan', 'bakkisan@gmail.com', 'India', 'bd', '','Committee Member',''),
-  createData('Thanosan', 'thanosan@gmail.com', 'Canada', 'gf', '','Committee Member',''),
-  createData('Jathiswarya', 'jathiswarya@gmail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-  createData('Vinuja', 'vinuja@gmail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-  createData('Kaanuja', 'kaanuja@gmail.com', 'India', 'jh', '','Committee Member',''),
-  createData('Varaki', 'varaki@gmail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-  createData('Liyonisha', 'liyonisha@gmail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-  createData('Krishikan', 'krishikan@gmail.com', 'USA', 'sa','', 'Committee Member',''),
-  createData('Nishoban', 'nishoban@gmail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
-];
+// const rows = [
+//   createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
+//   createData('Mahilan', 'mahilan@gmail.com', 'India', 'pm', '','Committee Member',''),
+//   createData('Thanusiyan', 'thanusiyan@gmail.com', 'France','th', '','Committee Member',''),
+//   createData('Tharanika', 'tharanika@gmail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
+//   createData('Baakisan', 'bakkisan@gmail.com', 'India', 'bd', '','Committee Member',''),
+//   createData('Thanosan', 'thanosan@gmail.com', 'Canada', 'gf', '','Committee Member',''),
+//   createData('Jathiswarya', 'jathiswarya@gmail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
+//   createData('Vinuja', 'vinuja@gmail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
+//   createData('Kaanuja', 'kaanuja@gmail.com', 'India', 'jh', '','Committee Member',''),
+//   createData('Varaki', 'varaki@gmail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
+//   createData('Liyonisha', 'liyonisha@gmail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
+//   createData('Krishikan', 'krishikan@gmail.com', 'USA', 'sa','', 'Committee Member',''),
+//   createData('Nishoban', 'nishoban@gmail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -86,7 +88,7 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'UserName',
+    id: 'Username',
     numeric: false,
     disablePadding: true,
     label: 'UserName',
@@ -137,7 +139,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead >
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -215,7 +217,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          User_Roles
         </Typography>
       )}
 
@@ -248,6 +250,22 @@ export default function UserRole() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+
+
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://0z3js6g6eg.execute-api.us-east-1.amazonaws.com/getuser/addinguserdata')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error(error));
+  }, []);
+
+
+
+
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -256,7 +274,7 @@ export default function UserRole() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.UserName);
+      const newSelected = data.map((n) => n.UserName);
       setSelected(newSelected);
       return;
     }
@@ -300,10 +318,10 @@ export default function UserRole() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%'}}>
       <Paper sx={{ width: '100%', mb: 2 ,bgcolor:'#E8E1FA'}}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -318,10 +336,10 @@ export default function UserRole() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.UserName);
@@ -354,14 +372,14 @@ export default function UserRole() {
                         scope="row"
                         padding="none"
                       >
-                        {row.UserName}
+                        {row.Username}
                       </TableCell>
-                      <TableCell align="center">{row.Email}</TableCell>
-                      <TableCell align="right">{row.Country}</TableCell>
-                      <TableCell align="right">{row.Posting}</TableCell>
-                      <TableCell align="right">{row.Status}</TableCell>
-                      <TableCell align="right">{row.Role}</TableCell>
-                      <TableCell align="right">{row.Edit}</TableCell>
+                      <TableCell align="left">{row.Email}</TableCell>
+                      <TableCell align="left">{row.Country}</TableCell>
+                      <TableCell align="left">{row.Posting}</TableCell>
+                      <TableCell align="left">{row.Status}</TableCell>
+                      <TableCell align="left">{row.Role}</TableCell>
+                      <TableCell align="left">{row.Edit}</TableCell>
 
                     </TableRow>
                   );
@@ -381,7 +399,7 @@ export default function UserRole() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

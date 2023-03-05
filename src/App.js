@@ -22,6 +22,15 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Register from "./pages/SignInDraft";
 import { Account } from "./pages/UserAuthentication/Account";
 
+
+//
+
+
+//
+
+
+
+
 //"#e8e1fa"
 const theme = createTheme({
   overrides: {
@@ -88,9 +97,9 @@ function App() {
 
         
       </Routes> */}
-      {/* <Register/> */}
-      <Account><LoginPage/></Account>
-      
+
+        <AdminHomePage />
+        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );

@@ -53,6 +53,7 @@ const Layout = (props) => {
           ml: `${drawerWidth - 23}px`,
           p: 3,
           marginTop: "50px",
+          // marginX: "50px",
         }}
       >
         {props.children}
