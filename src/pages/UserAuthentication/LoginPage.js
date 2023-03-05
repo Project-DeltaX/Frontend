@@ -1,16 +1,16 @@
 //import { Gradient } from "@mui/icons-material";
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
-import React from "react";
+import React,{useContext,useState} from "react";
 import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
+import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
 
-import { useState } from "react";
-
-
+import { AccountContext } from "./Account";
 
 const LoginPage = () => {
+  const [logResult,setLogResult] = useState('');
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -20,6 +20,8 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
+
+  const {authenticate} = useContext(AccountContext);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -57,14 +59,23 @@ const LoginPage = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const isValid = validate();
-    if (isValid) {
-      console.log(formData);
-      setFormData({
-        username: "",
-        password: "",
+    authenticate(formData.username,formData.password)
+      .then(data => {
+        console.log("Loggen In ",data);
+      })
+      .catch(error => {
+        console.log("Failed to Login",error);
       });
-    }
+
+    
+    // const isValid = validate();
+    // if (isValid) {
+    //   console.log(formData);
+    //   setFormData({
+    //     username: "",
+    //     password: "",
+    //   });
+    // }
   };
 
 
@@ -79,11 +90,11 @@ const LoginPage = () => {
         <Grid item sm={7} >
           <Typography
             variant="h3"
-            marginTop={30}
+            marginTop={{md:25}}
             marginLeft={{ md: 5, lg: 7, xl: 10 }}
             padding={0}
             textAlign="left"
-            fontSize="80px"
+            fontSize={{md:"40px", lg:"80px", xl:"80px"}}
             fontFamily="Abril Fatface"
             sx={{
               color: "#E9E2FB",
@@ -100,11 +111,12 @@ const LoginPage = () => {
               display="flex"
               flexDirection={"column"}
               maxWidth="fit content"
+              height="fit content"
               alignItems="center"
               justifyContent={"center"}
-              margin={17}
-              marginTop={15}
-              padding={13}
+              marginX={{md:3, lg:10}}
+              marginTop={{md:10}}
+              padding={6}
               borderRadius={20}
               
             >
@@ -134,7 +146,7 @@ const LoginPage = () => {
                 margin="normal"
                 type={"text"}
                 variant="outlined"
-                placeholder="User Name"
+                placeholder="username"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
@@ -199,11 +211,13 @@ const LoginPage = () => {
                 variant="h6"
                 padding={2}
                 textAlign="center"
+                fontSize={{md:"16px", lg:"16px", xl:"16px"}}
                 fontFamily="Abril Fatface"
               >
                 New to 99x IMS?{" "}
+                <br/>
                 <Link to={"/createNewAccount"}>
-                  <i> Create New Account</i>
+                  <i color="#ffffff"> Create New Account</i>
                 </Link>
               </Typography>
             </Box>

@@ -13,6 +13,7 @@ import "../../../App.css";
 const CssTextField = styled(TextField)({
   padding: "8px",
 
+
   "& 	.MuiInputBase-root": {
     color: "#27144B",
     fontFamily: "Poppins",
@@ -46,25 +47,23 @@ const CssTextField = styled(TextField)({
   },
 });
 
-const PersonalDetails = [
-  {
-    fullName: "Thanusiyan Sivapalasundharam",
-    gender: "Male",
-    dob: "2000-02-25",
-    nationality: "Srilankan",
-    jobTitle: "SE",
-    Address: {
-      addLane: "25A,school Road",
-      city: "Batticaloa",
-      state: " ",
-      country: "Sri Lanka",
-    },
-    mobileNumber: "0771234567",
-    email: "thanu@gmail.com",
-  },
-];
 
 const Profile = () => {  
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the Lambda function API
+        const response = await fetch('https://efx5j5yygi.execute-api.us-east-1.amazonaws.com/dev/profiledata');
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   
 
   return (
@@ -74,22 +73,12 @@ const Profile = () => {
         height: "fit-content",
         color: "#1168DC",
         backgroundColor: "#e4e0ff",
-        //   /* From https://css.glass */
-        //   background: "rgba(47, 24, 113, 0.87)",
-        //   borderRadius: "16px",
-        //   boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-        //   backdropFilter: "blur(5.8px)",
-        //   webkitBackdropEffect: " blur(5.8px)",
-        //   border: "1px solid rgba(47, 24, 113, 0.3)",
-
-        // background: " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
-        //   borderRadius: "16px",
         padding: "30px",
       }}
       elevation={16}
     >
       <Typography variant="h5">Personal Details</Typography>
-      {PersonalDetails.map((Users) =>(
+      {data.map((Users, index) =>(
               <Grid container spacing={2} direction={"column"}>
               <Grid item xs={12} sm={6} md={6} container spacing={2}>
                 <Grid
@@ -103,12 +92,14 @@ const Profile = () => {
                   <img src={ProfilePic} width="230px" height="230px" />
                 </Grid>
                 <Grid
+                key={index}
                   item
                   xs={12}
                   sm={6}
                   display={"flex"}
                   flexDirection={"column"}
                   justifyContent={"space-evenly"}>
+
                   <CssTextField
                     label="Full Name"
                     id="name"
@@ -119,23 +110,23 @@ const Profile = () => {
                   <CssTextField
                     label="Gender"
                     id="gender"
-                    value={Users.gender}
+                    value={Users.Gender}
                     size="small"
                     fullWidth="true"
                   />
                   <CssTextField
                     label="Date Of Birth"
                     id="dob"
-                    value={Users.dob}
+                    value={Users.doB}
                     size="small"
                     fullWidth="true"
                     type="date"
-                    // disabled
+                    format="dd-mm-yyyy"
                   />
                   <CssTextField
                     label="Nationality"
                     id="nationality"
-                    value={Users.nationality}
+                    value={Users.Nationality}
                     size="small"
                     fullWidth="true"
                   />
@@ -151,42 +142,43 @@ const Profile = () => {
               <Grid item xs={12} sm={6} md={6} container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="h5">Address</Typography>
-                  <Grid
-                    item
-                    display={"flex"}
-                    flexDirection={"column"}
-                    justifyContent={"space-evenly"}
-                    marginTop="10px"
-                  >
-                    <CssTextField
-                      label="Address Lane"
-                      id="name"
-                      value={Users.Address.addLane}
-                      size="small"
-                      fullWidth="true"
-                    />
-                    <CssTextField
-                      label="City"
-                      id="name"
-                      value={Users.Address.city}
-                      size="small"
-                      fullWidth="true"
-                    />
-                    <CssTextField
-                      label="State"
-                      id="name"
-                      value={Users.Address.state}
-                      size="small"
-                      fullWidth="true"
-                    />
-                    <CssTextField
-                      label="Country"
-                      id="name"
-                      value={Users.Address.country}
-                      size="small"
-                      fullWidth="true"
-                    />
-                  </Grid>
+                <Grid
+                key={index}
+                item
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"space-evenly"}
+                marginTop="10px"
+              >
+                <CssTextField
+                  label="Address Lane"
+                  id="name"
+                  value={Users.Address[0]}
+                  size="small"
+                  fullWidth="true"
+                />
+                <CssTextField
+                  label="City"
+                  id="name"
+                  value={Users.Address[1]}
+                  size="small"
+                  fullWidth="true"
+                />
+                <CssTextField
+                  label="State"
+                  id="name"
+                  value={Users.Address[2]}
+                  size="small"
+                  fullWidth="true"
+                />
+                <CssTextField
+                  label="Country"
+                  id="name"
+                  value={Users.Address[3]}
+                  size="small"
+                  fullWidth="true"
+                />
+              </Grid>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="h5">Contact Details</Typography>
@@ -207,7 +199,7 @@ const Profile = () => {
                     <CssTextField
                       label="E-mail"
                       id="email"
-                      value={Users.email}
+                      value={Users.eMail}
                       size="small"
                       fullWidth="true"
                     />

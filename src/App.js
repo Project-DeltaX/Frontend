@@ -16,6 +16,12 @@ import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
 import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
+import Dashboard from "./pages/Dashboard/Dashboard";
+
+
+import Register from "./pages/SignInDraft";
+import { Account } from "./pages/UserAuthentication/Account";
+
 //"#e8e1fa"
 const theme = createTheme({
   overrides: {
@@ -69,20 +75,22 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* {/* <Routes>
+        {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
-        <Route path="/createNewAccount" element={<CreateNewAccount/>} />
+        <Route path="/createnewaccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/adminHome" element={<AdminHomePage/>}/>
         <Route path="/verification" element={<Verification/>} />
         <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
+        <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
+
         
       </Routes> */}
-
-        <AdminHomePage />
-        {/* <CommitteeMemberHomePage/> */}
+      {/* <Register/> */}
+      <Account><LoginPage/></Account>
+      
       </ThemeProvider>
     </div>
   );
