@@ -1,8 +1,11 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "../UserAuthentication/LoginPage";
+import { Route, Routes } from "react-router-dom";
+
+//Sidebar Pages
+import UserManagement from "../UserManagement/UserManagement";
 import OAccount from "../AccountSettings/OAccount";
+import Dashboard from "../Dashboard/Dashboard";
 
 
 
@@ -16,9 +19,9 @@ const AdminHomePage = () => {
   return (
     <Layout MenuArr={MenuArr} IconArr="AIconArr">
       <Routes>
-        <Route path="/" element={<h1>Hii Dashboard</h1>} />
-        <Route path="/Dashboard" element={<h1>Hii Dashboard</h1>} />
-        <Route path="/User Management" element={<h1>Hii User Management</h1>} />
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/Dashboard" element={<h1><Dashboard/></h1>} />
+        <Route path="/User Management" element={<UserManagement/>} />
         <Route path="/Account" element={<OAccount/>} />
       </Routes>
       

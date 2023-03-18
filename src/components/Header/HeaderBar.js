@@ -19,7 +19,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import EditIcon from "@mui/icons-material/Edit";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { test } from "./styles";
+import { test } from "../../styles";
 
 //style for badge
 const StyledBadge = styled(Badge)(({ theme }) => ({
