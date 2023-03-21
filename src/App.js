@@ -9,27 +9,20 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-<<<<<<< HEAD
-import { BrowserRouter , Route,Routes } from "react-router-dom";
-<<<<<<< HEAD
-import Interview from "./pages/Interview&evaluation/Interview";
-=======
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import "@fontsource/poppins"
-=======
+import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
 import ChangePassword from "./pages/AccountSettings/components/draftpw";
->>>>>>> origin
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 import Register from "./pages/SignInDraft";
 import { Account } from "./pages/UserAuthentication/Account";
+import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 
 
 //
@@ -47,9 +40,6 @@ const theme = createTheme({
       backgroundColor: "#000000",
     },
 
-<<<<<<< HEAD
->>>>>>> origin
-=======
     typography: {
       allVariants: {
         fontFamily: "Poppins",
@@ -91,20 +81,14 @@ const theme = createTheme({
   },
   stack: {},
 });
->>>>>>> origin
 
 function App() {
   return (
     <div>
-<<<<<<< HEAD
-=======
+
       <ThemeProvider theme={theme}>
-<<<<<<< HEAD
->>>>>>> origin
       {/* <Routes>
-=======
         {/* <Routes>
->>>>>>> origin
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -117,22 +101,16 @@ function App() {
 
         
       </Routes> */}
-<<<<<<< HEAD
-<<<<<<< HEAD
-      {/* <Interview/> */}
-      <CommitteeMemberHomePage/>
+      <PanelMemberHomePage/>
       
-=======
       
-      <AdminHomePage/>
-      {/* <CommitteeMemberHomePage/> */}
-=======
+      {/* <AdminHomePage/> */}
 
-        <AdminHomePage />
-        {/* <CommitteeMemberHomePage/> */}
->>>>>>> origin
+
+
+        {/* <AdminHomePage /> */}
+
       </ThemeProvider>
->>>>>>> origin
     </div>
   );
 }

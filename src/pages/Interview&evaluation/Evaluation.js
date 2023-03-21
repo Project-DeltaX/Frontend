@@ -1,24 +1,31 @@
 import React from "react";
 import Layout from "../../components/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { DataGrid } from '@mui/x-data-grid';
+
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+
 import { blue } from "@mui/material/colors";
 import { Grid, makeStyles } from "@mui/material";
-import AllocatedCandidates from "./AllocatedCandidates";
-import InterviewPanel from "./InterviewPanel";
-import "./Interview.css";
+import CandidateExam from "./CanditateExam";
 
-const MenuArr = ["Dashboard", "Interview", "Evaluation", "Account"];
+
+
+
+
+
+const MenuArr = ["Dashboard", "Evaluation", "Evaluation", "Account"];
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  
 
   return (
     <div
@@ -50,19 +57,21 @@ function a11yProps(index) {
   };
 }
 
-const Interview = () => {
+const Evaluation = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  }
   return (
     <Box sx={{}}>
       <Grid container direction={"column"} rowspacing={3}>
         <Grid item md={4} container direction={"column"} rowSpacing={1}>
           <Grid item md={3}>
-            <h1>Interview</h1>
+            <h1>Evaluation</h1>
           </Grid>
 
           <Grid item md={3}>
@@ -73,23 +82,35 @@ const Interview = () => {
                   onChange={handleChange}
                   aria-label="basic tabs example"
                 >
-                  <Tab label="Allocated candidates" {...a11yProps(0)} />
-                  <Tab label="Interview panel" {...a11yProps(1)} />
+                  <Tab label="Candidate Exam" {...a11yProps(0)} />
+                  <Tab label="Marking Sheet" {...a11yProps(1)} />
+                  <Tab label="Score Sheet" {...a11yProps(2)} />
+                 
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                <AllocatedCandidates />
+              <CandidateExam/>
+              <h1>Interview Examination</h1>
+                
+                
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <InterviewPanel />
+                
+                <h1>Marking Sheet</h1>
+                
+               
               </TabPanel>
+            
             </Box>
           </Grid>
         </Grid>
-        <Grid item md={8}></Grid>
+        <Grid item md={8}>
+         
+        </Grid>
       </Grid>
     </Box>
   );
-};
+}
 
-export default Interview;
+
+export default Evaluation;
