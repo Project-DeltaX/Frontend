@@ -19,7 +19,9 @@ import ChangePassword from "./pages/AccountSettings/components/draftpw";
 import Dashboard from "./pages/Dashboard/Dashboard";
 
 
-import Register from "./pages/SignInDraft";
+import Register from "./pages/UserAuthentication/createNewAccount";
+import Demo from "./pages/SignInDraft.js"
+
 import { Account } from "./pages/UserAuthentication/Account";
 
 
@@ -99,6 +101,9 @@ function App() {
       </Routes> */}
 
         <AdminHomePage />
+        {/* <Register/>  */}
+        {/* <Demo/> */}
+        {/* <LoginPage/> */}
         {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
