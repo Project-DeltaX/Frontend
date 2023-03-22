@@ -22,6 +22,7 @@ import './Interview.css';
 
 
 
+
 function createData(CandidateName,CandidateID,Age,Email,status) {
   return { CandidateName,CandidateID,Age,Email,status };
 }

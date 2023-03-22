@@ -78,9 +78,15 @@ const Interview = () => {
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
+              <Typography variant="h3" align="center">
+        AllocatedCandidates
+      </Typography>
                 <AllocatedCandidates />
               </TabPanel>
               <TabPanel value={value} index={1}>
+              <Typography variant="h3" align="center">
+        AllocatedCandidates
+      </Typography>
                 <InterviewPanel />
               </TabPanel>
             </Box>

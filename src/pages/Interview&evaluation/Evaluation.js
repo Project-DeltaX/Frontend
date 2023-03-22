@@ -1,45 +1,31 @@
-import React from "react";
-import Layout from "../../components/Layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Box, Divider, Grid, Typography } from "@mui/material";
+import "../../App.css";
+
+import React, { useState } from "react";
+
+
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { DataGrid } from '@mui/x-data-grid';
-
-
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-
-
-import { blue } from "@mui/material/colors";
-import { Grid, makeStyles } from "@mui/material";
+import { navigationActiveStyle } from "../../styles";
+import styled from "styled-components";
 import CandidateExam from "./CanditateExam";
 
 
 
 
-
-
-const MenuArr = ["Dashboard", "Evaluation", "Evaluation", "Account"];
-
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  
 
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`${index}`}
+      aria-labelledby={`${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
     </div>
   );
 }
@@ -52,8 +38,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `${index}`,
+    "aria-controls": `${index}`,
   };
 }
 
@@ -63,54 +49,75 @@ const Evaluation = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  }
-  return (
-    <Box sx={{}}>
-      <Grid container direction={"column"} rowspacing={3}>
-        <Grid item md={4} container direction={"column"} rowSpacing={1}>
-          <Grid item md={3}>
-            <h1>Evaluation</h1>
-          </Grid>
 
-          <Grid item md={3}>
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+  return (
+    <div>
+      <Box>
+        <Grid container direction={"column"} rowSpacing={2}>
+          <Grid
+            item
+            md={4}
+            container
+            direction={"column"}
+            rowSpacing={1}
+            sx={{
+              backgroundColor: "#ffffff",
+              boxShadow: 3,
+              position: "fixed",
+              zIndex: 2,
+            }}
+            padding={1}
+          >
+            <Grid item md={3} lg={4} paddingLeft={3}>
+              <Typography variant="h4">Evaluation</Typography>
+            </Grid>
+            <Grid item md={3} lg={4} paddingLeft={5}>
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                sx={{
+                  width: "fit-content",
+                  height: "38px",
+                  color: "#1168DC",
+                  backgroundColor: "#bdb2ff",
+                  // background:
+                  //   " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
+                  borderRadius: "6px",
+                  padding: "20px",
+                }}
+              >
                 <Tabs
                   value={value}
                   onChange={handleChange}
                   aria-label="basic tabs example"
                 >
-                  <Tab label="Candidate Exam" {...a11yProps(0)} />
-                  <Tab label="Marking Sheet" {...a11yProps(1)} />
-                  <Tab label="Score Sheet" {...a11yProps(2)} />
-                 
+                  <Tab label="CandidateExam" {...a11yProps(0)} />
+                  <Tab label="MarkingSheet" {...a11yProps(1)} />
+                  <Tab label="ScoreSheet" {...a11yProps(2)} />
                 </Tabs>
               </Box>
-              <TabPanel value={value} index={0}>
-              <CandidateExam/>
-              <h1>Interview Examination</h1>
-                
-                
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                
-                <h1>Marking Sheet</h1>
-                
-               
-              </TabPanel>
-            
-            </Box>
+            </Grid>
+          </Grid>
+          <Grid item md={8} lg={4} marginTop={13}>
+            <TabPanel value={value} index={0}>
+            <Typography variant="h2" align="center">
+        Candidate Exam
+      </Typography>
+            <CandidateExam />
+             
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Item Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              
+            </TabPanel>
           </Grid>
         </Grid>
-        <Grid item md={8}>
-         
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </div>
   );
-}
-
+};
 
 export default Evaluation;
