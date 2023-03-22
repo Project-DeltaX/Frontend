@@ -1,25 +1,30 @@
+
+
+
+// draft for login
+
+
 import React, { useState } from "react";
-import { CognitoUserPool,CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 const poolData = {
-  UserPoolId: 'us-east-1_qq3sm8GMX',
-  ClientId: '2q2cdngim9ig9vsh7c5so41dka'
+  UserPoolId: 'us-east-1_YrVK0wUkH',
+  ClientId: '3ukk5rm8h91qiu7mi8n0m1cge8'
 };
 
-const UserPool = new CognitoUserPool(poolData);
+const userPool = new CognitoUserPool(poolData);
 
 
 
-const Register = () => {
-    const [email,setEmail]=useState("");
+const Demo = () => {
+    const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    UserPool.signUp(email,password,null, (err, callback,result) => {
+    UserPool.signUp(email,password,[], (err,result) => {
         if (err) {
-          return callback(err, null);
-          return;
+          console.error("signIn failed",err,null);
         }
         console.log(result);
       });   
@@ -27,11 +32,11 @@ const Register = () => {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        type="text"
+        name="username"
+        placeholder="user name"
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
       />
       <input
         type="password"
@@ -40,9 +45,28 @@ const Register = () => {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
       />
-      <button type="submit">Register</button>
+      <button type="submit">Login</button>
     </form>
   );
 };
 
-export default Register;
+export default Demo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
-import { TextField,Box,Button, Typography, Grid } from "@mui/material";
 
+import { TextField,Box,Button, Typography, Grid } from "@mui/material";
 import React from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,16 +8,80 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Link } from "react-router-dom";
 
-const CreateNewAccount = ()  => {
-    const [role, setRole] = React.useState('');
+import  { useState } from "react";
 
-    const handleChange = (event) => {
-      setRole(event.target.value);
+
+// import Pool from "../UserPool.js";
+// import { useState } from 'react';
+import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+
+const poolData = {
+  UserPoolId: 'us-east-1_JeGJ5dp7G',
+  ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
+};
+
+const userPool = new CognitoUserPool(poolData);
+
+const Register = () => {
+    const [formData, setFormData] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      // username: '',
+      password: '',
+      guestRole: ''
+    });
+  
+    const handleInputChange = (e) => {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      });
     };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const attributeList = [];
+      const dataEmail = {
+        Name: 'email',
+        Value: formData.email
+      };
+      const dataFirstName = {
+        Name: 'given_name',
+        Value: formData.firstName
+      };
+      const dataLastName = {
+        Name: 'family_name',
+        Value: formData.lastName
+      };
+      const dataGuestRole = {
+        Name: 'custom:guestRole',
+        Value: formData.guestRole
+      };
+      const attributeEmail = new CognitoUserAttribute(dataEmail);
+      const attributeFirstName = new CognitoUserAttribute(dataFirstName);
+      const attributeLastName = new CognitoUserAttribute(dataLastName);
+      const attributeGuestRole = new CognitoUserAttribute(dataGuestRole);
+      attributeList.push(attributeEmail);
+      attributeList.push(attributeFirstName);
+      attributeList.push(attributeLastName);
+      attributeList.push(attributeGuestRole);
+  
+      userPool.signUp(formData.email, formData.password, attributeList, null, (err, result) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        const cognitoUser = result.user;
+        console.log('successful ');
+      });
+    };
+
+
     return(
         <div>
             
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 
                 <Box 
                 display="flex" 
@@ -46,44 +110,45 @@ const CreateNewAccount = ()  => {
 
                     <Grid container spacing={2}>
                         <Grid item sm={6}>
-                    <TextField sx={{input : {color:'#8C8B8B',bgcolor:'#fff', borderRadius:'20px',width:'215px',height:'15px'} }}  margin="normal" type={'text'}  variant="outlined" placeholder="First Name"/>
+                    <TextField sx={{input : {color:'#8C8B8B',bgcolor:'#fff', borderRadius:'20px',width:'215px',height:'15px'} }}  margin="normal" type={'text'}  variant="outlined" placeholder="First Name"  name="firstName" value={formData.firstname} onChange={handleInputChange}  />
 
                         </Grid>
                         <Grid item sm={6}>
-                    <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',width:'215px',height:'15px'}}} margin="normal" type={'text'} variant="outlined" placeholder="Last Name" />
+                    <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',width:'215px',height:'15px'}}} margin="normal" type={'text'} variant="outlined" placeholder="Last Name" name="lastName" value={formData.lastname} onChange={handleInputChange}   />
 
                         </Grid>
                     </Grid>
 
                     <Grid container direction="column">
-                        <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'email'} variant="outlined" placeholder="E-mail Address" />
-                    <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'text'} variant="outlined" placeholder="User Name" />
-                    <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'password'} variant="outlined" placeholder="Password" />
+                        <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'email'} variant="outlined" placeholder="E-mail Address" name="email" value={formData.email} onChange={handleInputChange} />
+                    {/* <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'text'} variant="outlined" placeholder="User Name"  name="username" value={formData.username} onChange={handleInputChange}/> */}
+                    <TextField sx={{input : {color:'#8C8B8B' , bgcolor:'#fff',borderRadius:'20px',height:'15px'}}} margin="normal" type={'password'} variant="outlined" placeholder="Password" name="password"  value={formData.password} onChange={handleInputChange}/>
 
                     
                         <Grid container spacing={0.2} padding="10px">
                             <Grid item>
                              <Typography color="#E8E1FA" variant="h7" padding={0.2} fontFamily="Abril Fatface" >Guest Role:</Typography>
                             </Grid>
+
+                            
                             <Grid item>
       <FormControl sx={{ m: 0.05, minWidth: 120,bgcolor:"#fff" ,borderRadius:"5px"}}>
-        {/* <InputLabel id="demo-simple-select-helper-label"></InputLabel> */}
+      
         <Select
-        //   labelId="demo-simple-select-helper-label"
-        //   id="demo-simple-select-helper"
-          value={role}
-    
-          
-          onChange={handleChange}
+        
+        value={formData.guestRole}
+        name="guestRole"
+        
+        onChange={handleInputChange}
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem value=''>
             <em>-Select-</em>
           </MenuItem>
-          <MenuItem value={10}>Committee Member</MenuItem>
-          <MenuItem value={20}>Panel Member</MenuItem>
-          <MenuItem value={30}>Intern</MenuItem>
+          <MenuItem value={"CommitteeMember"}>Committee Member</MenuItem>
+          <MenuItem value={"PanelMember"}>Panel Member</MenuItem>
+          <MenuItem value={"Intern"}>Intern</MenuItem>
         </Select>
         
       </FormControl>
@@ -92,7 +157,7 @@ const CreateNewAccount = ()  => {
     </Grid>
  </Grid>
     </Grid>
-    <Button LinkComponent={Link} to={'/createacc'} sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
+    <Button  type="submit" sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
 
      </Box>
      </form>
@@ -101,4 +166,4 @@ const CreateNewAccount = ()  => {
 }
 
 
-export default CreateNewAccount;
+export default Register;
