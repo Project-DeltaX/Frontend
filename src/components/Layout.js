@@ -48,13 +48,7 @@ const Layout = (props) => {
       </Box>
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          ml: `${drawerWidth - 23}px`,
-          p: 3,
-          marginTop: "50px",
-          // marginX: "50px",
-        }}
+        sx={{ flexGrow: 1,ml:`${drawerWidth}px`, p: 3, marginTop:"50px" }}
       >
         {props.children}
       </Box>
