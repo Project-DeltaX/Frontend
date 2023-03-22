@@ -1,117 +1,86 @@
+import React, { useState } from "react";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import "../../App.css";
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { navigationActiveStyle } from "../../styles";
+// import { navigationActiveStyle } from "../../../styles";
 import styled from "styled-components";
 
-//import defined Components
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import DashboardInterns from "./Dashboard-Interns/Dashboard-Interns";
 
+const SelectCss = styled(Select)({
+  forcedColorAdjust: true,
 
-//,#2C165D,#27144B,#e8e1fa
-
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`${index}`}
-      aria-labelledby={`${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `${index}`,
-    "aria-controls": `${index}`,
-  };
-}
+  "& .MuiSelect-select": {
+    backgroundColor: "#F0F0F0",
+  },
+});
 
 const Dashboard = () => {
-  const [value, setValue] = React.useState(0);
+  const [transformType, setTransformType] = useState("applicants");
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event) => {
+    setTransformType(event.target.value);
+  };
+
+  const transformComponent = () => {
+    switch (transformType) {
+      case "applicants":
+        return <h1>Applicants</h1>;
+        break;
+      case "candidates":
+        return <h1>Candidates</h1>;
+        break;
+      case "interns":
+        return <DashboardInterns />;
+        break;
+      default:
+        return null;
+    }
   };
 
   return (
     <div>
       <Box>
-        <Grid container direction={"column"} rowSpacing={2}>
+        <Grid container direction={"column"} rowSpacing={2} paddingLeft={3}>
           <Grid
             item
             md={4}
             container
-            direction={"column"}
             rowSpacing={1}
+            display={"flex"}
+            justifyContent={'space-between'}
             sx={{
               backgroundColor: "#ffffff",
-              boxShadow: 3,
               position: "fixed",
               zIndex: 2,
             }}
             padding={1}
+            paddingRight={40}
           >
-            <Grid item md={3} lg={4} paddingLeft={3}>
+            <Grid item >
               <Typography variant="h4">Dashboard</Typography>
             </Grid>
-            <Grid item md={3} lg={4} paddingLeft={5}>
-              <Box
-                display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                sx={{
-                  width: "fit-content",
-                  height: "38px",
-                  color: "#1168DC",
-                  backgroundColor: "#bdb2ff",
-                  // background:
-                  //   " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
-                  borderRadius: "6px",
-                  padding: "20px",
-                }}
+            <Grid item>
+              <Select
+                sx={{ backgroundColor: "#bdb2ff" }}
+                labelId="transform-type-label"
+                id="transform-type"
+                value={transformType}
+                onChange={handleChange}
+                defaultValue={transformType}
+                size={"small"}
+                align="right"
               >
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab label="Overview" {...a11yProps(0)} />
-                  <Tab label="Performance" {...a11yProps(1)} />
-                  <Tab label="Activity" {...a11yProps(2)} />
-                  <Tab label="Intern Details" {...a11yProps(3)} />
-                </Tabs>
-              </Box>
+                <MenuItem value="applicants">Applicants</MenuItem>
+                <MenuItem value="candidates">Candidates</MenuItem>
+                <MenuItem value="interns">Interns</MenuItem>
+              </Select>
             </Grid>
           </Grid>
-          <Grid item md={8} lg={4} marginTop={13}>
-            <TabPanel value={value} index={0}>
-              Overview
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              Performance
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Activity
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Intern Details
-            </TabPanel>
+          <Grid item md={8} lg={4} marginTop={10}>
+            {transformComponent()}
           </Grid>
         </Grid>
       </Box>

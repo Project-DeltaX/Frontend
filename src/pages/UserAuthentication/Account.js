@@ -7,9 +7,10 @@ const AccountContext = createContext();
 
 const Account = (props) => {
 
-    const getSession = async =>{
+  const getSession = async =>{
+  };
 
-    };
+
   const authenticate = async (Username, Password) => {
     return await new Promise((resolve, reject) => {
       const user = new CognitoUser({ Username, Pool });

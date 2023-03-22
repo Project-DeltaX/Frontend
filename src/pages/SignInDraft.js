@@ -22,27 +22,12 @@ const Demo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const user=new CognitoUser({
-        Username:username,
-        Pool:userPool
-    });
-    const authDetails=new AuthenticationDetails({
-        Username:username,
-        Password:password,
-    });
-    user.authenticateUser(authDetails,{
-        onSuccess:(data)=>{
-            console.log("onSuccess:",data)
-        },
-        onFailure:(err)=>{
-            console.error("onFailure:",err);
-        },
-        newPasswordRequired:(data)=>{
-            console.log("newPasswordReq:",data);
+    UserPool.signUp(email,password,[], (err,result) => {
+        if (err) {
+          console.error("signIn failed",err,null);
         }
-    });
-    
+        console.log(result);
+      });   
     };
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
