@@ -20,7 +20,6 @@ import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Inte
 
 
 import Register from "./pages/UserAuthentication/createNewAccount";
-import Demo from "./pages/SignInDraft.js"
 
 import { Account } from "./pages/UserAuthentication/Account";
 import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
