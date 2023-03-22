@@ -19,7 +19,6 @@ import ChangePassword from "./pages/AccountSettings/components/draftpw";
 import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Interns";
 
 import Register from "./pages/UserAuthentication/createNewAccount";
-import Demo from "./pages/SignInDraft.js";
 
 import { Account } from "./pages/UserAuthentication/Account";
 import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
