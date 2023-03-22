@@ -5,76 +5,48 @@ import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
-import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
+// import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
+// import Pool from "..//UserPool.js" ;
+// import { AccountContext } from "./Account";
+import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+// import { Email } from "@mui/icons-material";
 
-import { AccountContext } from "./Account";
+const poolData = {
+  UserPoolId: 'us-east-1_JeGJ5dp7G',
+  ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
+};
+
+const userPool = new CognitoUserPool(poolData);
+
+
 
 const LoginPage = () => {
-  const [logResult,setLogResult] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [ email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
 
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const user=new CognitoUser({
+      Username:email,
+      Pool:userPool
   });
-
-  const {authenticate} = useContext(AccountContext);
-
-  const handleChange = (event) => {
-    // setUsername(event.target.value)
-  };
-  //for go to next line
-  // const handleKeyDown = (event) => {
-  //   if (event.key === "Enter") {
-  //     const formElements = event.target.form.elements;
-  //     const nextElement = formElements[Array.from(formElements).indexOf(event.target) + 1];
-  //     if (nextElement) {
-  //       nextElement.focus();
-  //     }
-  //   }
-  // };
-
-
-  // const validate = () => {
-  //   let usernameError = "";
-  //   let passwordError = "";
-
-  //   if (!username) {
-  //     usernameError = "Username is required";
-  //   }
-
-  //   if (!password) {
-  //     passwordError = "Password is required";
-  //   }
-
-  //   if (usernameError || passwordError) {
-  //     setErrors({ username: usernameError, password: passwordError });
-  //     return false;
-  //   }
-
-  //   return true;
-  // };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    authenticate(username,password)
-      .then(data => {
-        console.log("Loggen In ",data);
-      })
-      .catch(error => {
-        console.log("Failed to Login",error);
-      });
-
-    
-    // const isValid = validate();
-    // if (isValid) {
-    //   console.log(formData);
-    //   setFormData({
-    //     username: "",
-    //     password: "",
-    //   });
-    // }
+  const authDetails=new AuthenticationDetails({
+      Username:email,
+      Password:password,
+  });
+  user.authenticateUser(authDetails,{
+      onSuccess:(data)=>{
+          console.log("onSuccess:",data)
+      },
+      onFailure:(err)=>{
+          console.error("onFailure:",err);
+      },
+      newPasswordRequired:(data)=>{
+          console.log("newPasswordReq:",data);
+      }
+  });
+  
   };
 
 
@@ -143,18 +115,12 @@ const LoginPage = () => {
                   },
                 }}
                 margin="normal"
-                type={"text"}
+                type={"email"}
                 variant="outlined"
                 placeholder="username"
-                name="username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                // onKeyDown={handleKeyDown}
-                // error={!!errors.username}
-                // helperText={errors.username}
-
-
-
+                name="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
               <TextField
                 sx={{
