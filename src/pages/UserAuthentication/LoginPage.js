@@ -11,10 +11,8 @@ import { AccountContext } from "./Account";
 
 const LoginPage = () => {
   const [logResult,setLogResult] = useState('');
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const [errors, setErrors] = useState({
     username: "",
@@ -60,7 +58,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    authenticate(formData.username,formData.password)
+    authenticate(username,password)
       .then(data => {
         console.log("Loggen In ",data);
       })

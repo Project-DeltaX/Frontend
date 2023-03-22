@@ -16,12 +16,11 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    UserPool.signUp(email,password,null, (err, callback,result) => {
+    UserPool.signUp(email,password,[], (err,result) => {
         if (err) {
-          return callback(err, null);
-          return;
+          console.error("signIn failed",err,null);
         }
-        console.log(result);
+        console.log("Successfully SignIn",null,result);
       });   
     };
   return (

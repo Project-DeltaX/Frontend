@@ -15,8 +15,7 @@ import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
 import ChangePassword from "./pages/AccountSettings/components/draftpw";
-
-import Dashboard from "./pages/Dashboard/Dashboard";
+import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Interns";
 
 
 import Register from "./pages/SignInDraft";
@@ -99,7 +98,6 @@ function App() {
       </Routes> */}
 
         <AdminHomePage />
-        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );
