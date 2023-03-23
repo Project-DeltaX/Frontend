@@ -112,7 +112,6 @@ const CvManagement = () => {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <CvList/>
-                hiii
             </TabPanel>
           </Grid>
         </Grid>

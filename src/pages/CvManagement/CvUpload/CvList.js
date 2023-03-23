@@ -3,12 +3,12 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 
 
-const tableData = {
+const tableData = [{
     id: "1"	,
     first_name: 'John',	
     last_name: 'Smith',	
     email: 'john.smith@example.com'
-}
+}]
 
 const CvList = () => {
     const [files, setFiles] = useState(null);
