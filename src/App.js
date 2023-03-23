@@ -9,8 +9,9 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { Login, RotateLeftOutlined } from "@mui/icons-material";
@@ -20,12 +21,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 import Register from "./pages/UserAuthentication/createNewAccount";
-import Demo from "./pages/SignInDraft.js"
 
 import { Account } from "./pages/UserAuthentication/Account";
 import Status from "./pages/UserAuthentication/Status";
 import Settings from "./pages/UserAuthentication/Settings";
-import ChangePassword from "./pages/UserAuthentication/ChangePassword";
+import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+
 
 //
 
@@ -88,7 +89,9 @@ function App() {
 
   return (
     <div>
+
       <ThemeProvider theme={theme}>
+      {/* <Routes>
         {/* <Routes>
         <Route path="/" element={<Account><LoginPage/></Account>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
@@ -102,22 +105,15 @@ function App() {
 
         
       </Routes> */}
+      <PanelMemberHomePage/>
+      
+      
+      {/* <AdminHomePage/> */}
 
-      {/* <NewPassword/> */}
-      {/* <ForgotPassword/> */}
-      {/* <Account>
-        <LoginPage/>
 
-        <Status/>
-        </Account> */}
-{/* <NewPassword/> */}
-        <AdminHomePage />
-        
-       {/* <Settings/> */}
-     
-        {/* <Demo/> */}
-       
-        {/* <CommitteeMemberHomePage/> */}
+
+        {/* <AdminHomePage /> */}
+
       </ThemeProvider>
     </div>
   );

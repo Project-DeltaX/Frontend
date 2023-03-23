@@ -1,8 +1,6 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-
+import { Route, Routes } from "react-router-dom";
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
