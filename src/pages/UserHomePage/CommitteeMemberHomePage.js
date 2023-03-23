@@ -1,10 +1,8 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
-
-
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {

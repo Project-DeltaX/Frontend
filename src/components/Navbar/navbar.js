@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -95,7 +95,7 @@ const Navbar = (props) => {
   };
 
   return (
-    <side>
+    <div>
       <Toolbar>
         <AppleIcon
           color="primary"
@@ -123,9 +123,7 @@ const Navbar = (props) => {
             onChange={handleChange}
           >
             <ListItemButton
-              Component={Link}
               to={`/${text}`}
-              isActive={pathname === `${text}`}
               // {...a11yProps(index)}
             >
               <ListItemIcon>
@@ -195,7 +193,7 @@ const Navbar = (props) => {
           </ListItem>
         ))}
       </List>
-    </side>
+    </div>
   );
 };
 
