@@ -15,15 +15,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
-import ChangePassword from "./pages/AccountSettings/components/draftpw";
-import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Interns";
-
-
-import Register from "./pages/UserAuthentication/createNewAccount";
-
-import { Account } from "./pages/UserAuthentication/Account";
 import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 
+import RouterComponent from "./MyRoutes";
 
 //
 
@@ -88,7 +82,6 @@ function App() {
 
       <ThemeProvider theme={theme}>
       {/* <Routes>
-        {/* <Routes>
         <Route path="/" element={<LoginPage/>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
@@ -101,15 +94,7 @@ function App() {
 
         
       </Routes> */}
-      <PanelMemberHomePage/>
-      
-      
-      {/* <AdminHomePage/> */}
-
-
-
-        {/* <AdminHomePage /> */}
-
+      <RouterComponent/>
       </ThemeProvider>
     </div>
   );
