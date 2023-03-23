@@ -11,6 +11,8 @@ import { AccountContext } from "./Account";
 
 const LoginPage = () => {
   const [logResult,setLogResult] = useState('');
+  const [username,setUsername] = useState('');
+  const [password,setPassword] = useState('');
   const [formData, setFormData] = useState({
     username: "",
     password: "",

@@ -98,8 +98,7 @@ function App() {
         
       </Routes> */}
 
-        <AdminHomePage />
-        {/* <CommitteeMemberHomePage/> */}
+        <CommitteeMemberHomePage/>
       </ThemeProvider>
     </div>
   );
