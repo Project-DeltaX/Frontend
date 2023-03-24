@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
-import Dropzone from "react-dropzone-uploader";
+
+
+
 
 const FileUploading = () => {
     const [files, setFiles] = useState(null);
@@ -20,11 +22,11 @@ const FileUploading = () => {
                     <h5>Upload the CV Document as PDF</h5>
                     <h6>Full Name of the Candidate</h6>
                     <input placeholder="Full Name"></input>
-                    <Dropzone
+                    {/* <Dropzone
                         accept="pdf/*"
                         multiple
                         inputContent="Browse files to upload"
-                    />
+                    /> */}
                 </div>
             </Box>
         </div>

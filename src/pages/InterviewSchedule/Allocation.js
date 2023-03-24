@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -19,21 +19,23 @@ function createData(Name, Position, email) {
 }
 
 
-
 const Allocation = () => {
   const [member, setMember] =React.useState([]);
+  const [cData,setCData] = useState([]);
 
   const handleChange = (event) => {
+    
     setMember(event.target.value);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
           "https://1j4hao1j8f.execute-api.us-east-1.amazonaws.com/candidate_first"
         );
-        const json = await response.json();
-        setData(json);
+        const jsonData = await response.json();
+        setCData(jsonData)
       } catch (error) {
         console.error(error);
       }
@@ -78,7 +80,7 @@ const Allocation = () => {
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "white" }}>
-              {rows.map((row) => (
+              {cData.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -131,7 +133,7 @@ const Allocation = () => {
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "Blue" }}>
-              {rows.map((row) => (
+              {cData.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

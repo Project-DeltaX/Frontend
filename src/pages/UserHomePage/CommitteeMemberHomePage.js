@@ -3,6 +3,7 @@ import Layout from "../../components/Layout";
 import { Route, Routes } from "react-router-dom";
 import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
+import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
