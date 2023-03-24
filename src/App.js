@@ -9,26 +9,31 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
-import { RotateLeftOutlined } from "@mui/icons-material";
-import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
 
+import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+import { Login, RotateLeftOutlined } from "@mui/icons-material";
+// import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
+import Dashboard from "./pages/Dashboard/Dashboard";
+
+
+import Register from "./pages/UserAuthentication/createNewAccount";
 
 import { Account } from "./pages/UserAuthentication/Account";
+import Status from "./pages/UserAuthentication/Status";
+import Settings from "./pages/UserAuthentication/Settings";
+import ChangePassword from "./pages/UserAuthentication/ChangePassword";
 
 
 //
 
-
 //
-
-
-
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -54,16 +59,16 @@ const theme = createTheme({
         color: "#1168DC",
         fontWeight: 500,
       },
-      body1:{
+      body1: {
         color: "#e8e1fa",
-      }
+      },
     },
     stack: {},
     TextField: {
-      allVariants:{
+      allVariants: {
         fontFamily: "Poppins",
         fontSize: "30px",
-      }
+      },
     },
   },
   MuiListItem: {
@@ -80,22 +85,25 @@ const theme = createTheme({
 });
 
 function App() {
+
   return (
     <div>
       <ThemeProvider theme={theme}>
         {/* <Routes>
-        <Route path="/" element={<LoginPage/>} />
+        {/* <Routes>
+        <Route path="/" element={<Account><LoginPage/></Account>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
         <Route path="/verification" element={<Verification/>} />
         <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
         <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
 
         
       </Routes> */}
+        <CommitteeMemberHomePage/>
 
         <CommitteeMemberHomePage/>
       </ThemeProvider>

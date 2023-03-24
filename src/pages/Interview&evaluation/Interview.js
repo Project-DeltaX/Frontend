@@ -1,21 +1,20 @@
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import "../../App.css";
-
-import React, { useState } from "react";
-import "../AccountSettings/OAccount.css";
-
+import React from "react";
+import Layout from "../../components/Layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { navigationActiveStyle } from "../../styles";
-import styled from "styled-components";
 
-//import defined Components
-import Profile from "./components/Profile";
-import Notifications from "@mui/icons-material/Notifications";
-import SecurityPrivacy from "./components/SecurityPrivacy";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
-//,#2C165D,#27144B,#e8e1fa
+import { blue } from "@mui/material/colors";
+import { Grid, makeStyles } from "@mui/material";
+import AllocatedCandidates from "./AllocatedCandidates";
+import InterviewPanel from "./InterviewPanel";
+import "./Interview.css";
+
 
 
 function TabPanel(props) {
@@ -47,7 +46,7 @@ function a11yProps(index) {
   };
 }
 
-const OAccount = () => {
+const Interview = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -73,7 +72,7 @@ const OAccount = () => {
             padding={1}
           >
             <Grid item md={3} lg={4} paddingLeft={3}>
-              <Typography variant="h4">Account Settings</Typography>
+              <Typography variant="h4">Interview</Typography>
             </Grid>
             <Grid item md={3} lg={4} paddingLeft={5}>
               <Box
@@ -96,28 +95,33 @@ const OAccount = () => {
                   onChange={handleChange}
                   aria-label="basic tabs example"
                 >
-                  <Tab label="Profile" {...a11yProps(0)} />
-                  <Tab label="Notifications" {...a11yProps(1)} />
-                  <Tab label="Security & Privacy" {...a11yProps(2)} />
+                  <Tab label="AllocatedCandidates" {...a11yProps(0)} />
+                  <Tab label="InterviewPanel" {...a11yProps(1)} />
+                  
                 </Tabs>
               </Box>
             </Grid>
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <TabPanel value={value} index={0}>
-              <Profile />
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
+        AllocatedCandidates
+      </Typography>
+            <AllocatedCandidates />
+             
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Notifications />
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
+            
+              InterviewPanel
+              </Typography>
+              <InterviewPanel/>
             </TabPanel>
-            <TabPanel value={value} index={2}>
-              <SecurityPrivacy />
-            </TabPanel>
+           
           </Grid>
         </Grid>
       </Box>
     </div>
   );
 };
-
-export default OAccount;
+export default Interview;

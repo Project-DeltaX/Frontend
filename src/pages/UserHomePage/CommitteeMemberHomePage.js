@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
-
+import { Route, Routes } from "react-router-dom";
+import OAccount from "../AccountSettings/OAccount";
+import CvManagement from "../CvManagement/CvManagement";
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
@@ -11,12 +11,11 @@ const CommitteeMemberHomePage = () => {
       <Routes>
         <Route path="/" element={<h1>Hiii Dashboard</h1>} />
         <Route path="/Dashboard" element={<h1>Hiii Dashboard</h1>} />
-        <Route path="/CV Management" element={<h1>Hiii CV Management</h1>}/>
+        <Route path="/CV Management" element={<CvManagement/>}/>
         <Route path="/Interview Schedule" element={<InterviewSchedule/>} />
         
-        <Route path="/Account" element={<h1>Hiii Account Settings</h1>}/>
+        <Route path="/Account" element={<OAccount/>}/>
       </Routes>
-
     </Layout>
   
   );

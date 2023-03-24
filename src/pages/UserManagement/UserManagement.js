@@ -27,6 +27,7 @@ import Stack from "@mui/material/Stack";
 import UserRoles from "./UserRoles/UserRoles";
 import CommonRoles from "./Roles";
 
+
 const UserManagement = () => {
   return (
     <div  marginRight={"20px"}>
@@ -99,7 +100,8 @@ const UserManagement = () => {
         </Grid>
 
         <Grid item md={6}>
-          {/* <CommonRoles/> */}
+          <CommonRoles/>
+     
 
           <UserRoles />
           {/* <index.js/> */}
