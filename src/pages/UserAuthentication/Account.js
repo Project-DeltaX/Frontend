@@ -1,5 +1,4 @@
 
-
 import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 // import { Email } from "@mui/icons-material";
 import Pool from "../UserPool.js"
