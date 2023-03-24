@@ -28,7 +28,7 @@ import Register from "./pages/UserAuthentication/createNewAccount";
 import { Account } from "./pages/UserAuthentication/Account";
 import Status from "./pages/UserAuthentication/Status";
 import Settings from "./pages/UserAuthentication/Settings";
-import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+import ChangePassword from "./pages/UserAuthentication/ChangePassword";
 
 
 //
@@ -105,7 +105,9 @@ function App() {
       </Routes> */}
         <CommitteeMemberHomePage/>
 
+        <CommitteeMemberHomePage/>
       </ThemeProvider>
+
     </div>
   );
 }
