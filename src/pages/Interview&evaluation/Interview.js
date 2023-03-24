@@ -15,7 +15,7 @@ import AllocatedCandidates from "./AllocatedCandidates";
 import InterviewPanel from "./InterviewPanel";
 import "./Interview.css";
 
-const MenuArr = ["Dashboard", "Interview", "Evaluation", "Account"];
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,15 +24,11 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`${index}`}
+      aria-labelledby={`${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
     </div>
   );
 }
@@ -45,8 +41,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `${index}`,
+    "aria-controls": `${index}`,
   };
 }
 
@@ -56,46 +52,76 @@ const Interview = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
-  return (
-    <Box sx={{}}>
-      <Grid container direction={"column"} rowspacing={3}>
-        <Grid item md={4} container direction={"column"} rowSpacing={1}>
-          <Grid item md={3}>
-            <h1>Interview</h1>
-          </Grid>
 
-          <Grid item md={3}>
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+  return (
+    <div>
+      <Box>
+        <Grid container direction={"column"} rowSpacing={2}>
+          <Grid
+            item
+            md={4}
+            container
+            direction={"column"}
+            rowSpacing={1}
+            sx={{
+              backgroundColor: "#ffffff",
+              boxShadow: 3,
+              position: "fixed",
+              zIndex: 2,
+            }}
+            padding={1}
+          >
+            <Grid item md={3} lg={4} paddingLeft={3}>
+              <Typography variant="h4">Interview</Typography>
+            </Grid>
+            <Grid item md={3} lg={4} paddingLeft={5}>
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                sx={{
+                  width: "fit-content",
+                  height: "38px",
+                  color: "#1168DC",
+                  backgroundColor: "#bdb2ff",
+                  // background:
+                  //   " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
+                  borderRadius: "6px",
+                  padding: "20px",
+                }}
+              >
                 <Tabs
                   value={value}
                   onChange={handleChange}
                   aria-label="basic tabs example"
                 >
-                  <Tab label="Allocated candidates" {...a11yProps(0)} />
-                  <Tab label="Interview panel" {...a11yProps(1)} />
+                  <Tab label="AllocatedCandidates" {...a11yProps(0)} />
+                  <Tab label="InterviewPanel" {...a11yProps(1)} />
+                  
                 </Tabs>
               </Box>
-              <TabPanel value={value} index={0}>
-              <Typography variant="h3" align="center">
+            </Grid>
+          </Grid>
+          <Grid item md={8} lg={4} marginTop={13}>
+            <TabPanel value={value} index={0}>
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
         AllocatedCandidates
       </Typography>
-                <AllocatedCandidates />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-              <Typography variant="h3" align="center">
-        AllocatedCandidates
-      </Typography>
-                <InterviewPanel />
-              </TabPanel>
-            </Box>
+            <AllocatedCandidates />
+             
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
+            
+              InterviewPanel
+              </Typography>
+              <InterviewPanel/>
+            </TabPanel>
+           
           </Grid>
         </Grid>
-        <Grid item md={8}></Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </div>
   );
 };
-
 export default Interview;

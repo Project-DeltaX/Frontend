@@ -9,7 +9,7 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
@@ -33,11 +33,7 @@ import ChangePassword from "./pages/UserAuthentication/ChangePassword";import Pa
 
 //
 
-
 //
-
-
-
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -63,16 +59,16 @@ const theme = createTheme({
         color: "#1168DC",
         fontWeight: 500,
       },
-      body1:{
+      body1: {
         color: "#e8e1fa",
-      }
+      },
     },
     stack: {},
     TextField: {
-      allVariants:{
+      allVariants: {
         fontFamily: "Poppins",
         fontSize: "30px",
-      }
+      },
     },
   },
   MuiListItem: {
@@ -92,9 +88,8 @@ function App() {
 
   return (
     <div>
-
       <ThemeProvider theme={theme}>
-      {/* <Routes>
+        {/* <Routes>
         {/* <Routes>
         <Route path="/" element={<Account><LoginPage/></Account>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
@@ -109,6 +104,7 @@ function App() {
         
       </Routes> */}
         <CommitteeMemberHomePage/>
+
       </ThemeProvider>
     </div>
   );
