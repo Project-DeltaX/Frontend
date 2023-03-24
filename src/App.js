@@ -1,5 +1,4 @@
 import "./App.css";
-import Layout from "./components/Layout";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
 import CreateNewAccount from "./pages/UserAuthentication/createNewAccount";
 import NewPassword from "./pages/UserAuthentication/NewPassword";
@@ -14,10 +13,10 @@ import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
-import { RotateLeftOutlined } from "@mui/icons-material";
 import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
-
+import Status from "./pages/UserAuthentication/Status";
 import RouterComponent from "./MyRoutes";
+import { Account } from "./pages/UserAuthentication/Account";
 
 //
 
@@ -77,6 +76,7 @@ const theme = createTheme({
 });
 
 function App() {
+
   return (
     <div>
 
@@ -89,12 +89,17 @@ function App() {
         <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
         <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
 
         
       </Routes> */}
+      <Account>
       <RouterComponent/>
+      </Account>
+      
+      
+      {/* <AdminHomePage/> */}
       </ThemeProvider>
     </div>
   );

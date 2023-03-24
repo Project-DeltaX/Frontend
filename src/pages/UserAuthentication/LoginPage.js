@@ -1,53 +1,84 @@
 //import { Gradient } from "@mui/icons-material";
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import React,{useContext,useState} from "react";
+import { AccountContext } from "./Account";
 import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
 // import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
 // import Pool from "..//UserPool.js" ;
 // import { AccountContext } from "./Account";
-import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-// import { Email } from "@mui/icons-material";
+// import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+// // import { Email } from "@mui/icons-material";
 
-const poolData = {
-  UserPoolId: 'us-east-1_JeGJ5dp7G',
-  ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
-};
+// const poolData = {
+//   UserPoolId: 'us-east-1_JeGJ5dp7G',
+//   ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
+// };
 
-const userPool = new CognitoUserPool(poolData);
+// const userPool = new CognitoUserPool(poolData);
 
+//Routing
+import { useLocation,useNavigate } from "react-router-dom";
 
 
 const LoginPage = () => {
   const [ email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  const {authenticate,setJToken} = useContext(AccountContext);
 
 const handleSubmit = (e) => {
   e.preventDefault();
 
-  const user=new CognitoUser({
-      Username:email,
-      Pool:userPool
-  });
-  const authDetails=new AuthenticationDetails({
-      Username:email,
-      Password:password,
-  });
-  user.authenticateUser(authDetails,{
-      onSuccess:(data)=>{
-          console.log("onSuccess:",data)
-      },
-      onFailure:(err)=>{
-          console.error("onFailure:",err);
-      },
-      newPasswordRequired:(data)=>{
-          console.log("newPasswordReq:",data);
-      }
-  });
+  authenticate(email,password);
+  // .then(data => {
+  //   console.log("Logged in!");
+  //   // jToken = data;
+  //   // console.log(data['accessToken']['jwtToken']);
+  //   setIsLoggedIn(true);
+
+  // })
+  // .catch(err => {
+  // console.error("Failed to login",err);
+  // })
+
+  
+
+  
+
+  // const user=new CognitoUser({
+  //     Username:email,
+  //     Pool:userPool
+  // });
+  // const authDetails=new AuthenticationDetails({
+  //     Username:email,
+  //     Password:password,
+  // });
+  // user.authenticateUser(authDetails,{
+  //     onSuccess:(data)=>{
+  //         console.log("onSuccess:",data)
+  //     },
+  //     onFailure:(err)=>{
+  //         console.error("onFailure:",err);
+  //     },
+  //     newPasswordRequired:(data)=>{
+  //         console.log("newPasswordReq:",data);
+  //     }
+  // });
   
   };
+
+  // if (isLoggedIn) {
+  //   console.log(isLoggedIn);
+  //   return <Navigate to={'/adminHome'}/>
+    
+  // }
 
 
 
@@ -156,8 +187,8 @@ const handleSubmit = (e) => {
               </Typography>
 
               <Button
-                //LinkComponent={Link}
-               // to={"/adminHome"}
+                // component={Link}
+              //  to={"/adminHome"}
                type="submit"
                 sx={{
                   marginTop: 3,
