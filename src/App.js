@@ -1,5 +1,4 @@
 import "./App.css";
-import Layout from "./components/Layout";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
 import CreateNewAccount from "./pages/UserAuthentication/createNewAccount";
 import NewPassword from "./pages/UserAuthentication/NewPassword";
@@ -9,15 +8,19 @@ import Verification from "./pages/UserAuthentication/Verification";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
+import RouterComponent from "./MyRoutes";
+
+
+
+import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 import { Login, RotateLeftOutlined } from "@mui/icons-material";
 // import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
-import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 import Register from "./pages/UserAuthentication/createNewAccount";
@@ -25,17 +28,10 @@ import Register from "./pages/UserAuthentication/createNewAccount";
 import { Account } from "./pages/UserAuthentication/Account";
 import Status from "./pages/UserAuthentication/Status";
 import Settings from "./pages/UserAuthentication/Settings";
-import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
-import UserManagement from "./pages/UserManagement/UserManagement";
-
 
 //
 
-
 //
-
-
-
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -61,16 +57,16 @@ const theme = createTheme({
         color: "#1168DC",
         fontWeight: 500,
       },
-      body1:{
+      body1: {
         color: "#e8e1fa",
-      }
+      },
     },
     stack: {},
     TextField: {
-      allVariants:{
+      allVariants: {
         fontFamily: "Poppins",
         fontSize: "30px",
-      }
+      },
     },
   },
   MuiListItem: {
@@ -90,32 +86,13 @@ function App() {
 
   return (
     <div>
-
       <ThemeProvider theme={theme}>
-      {/* <Routes>
-        {/* <Routes>
-        <Route path="/" element={<Account><LoginPage/></Account>} />
-        <Route path="/createnewaccount" element={<CreateNewAccount/>} />
-        <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/verification" element={<Verification/>} />
-        <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
-        <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
-        <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
-        <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
-
-        
-      </Routes> */}
-      {/* <PanelMemberHomePage/> */}
-      {/* <Account>
-        <LoginPage/>
-      <Status/>
-      </Account> */}
-
-      {/* <ForgotPassword/> */}
-
-      <AdminHomePage/>
+      <Account>
+      <RouterComponent/>
+      </Account>
+      
       </ThemeProvider>
+
     </div>
   );
 }

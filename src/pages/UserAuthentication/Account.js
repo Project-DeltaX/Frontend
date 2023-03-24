@@ -1,18 +1,15 @@
 
 import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 // import { Email } from "@mui/icons-material";
+import Pool from "../UserPool.js"
 
-import React,{createContext} from "react";
+import React,{createContext, useState} from "react";
 
-const poolData = {
-  UserPoolId: 'us-east-1_JeGJ5dp7G',
-  ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
-};
-
-const Pool = new CognitoUserPool(poolData);
 
 const AccountContext=createContext();
 const Account=(props)=>{
+  const [jToken,setJToken] = useState({});
+  const [loginStatus,setLoginStatus] = useState(false);
 //for the session
   const getSession=async(Username,Password) =>{
     return await new Promise((resolve, reject)=>{
@@ -60,22 +57,32 @@ const Account=(props)=>{
     });
     user.authenticateUser(authDetails,{
         onSuccess:(data)=>{
-            console.log("onSuccess:",data)
+            console.log("onSuccess:")
+            console.log(data['accessToken']['jwtToken']);
             resolve(data);
+            setJToken(data);
+            setLoginStatus(true);
         },
         onFailure:(err)=>{
             console.error("onFailure:",err);
             reject(err);
         },
         newPasswordRequired:(data)=>{
-            console.log("newPasswordReq:",data);
+            console.log("newPasswordReq:");
             resolve(data);
         },
     });
    })
   };
+
+  const getToken=()=>{
+    return jToken;
+  }
+  const getLoginStatus=()=>{
+    return loginStatus;
+  }
   return (
-    <AccountContext.Provider value={{authenticate,getSession}}>
+    <AccountContext.Provider value={{authenticate,getSession,setJToken,getToken,getLoginStatus}}>
 {props.children}
     </AccountContext.Provider>
   );

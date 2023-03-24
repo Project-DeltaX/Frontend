@@ -56,7 +56,7 @@ const AllocatedCandidates = () => {
   
   };
   return (
-    <box rowspacing={3}>
+    <box rowspacing={3} m={10}>
       <div className="Table">
         <TableContainer
           component={Paper}
