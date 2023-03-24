@@ -26,6 +26,7 @@ import { Account } from "./pages/UserAuthentication/Account";
 import Status from "./pages/UserAuthentication/Status";
 import Settings from "./pages/UserAuthentication/Settings";
 import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+import UserManagement from "./pages/UserManagement/UserManagement";
 
 
 //
@@ -105,15 +106,15 @@ function App() {
 
         
       </Routes> */}
-      <PanelMemberHomePage/>
-      
-      
-      {/* <AdminHomePage/> */}
+      {/* <PanelMemberHomePage/> */}
+      {/* <Account>
+        <LoginPage/>
+      <Status/>
+      </Account> */}
 
+      {/* <ForgotPassword/> */}
 
-
-        {/* <AdminHomePage /> */}
-
+      <AdminHomePage/>
       </ThemeProvider>
     </div>
   );
