@@ -13,17 +13,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from '@mui/material/Button';
 
-function createData(Name, JobTitle, Email) {
+function createData(Name, Position, email) {
   
-  return { Name, JobTitle, Email};
+  return { Name, Position, email};
 }
 
-const rows = [
-  createData("John", "SE", "john@99x.lk"),
-  createData("Perera ", "HR", "geo@99x.lk"),
-  createData("Geo","SSE", "perera@99x.lk"),
-  createData("Leo","QA", "leo@99x.lk"),
-];
+
 
 const Allocation = () => {
   const [member, setMember] =React.useState([]);
@@ -31,7 +26,21 @@ const Allocation = () => {
   const handleChange = (event) => {
     setMember(event.target.value);
   };
-   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://1j4hao1j8f.execute-api.us-east-1.amazonaws.com/candidate_first"
+        );
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   
     return ( 
    
