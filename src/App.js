@@ -14,16 +14,18 @@ import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
-import { RotateLeftOutlined } from "@mui/icons-material";
-import ChangePassword from "./pages/AccountSettings/components/draftpw";
-import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Interns";
+import { Login, RotateLeftOutlined } from "@mui/icons-material";
+// import ChangePassword from "./pages/AccountSettings/components/draftpw";
+
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 import Register from "./pages/UserAuthentication/createNewAccount";
-import Demo from "./pages/SignInDraft.js"
 
 import { Account } from "./pages/UserAuthentication/Account";
-import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+import Status from "./pages/UserAuthentication/Status";
+import Settings from "./pages/UserAuthentication/Settings";
+import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 
 
 //
@@ -84,20 +86,21 @@ const theme = createTheme({
 });
 
 function App() {
+
   return (
     <div>
 
       <ThemeProvider theme={theme}>
       {/* <Routes>
         {/* <Routes>
-        <Route path="/" element={<LoginPage/>} />
+        <Route path="/" element={<Account><LoginPage/></Account>} />
         <Route path="/createnewaccount" element={<CreateNewAccount/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
         <Route path="/verification" element={<Verification/>} />
         <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
         <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
         <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={<AdminHomePage/>}/>
+        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
         <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
 
         
