@@ -15,7 +15,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-
+import CustomizedHook from "./SelectPermission";
+import { useState } from "react";
+import IconButton from "@mui/material";
 
 
 
@@ -29,6 +31,8 @@ function createData(Roles, Permission) {
     createData("Interns", <EditIcon />),
   ];
 const CommonRoles = () => {
+  
+
     return ( 
         <Grid container direction={'column'}>
             <Grid item>
