@@ -16,7 +16,7 @@ import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import { RotateLeftOutlined } from "@mui/icons-material";
 import ChangePassword from "./pages/AccountSettings/components/draftpw";
-import DashboardInterns from "./pages/DashBoard/Dashboard-Interns/Dashboard-Interns";
+
 
 import Register from "./pages/UserAuthentication/createNewAccount";
 
