@@ -57,17 +57,19 @@ const InterviewSchedule = () => {
           textAlign="left"
           fontSize="30px"
           color="#27144B"
+        
         >
-          <b> Interview Schedule</b>
+           <b> Interview Schedule</b> 
         </Typography>
+        
       </Grid>
       <Grid item xs={12} spacing={4}>
         <Box sx={{ borderBottom: 3, borderColor: "#27144B"}}>
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor="Black"
+            textColor="Black"
             // centered
           >
             <Tab className="textStyle" label="Availability" {...a11yProps(0)} />

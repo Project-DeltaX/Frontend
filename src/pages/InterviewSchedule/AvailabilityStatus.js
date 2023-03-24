@@ -1,5 +1,4 @@
-import Layout from "../../components/Layout";
-import Box from "@mui/material/Box";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,8 +12,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Unstable_Grid2";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-import React, { useState, useEffect } from "react";
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,6 +46,11 @@ function createData(PanelMemberName, JobTitle, Email, Status) {
 }
 
 const AvailabilityStatus = () => {
+  const [op, setOp] = React.useState('');
+
+  const handleChange = (event) => {
+    setOp(event.target.value);
+  }
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -65,9 +74,36 @@ const AvailabilityStatus = () => {
   return (
     <div>
       <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid xs={12}>
+        <Grid xs={4}>
+        <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Availability </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={op}
+          label="Availability"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Panel member</MenuItem>
+          <MenuItem value={20}>Candidate</MenuItem>
          
+        </Select>
+      </FormControl>
+    </Box>
         </Grid>
+        <Grid xs={4} spacing={4}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Select the interview date"
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
         <Grid xs={12}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -100,18 +136,7 @@ const AvailabilityStatus = () => {
             </Table>
           </TableContainer>
 
-          <Grid xs={12} spacing={4}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Select the interview date"
-                value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
+          
         </Grid>
       </Grid>
     </div>
