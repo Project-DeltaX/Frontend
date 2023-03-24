@@ -157,7 +157,7 @@ const Register = () => {
     </Grid>
  </Grid>
     </Grid>
-    <Button   LinkComponent={Link} to={'/createacc'}  type="submit" sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
+    <Button   LinkComponent={Link}   type="submit" sx={{marginTop:3, borderRadius:4,bgcolor:"#EB5E57",color:"black",fontFamily:"Abril Fatface"}} variant="contained" color="warning"><b>SIGN UP</b></Button>
 
      </Box>
      </form>

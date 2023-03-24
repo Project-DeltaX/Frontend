@@ -1,13 +1,10 @@
 import React from "react";
 import Layout from "../../components/Layout";
 import { Route, Routes } from "react-router-dom";
-
 //Sidebar Pages
 import UserManagement from "../UserManagement/UserManagement";
 import OAccount from "../AccountSettings/OAccount";
-import DashboardInterns from "../DashBoard/Dashboard-Interns/Dashboard-Interns";
-
-import Dashboard from "../DashBoard/Dashboard";
+import Dashboard from "../Dashboard/Dashboard.js";
 
 
 
@@ -16,7 +13,6 @@ const MenuArr = [
   "User Management", 
   "Account"
 ];
-
 const AdminHomePage = () => {
   return (
     <Layout MenuArr={MenuArr} IconArr="AIconArr">
