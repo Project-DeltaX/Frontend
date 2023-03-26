@@ -1,5 +1,4 @@
 import "./App.css";
-import Layout from "./components/Layout";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
 import CreateNewAccount from "./pages/UserAuthentication/createNewAccount";
 import NewPassword from "./pages/UserAuthentication/NewPassword";
@@ -14,13 +13,14 @@ import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
+import RouterComponent from "./MyRoutes";
+
 
 
 import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 import { Login, RotateLeftOutlined } from "@mui/icons-material";
 // import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
-import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 import Register from "./pages/UserAuthentication/createNewAccount";
@@ -28,8 +28,6 @@ import Register from "./pages/UserAuthentication/createNewAccount";
 import { Account } from "./pages/UserAuthentication/Account";
 import Status from "./pages/UserAuthentication/Status";
 import Settings from "./pages/UserAuthentication/Settings";
-import ChangePassword from "./pages/UserAuthentication/ChangePassword";
-
 
 //
 
@@ -89,23 +87,12 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* <Routes>
-        {/* <Routes>
-        <Route path="/" element={<Account><LoginPage/></Account>} />
-        <Route path="/createnewaccount" element={<CreateNewAccount/>} />
-        <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/verification" element={<Verification/>} />
-        <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
-        <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
-        <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
-        <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
-
-        
-      </Routes> */}
-        <CommitteeMemberHomePage/>
-
+      <Account>
+      <RouterComponent/>
+      </Account>
+      
       </ThemeProvider>
+
     </div>
   );
 }

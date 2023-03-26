@@ -22,21 +22,25 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { Grid } from "@mui/material";
+// import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import SimpleDialog from "../../../components/ChangeRoles"
 
-function createData(UserName, Email, Country, Posting, Status,Role,Edit) {
-  return {
-    UserName,
-    Email,
-    Country,
-    Posting,
-    Status,
-    Role,
-    Edit,
-    };
-}
+
+// function createData(UserName, Email, Country, Posting, Status,Role,Edit) {
+//   return {
+//     UserName,
+//     Email,
+//     Country,
+//     Posting,
+//     Status,
+//     Role,
+//     Edit,
+//     
+//     };
+// }
 
 // const rows = [
 //   createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
@@ -70,10 +74,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
+
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -84,6 +85,7 @@ function stableSort(array, comparator) {
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
+ 
 }
 
 const headCells = [
@@ -129,6 +131,7 @@ const headCells = [
     disablePadding: false,
     label: 'Edit',
   },
+ 
 ];
 
 function EnhancedTableHead(props) {
@@ -151,6 +154,7 @@ function EnhancedTableHead(props) {
               'aria-label': 'select all desserts',
             }}
           />
+
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -158,6 +162,7 @@ function EnhancedTableHead(props) {
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
+          
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -217,7 +222,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          User_Roles
+         <b>User_Roles</b> 
         </Typography>
       )}
 
@@ -315,8 +320,6 @@ export default function UserRole() {
   };
 
   const isSelected = (UserName) => selected.indexOf(UserName) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -379,6 +382,7 @@ export default function UserRole() {
                       <TableCell align="left">{row.Posting}</TableCell>
                       <TableCell align="left">{row.Status}</TableCell>
                       <TableCell align="left">{row.Role}</TableCell>
+                       <SimpleDialog />
                       <TableCell align="left">{row.Edit}</TableCell>
 
                     </TableRow>

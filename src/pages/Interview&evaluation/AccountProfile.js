@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Account() {
+export default function AccountProfile() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

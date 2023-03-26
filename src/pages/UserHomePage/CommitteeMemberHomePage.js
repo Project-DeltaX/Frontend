@@ -12,7 +12,8 @@ const CommitteeMemberHomePage = () => {
         <Route path="/" element={<h1>Hiii Dashboard</h1>} />
         <Route path="/Dashboard" element={<h1>Hiii Dashboard</h1>} />
         <Route path="/CV Management" element={<CvManagement/>}/>
-        <Route path="/Interview Schedule" element={<h1>Hiii Interview Schedule</h1>} />
+        <Route path="/Interview Schedule" element={<InterviewSchedule/>} />
+        
         <Route path="/Account" element={<OAccount/>}/>
       </Routes>
     </Layout>
