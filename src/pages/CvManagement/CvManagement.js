@@ -12,6 +12,7 @@ import Tab from "@mui/material/Tab";
 import FileUploading from "./CvUpload/FileUploading";
 import CvFiltering from "./CvUpload/CvFiltering";
 import CvList from "./CvUpload/CvList";
+import CvView from "./CvUpload/CvView";
 
 
 
@@ -99,6 +100,7 @@ const CvManagement = () => {
                   <Tab label="CV Upload" {...a11yProps(0)} />
                   <Tab label="CV filter" {...a11yProps(1)} />
                   <Tab label="CV list" {...a11yProps(2)} />
+                  <Tab label="CV view" {...a11yProps(3)} />
                 </Tabs>
               </Box>
             </Grid>
@@ -112,6 +114,9 @@ const CvManagement = () => {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <CvList/>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <CvView/>
             </TabPanel>
           </Grid>
         </Grid>
