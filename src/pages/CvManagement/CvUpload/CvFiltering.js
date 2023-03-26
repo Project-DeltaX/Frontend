@@ -1,24 +1,41 @@
 import { Paper, Table, TableBody, TableContainer, TableHead, TableRow, TableCell, } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 
-const tableData = [
-  {
-    id: "1",
-    first_name: "John",
-    last_name: "Smith",
-    email: "john.smith@example.com",
-  },
-  {
-    id: "1",
-    first_name: "John",
-    last_name: "Smith",
-    email: "john.smith@example.com",
-  },
-];
+// const tableData = [
+//   {
+//     id: "1",
+//     first_name: "John",
+//     last_name: "Smith",
+//     email: "john.smith@example.com",
+//   },
+//   {
+//     id: "1",
+//     first_name: "John",
+//     last_name: "Smith",
+//     email: "john.smith@example.com",
+//   },
+// ];
 
 const CvFiltering = () => {
   const [files, setFiles] = useState(null);
+
+  const [tableData, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://t1sga9lqc1.execute-api.us-east-1.amazonaws.com/dev/applicantslist"
+        );
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>

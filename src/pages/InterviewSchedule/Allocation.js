@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,7 +21,7 @@ function createData(Name, Position, email) {
 
 
 const Allocation = () => {
-  const [member, setMember] =React.useState([]);
+  const [member, setMember] =useState([]);
 
   const handleChange = (event) => {
     setMember(event.target.value);

@@ -87,9 +87,10 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <Account>
+      {/* <Account>
       <RouterComponent/>
-      </Account>
+      </Account> */}
+      <CommitteeMemberHomePage/>
       
       </ThemeProvider>
 
