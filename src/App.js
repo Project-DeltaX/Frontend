@@ -17,17 +17,17 @@ import RouterComponent from "./MyRoutes";
 
 
 
-import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
-import { Login, RotateLeftOutlined } from "@mui/icons-material";
+// import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
+// import { Login, RotateLeftOutlined } from "@mui/icons-material";
 // import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
 
 
-import Register from "./pages/UserAuthentication/createNewAccount";
+// import Register from "./pages/UserAuthentication/createNewAccount";
 
-import { Account } from "./pages/UserAuthentication/Account";
-import Status from "./pages/UserAuthentication/Status";
-import Settings from "./pages/UserAuthentication/Settings";
+// import { Account } from "./pages/UserAuthentication/Account";
+// import Status from "./pages/UserAuthentication/Status";
+// import Settings from "./pages/UserAuthentication/Settings";
 
 //
 
@@ -87,9 +87,10 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <Account>
+      {/* <Account>
       <RouterComponent/>
-      </Account>
+      </Account> */}
+      <CommitteeMemberHomePage/>
       
       </ThemeProvider>
 

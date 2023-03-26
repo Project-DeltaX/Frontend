@@ -47,11 +47,12 @@ function createData(PanelMemberName, JobTitle, Email, Status) {
 
 const AvailabilityStatus = () => {
   const [op, setOp] = React.useState('');
+  const [data, setData] = useState([]);
 
   const handleChange = (event) => {
     setOp(event.target.value);
   }
-  const [data, setData] = useState([]);
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,19 +117,19 @@ const AvailabilityStatus = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((data) => (
-                  <StyledTableRow key={data.name}>
+                {data.map((row) => (
+                  <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
-                      {data.PanelMemberName}
+                      {row.PanelMemberName}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {data.JobTitle}
+                      {row.JobTitle}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {data.email}
+                      {row.email}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {data.Status}
+                      {row.Status}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
