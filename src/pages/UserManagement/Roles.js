@@ -15,10 +15,46 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import CustomizedHook from "./SelectPermission";
+import CheckboxesTags from "./SelectPermission";
 import { useState } from "react";
-import IconButton from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
+
+
+//adding select permission
+
+function MyIconButton() {
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
+
+  const handleClick = () => {
+    setShowCheckboxes(true);
+  
+  };
+  const handleClose = () => {
+    setShowCheckboxes(false);
+  };
+
+ 
+
+  return (
+
+    <div>
+    <Tooltip
+      open={showCheckboxes}
+      title={<CheckboxesTags />}
+      onClose={handleClose}
+       disableHoverListener
+      placement="bottom"
+    >
+      <IconButton onClick={handleClick}>
+        <EditIcon />
+      </IconButton>
+    </Tooltip>
+  </div>
+
+  );
+}
 
 
 function createData(Roles, Permission) {
@@ -26,22 +62,21 @@ function createData(Roles, Permission) {
   }
 
   const rows = [
-    createData("Committee Member", <EditIcon />),
-    createData("Panel Member", <EditIcon />),
-    createData("Interns", <EditIcon />),
+    createData("Committee Member", <MyIconButton />),
+    createData("Panel Member", <MyIconButton />),
+    createData("Interns", <MyIconButton />),
   ];
 const CommonRoles = () => {
-  
 
     return ( 
         <Grid container direction={'column'}>
             <Grid item>
                  <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650, bgcolor:'#27144B'  }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 650, bgcolor:'#E8E1FA'  }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{color:'#E8E1FA'}}><b>Roles</b></TableCell>
-            <TableCell align="right" sx={{color:'#E8E1FA'}}><b>Permission</b></TableCell>
+            <TableCell sx={{color:'black'}}><b>Roles</b></TableCell>
+            <TableCell align="right" sx={{color:'black'}}><b>Permission</b></TableCell>
           
            
           </TableRow>
@@ -53,10 +88,10 @@ const CommonRoles = () => {
               key={row.Roles}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" sx={{color:'#E8E1FA'}}>
+              <TableCell component="th" scope="row" sx={{color:'black'}}>
                 {row.Roles}
               </TableCell>
-              <TableCell align="right" sx={{color:'#E8E1FA'}}>{row.Permission}</TableCell>
+              <TableCell align="right" sx={{color:'black'}}>{row.Permission}</TableCell>
              
              
             </TableRow>
