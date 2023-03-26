@@ -50,9 +50,7 @@ const Allocation = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://lcugzprcu3.execute-api.us-east-1.amazonaws.com/dev/p-availability-data"
-         
-        );
+          "https://lcugzprcu3.execute-api.us-east-1.amazonaws.com/dev/p-availability-data"        );
         const jsonData = await response.json();
         setPData(jsonData);
         console.log(pData);
