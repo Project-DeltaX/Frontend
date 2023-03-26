@@ -10,6 +10,8 @@ import Tab from "@mui/material/Tab";
 import { navigationActiveStyle } from "../../styles";
 import styled from "styled-components";
 import CandidateExam from "./CanditateExam";
+import MarkingSheet from "./MarkingSheet";
+import Scoresheet from "./Scoresheet";
 
 
 
@@ -101,16 +103,24 @@ const Evaluation = () => {
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <TabPanel value={value} index={0}>
-            <Typography variant="h2" align="center">
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
         Candidate Exam
       </Typography>
             <CandidateExam />
              
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Item Two
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
+            
+              Marking ScoreSheet
+              </Typography>
+              <MarkingSheet/>
             </TabPanel>
             <TabPanel value={value} index={2}>
+            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
+              Scoresheet
+              </Typography>
+              <Scoresheet />
               
             </TabPanel>
           </Grid>

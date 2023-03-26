@@ -5,9 +5,7 @@ import { Route, Routes } from "react-router-dom";
 //Sidebar Pages
 import UserManagement from "../UserManagement/UserManagement";
 import OAccount from "../AccountSettings/OAccount";
-
-
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../Dashboard/Dashboard.js";
 
 
 
