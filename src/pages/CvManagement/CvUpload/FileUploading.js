@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
-import Dropzone from "react-dropzone-uploader";
+
 
 const FileUploading = () => {
     const [files, setFiles] = useState(null);

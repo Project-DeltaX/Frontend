@@ -20,7 +20,7 @@ import { Box } from "@mui/material";
 const CvFiltering = () => {
   const [files, setFiles] = useState(null);
 
-  const [tableData, setData] = useState([]);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +29,7 @@ const CvFiltering = () => {
           "https://t1sga9lqc1.execute-api.us-east-1.amazonaws.com/dev/applicantslist"
         );
         const json = await response.json();
-        setData(json);
+        setTableData(json);
       } catch (error) {
         console.error(error);
       }
@@ -55,10 +55,10 @@ const CvFiltering = () => {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>First Namee</TableCell>
+                <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
                 <TableCell>E-mail</TableCell>
+                <TableCell>Position</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -67,10 +67,10 @@ const CvFiltering = () => {
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell>{row.id}</TableCell>
                   <TableCell>{row.first_name}</TableCell>
                   <TableCell>{row.last_name}</TableCell>
                   <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.position}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
