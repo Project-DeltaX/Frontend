@@ -32,9 +32,8 @@ const panel = [
   { title: 'Geni' },
   { title: 'Leo'},]
 
-  function createData(PanelMemberName, JobTitle, Email, Status) {
-  
-    return { PanelMemberName, JobTitle, Email, Status};
+  function createData(Candidate,PanelMemberName,Date,Email,Mode) {
+    return {Candidate,PanelMemberName,Date,Email,Mode};
   }
   
   const rows = [
@@ -115,11 +114,11 @@ const Schedule = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>PanelMemberName</TableCell>
-                <TableCell align="left">JobTitle</TableCell>
+                <TableCell>Candidate</TableCell>
+                <TableCell align="left">PanelMember</TableCell>
+                <TableCell align="left">Date</TableCell>
                 <TableCell align="left">Email</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">Mode</TableCell>
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "white" }}>
@@ -131,9 +130,11 @@ const Schedule = () => {
                   <TableCell component="th" scope="row">
                     {row.PanelMemberName}
                   </TableCell>
-                  <TableCell align="left">{row.JobTitle}</TableCell>
+                  <TableCell align="left">{row.Candidate}</TableCell>
                   <TableCell align="left">{row.Email}</TableCell>
-                  <TableCell align="left" className="Details">Details</TableCell>
+                  <TableCell align="left">{row.Date}</TableCell>
+                  <TableCell align="left">{row.Mode}</TableCell>
+                  
                 </TableRow>
               ))}
             </TableBody>
