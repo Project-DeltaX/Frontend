@@ -9,15 +9,23 @@ import Paper from "@mui/material/Paper";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker';
-import { DateRangePickerDay as MuiDateRangePickerDay } from '@mui/x-date-pickers-pro/DateRangePickerDay';
+import dayjs from 'dayjs';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { red } from "@mui/material/colors";
+import Button from '@mui/material/Button';
 
 
 
 import './Interview.css';
+
+const isWeekend = (date) => {
+  const day = date.day();
+
+  return day === 0 || day === 6;
+};
 
 
 
@@ -36,60 +44,13 @@ const rows = [
 
 
 const makeStyle=(status)=>{
-  if(status === 'Approved')
-  {
-    return {
-      background: 'rgb(145 254 159 / 47%)',
-      color: 'green',
-    }
-  }
-  else if(status === 'Pending')
-  {
-    return{
-      background: '#ffadad8f',
-      color: 'red',
-    }
-  }
-  else{
-    return{
-      background: '#59bfff',
-      color: 'white',
-    }
-  }
+ 
 }
 
 const InterviewPanel = () => {
-  const [value, setValue] = React.useState([null, null]);
-  const renderWeekPickerDay = (date, dateRangePickerDayProps) => {
-    return <DateRangePickerDay {...dateRangePickerDayProps} />;
-  };
-  const DateRangePickerDay = styled(MuiDateRangePickerDay)(
-    ({
-      theme,
-      isHighlighting,
-      isStartOfHighlighting,
-      isEndOfHighlighting,
-      outsideCurrentMonth,
-    }) => ({
-      ...(!outsideCurrentMonth &&
-        isHighlighting && {
-          borderRadius: 0,
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.common.white,
-          '&:hover, &:focus': {
-            backgroundColor: theme.palette.primary.dark,
-          },
-        }),
-      ...(isStartOfHighlighting && {
-        borderTopLeftRadius: '50%',
-        borderBottomLeftRadius: '50%',
-      }),
-      ...(isEndOfHighlighting && {
-        borderTopRightRadius: '50%',
-        borderBottomRightRadius: '50%',
-      }),
-    }),
-  );
+  
+  const [value, setValue] = React.useState(dayjs('2022-04-07'));
+  
   {
     
   
@@ -98,30 +59,28 @@ const InterviewPanel = () => {
   
 
   return (
-    <box>
-       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <StaticDateRangePicker
-        displayStaticWrapperAs="desktop"
-        label="date range"
+    
+    <Box m={10}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <StaticDatePicker
+        orientation="landscape"
+        openTo="day"
         value={value}
-        onChange={(newValue) => setValue(newValue)}
-        renderDay={renderWeekPickerDay}
-        renderInput={(startProps, endProps) => (
-          <React.Fragment>
-            <TextField {...startProps} />
-            <Box sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} />
-          </React.Fragment>
-        )}
+        shouldDisableDate={isWeekend}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>
+  
       <div className="Table">
      
         <TableContainer
           component={Paper}
           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
         >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 , bgcolor:'#8440EE'}} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>CandidateName</TableCell>
@@ -145,7 +104,9 @@ const InterviewPanel = () => {
                   <TableCell align="left">{row.Age}</TableCell>
                   <TableCell align="left">{row.Email}</TableCell>
                   <TableCell align="left">
-                    <span className="status" style={makeStyle(row.status)}>{row.status}</span>
+                  <Button variant="contained" color="primary">
+                Goto Interview
+                  </Button>
                   </TableCell>
                   ]
                 </TableRow>
@@ -155,7 +116,7 @@ const InterviewPanel = () => {
         </TableContainer>
       </div>
 
-    </box>
+      </Box>
       
   );
 }

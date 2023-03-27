@@ -9,10 +9,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(candidatename, candidateid,email,writtenexam,practicaltest,total) {
+  return { candidatename, candidateid,email,writtenexam,practicaltest,total};
 }
 
 const rows = [
@@ -31,23 +32,29 @@ const CandidateExam = () => {
  
   return (
     <Box>
+      
       <React.Fragment>
       <CssBaseline />
-      <Container fixed>
-        <Box sx={{ bgcolor: '#cfe8fc', height: '40vh' }} />
+      <Container >
+        <Box m={10} sx={{ bgcolor: '#cfe8fc', height: '40vh' }} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <CircularProgress />
+    </div>
       </Container>
     </React.Fragment>
     <Box m={10}/> 
  
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 650, bgcolor:'purple' }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>CandidateName</TableCell>
+            <TableCell align="right">CandidateID</TableCell>
+            <TableCell align="right">email</TableCell>
+            <TableCell align="right">Written Exam</TableCell>
+            <TableCell align="right">practicaltest</TableCell>
+            <TableCell align="right">Total</TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -57,12 +64,14 @@ const CandidateExam = () => {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.candidatename}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.candidateid}</TableCell>
+              <TableCell align="right">{row.email}</TableCell>
+              <TableCell align="right">{row.writtenexam}</TableCell>
+              <TableCell align="right">{row.practicaltest}</TableCell>
+              <TableCell align="right">{row.total}</TableCell>
+
             </TableRow>
           ))}
         </TableBody>

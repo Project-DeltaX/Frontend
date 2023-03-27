@@ -1,68 +1,56 @@
+// Importing necessary components and libraries
+
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
-
-// import React from "react";
-import { Link } from "react-router-dom";
-
 import { CognitoUser } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
 import Pool from "../../pages/UserPool";
 
+// Define the NewPassword component
+
 const NewPassword = (props) => {
-  const [stage,setStage]=useState(1);
+  // Setting initial state
 
-    const [code,setCode]=useState('');
-    const [password,setPassword]=useState('');  
-    const [confirmPassword,setConfirmPassword]=useState('');
+  const [stage, setStage] = useState(1); // Stage of the password reset process
 
+  const [code, setCode] = useState(""); // Verification code entered by user
+  const [password, setPassword] = useState(""); // New password entered by user
+  const [confirmPassword, setConfirmPassword] = useState(""); // Confirm new password entered by user
 
+  // Define a function to get the current user
 
-
-    const getUser=() =>{
-
+  const getUser = () => {
     return new CognitoUser({
-        Username:props.Username,
-        Pool
+      Username: props.Username,
+      Pool,
     });
-    };
-    // const sendCode=event=>{
-    //     event.preventDefault();
+  };
 
-    // getUser().NewPassword({
-    //     onSuccess:data=>{
-    //         console.log('onSuccess',data);
-    //     },
-    //     onFailure:err=>{
-    //         console.error('onFailure',err);
-    //     },
-    //     inputVerificationCode:data=>{
-    //         console.log('Input code:',data);
-    //         setStage(2);
-    //     }
-    // });
-    // }; 
+  // Define a function to handle the form submission
 
-    const resetPassword = event=>{
-        event.preventDefault();
+  const resetPassword = (event) => {
+    event.preventDefault();
 
-        if(password !==  confirmPassword){
-            console.error('Password are not the same');
-            return;
-        }
+    // Check if the new passwords match
 
-        getUser().confirmPassword(code,password,{
-            onSuccess:data=>{
-                console.log('onSuccess:',data);
-            },
-            onFailure:err=>{
-                console.error('onFailure:',err);
-            }
-        })
+    if (password !== confirmPassword) {
+      console.error("Password are not the same");
+      return;
     }
-    ;
+    // Call the confirmPassword method of the CognitoUser object to reset the user's password
+
+    getUser().confirmPassword(code, password, {
+      onSuccess: (data) => {
+        console.log("onSuccess:", data);
+      },
+      onFailure: (err) => {
+        console.error("onFailure:", err);
+      },
+    });
+  };
+  // Return the JSX for the component
+
   return (
     <div>
-      
       <form onSubmit={resetPassword}>
         <Box
           display="flex"
@@ -82,12 +70,6 @@ const NewPassword = (props) => {
           }}
         >
           <Grid container direction="column">
-
-         
-
-
-
-
             <Grid>
               <Typography
                 color="#E8E1FA"
@@ -125,13 +107,12 @@ const NewPassword = (props) => {
                   margin="normal"
                   type={"text"}
                   value={code}
-                 onChange={event=>setCode(event.target.value)}
+                  onChange={(event) => setCode(event.target.value)}
                   variant="outlined"
                   placeholder="Enter the verification code"
                 />
               </Grid>
             </Grid>
-
 
             <Grid padding={3}>
               <Grid>
@@ -158,7 +139,7 @@ const NewPassword = (props) => {
                   type={"password"}
                   variant="outlined"
                   value={password}
-                      onChange={event=>setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                   placeholder="New password"
                 />
               </Grid>
@@ -190,7 +171,7 @@ const NewPassword = (props) => {
                   type={"password"}
                   variant="outlined"
                   value={confirmPassword}
-                      onChange={event=>setConfirmPassword(event.target.value)}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
                   placeholder="Confirm password"
                 />
               </Grid>

@@ -7,13 +7,14 @@ import "../AccountSettings/OAccount.css";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { navigationActiveStyle } from "../../styles";
-import styled from "styled-components";
 
-//import defined Components
-import Profile from "./components/Profile";
-import Notifications from "./components/Notifications";
-import SecurityPrivacy from "./components/SecurityPrivacy";
+//Components
+import FileUploading from "./CvUpload/FileUploading";
+import CvFiltering from "./CvUpload/CvFiltering";
+import CvList from "./CvUpload/CvList";
+import CvView from "./CvUpload/CvView";
+
+
 
 //,#2C165D,#27144B,#e8e1fa
 
@@ -47,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-const OAccount = () => {
+const CvManagement = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -73,7 +74,7 @@ const OAccount = () => {
             padding={1}
           >
             <Grid item md={3} lg={4} paddingLeft={3}>
-              <Typography variant="h4">Account Settings</Typography>
+              <Typography variant="h4">CV Management</Typography>
             </Grid>
             <Grid item md={3} lg={4} paddingLeft={5}>
               <Box
@@ -96,22 +97,26 @@ const OAccount = () => {
                   onChange={handleChange}
                   aria-label="basic tabs example"
                 >
-                  <Tab label="Profile" {...a11yProps(0)} />
-                  <Tab label="Notifications" {...a11yProps(1)} />
-                  <Tab label="Security & Privacy" {...a11yProps(2)} />
+                  <Tab label="CV Upload" {...a11yProps(0)} />
+                  <Tab label="CV filter" {...a11yProps(1)} />
+                  <Tab label="CV list" {...a11yProps(2)} />
+                  <Tab label="CV view" {...a11yProps(3)} />
                 </Tabs>
               </Box>
             </Grid>
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <TabPanel value={value} index={0}>
-              <Profile />
+                <FileUploading/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Notifications />
+                <CvFiltering/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <SecurityPrivacy />
+                <CvList/>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <CvView/>
             </TabPanel>
           </Grid>
         </Grid>
@@ -120,4 +125,4 @@ const OAccount = () => {
   );
 };
 
-export default OAccount;
+export default CvManagement;
