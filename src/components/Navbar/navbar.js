@@ -14,7 +14,7 @@ import userCog from "@iconify/icons-fa-solid/user-cog";
 import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { DragIndicator } from "@mui/icons-material";
+import { DragIndicator, Image } from "@mui/icons-material";
 import interviewIcon from "@iconify/icons-openmoji/interview";
 import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
@@ -97,11 +97,12 @@ const Navbar = (props) => {
   return (
     <div>
       <Toolbar>
-        <AppleIcon
+      <Avatar alt="Logo" src="" />
+        {/* <AppleIcon
           color="primary"
           fontSize="large"
           sx={{ margin: "20px", marginInlineStart: "80px" }}
-        />
+        /> */}
       </Toolbar>
       <Divider
         textAlign="left"

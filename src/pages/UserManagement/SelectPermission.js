@@ -11,6 +11,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 // This component renders an Autocomplete input field that allows the user to select multiple options from a list of permissions
 
 export default function CheckboxesTags(props) {
+  
   return (
     <Autocomplete
       // The Autocomplete component is set to allow multiple selections and disables the option to close the menu on selection
@@ -29,7 +30,7 @@ export default function CheckboxesTags(props) {
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
-            style={{ marginRight: 15 }}
+            style={{ marginRight: 10 }}
             // The Checkbox component's 'checked' prop is set to reflect whether the current option is selected or not
 
             checked={selected}
@@ -39,7 +40,7 @@ export default function CheckboxesTags(props) {
       )}
       // The Autocomplete component's style is set to define its width and background color
 
-      style={{ width: 200, backgroundColor: "white" }}
+      style={{ width: 200, backgroundColor: "white" ,zIndex:1, position:"relative" }}
       // The renderInput prop is set to render a TextField with a label and placeholder
 
       renderInput={(params) => (
@@ -51,11 +52,12 @@ export default function CheckboxesTags(props) {
 // An array of permission objects, each containing a 'number' property that corresponds to a permission option in the Autocomplete
 
 const Permissions = [
-  { number: "Access the dashboard" },
-  { number: "Add users" },
-  { number: "Access the portal" },
-  { number: "schedule the meetings" },
+  { number: "Dashboard Access" },
+  { number: "View and filter CV documents" },
+  { number: "CV uploading Access" },
+  { number: "Mail Access" },
   { number: "send emails" },
-  { number: "evaluation" },
-  { number: "update the scoresheets" },
+  { number: "Score sheet Access" },
+  { number: "Progress Report Access" },
+  {number: "Individual Progress Access"},
 ];

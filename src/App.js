@@ -72,9 +72,7 @@ function App() {
       <Account>
       <RouterComponent/>
       </Account>
-
-      {/* <InternHomePage/> */}
-
+      <AdminHomePage/>
       
       </ThemeProvider>
 
