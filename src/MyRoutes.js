@@ -29,12 +29,11 @@ function RouterComponent() {
   const {getToken,getLoginStatus} = useContext(AccountContext);
   const token = getToken();
   if(getLoginStatus()){
-    console.log(token);
+    const jToken = token['accessToken']['jwtToken'];
+  const decodedToken = jwtDecode(jToken);
   }
   
-  // const jToken = token['accessToken']['jwtToken'];
-  // const decodedToken = jwtDecode(jToken);
-  // console.log(decodedToken);
+  
   useEffect(() => {
     async function fetchData() {
       // const userType = await getUserType();

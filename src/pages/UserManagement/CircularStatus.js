@@ -1,13 +1,15 @@
 import React from "react";
 //import * as React from 'react';
-import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import PropTypes from "prop-types";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+// A custom component that wraps CircularProgress and adds a label with percentage
 
 function CircularProgressWithLabel(props) {
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress variant="determinate" {...props} />
       <Box
         sx={{
@@ -15,10 +17,10 @@ function CircularProgressWithLabel(props) {
           left: 0,
           bottom: 0,
           right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Typography variant="caption" component="div" color="text.secondary">
@@ -29,26 +31,33 @@ function CircularProgressWithLabel(props) {
   );
 }
 
+// Defining the prop types for CircularProgressWithLabel
+
 CircularProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate variant.
-   * Value between 0 and 100.
-   * @default 0
-   */
   value: PropTypes.number.isRequired,
 };
+// The main component that renders the CircularProgressWithLabel with a changing progress value
 
 export default function CircularStatus() {
+  // Using React hooks to define the progress state and update it periodically
+
   const [progress, setProgress] = React.useState(10);
 
   React.useEffect(() => {
+    // Using setInterval to increment the progress state value by 10 every 800ms
+
     const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 0 : prevProgress + 10
+      );
     }, 800);
+    // Clearing the interval when the component unmounts
+
     return () => {
       clearInterval(timer);
     };
   }, []);
+  // Rendering the CircularProgressWithLabel with the current progress value
 
   return <CircularProgressWithLabel value={progress} />;
 }
