@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
 import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
-import Dashboard from "../DashBoard/Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
