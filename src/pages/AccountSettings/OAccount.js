@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 //import defined Components
 import Profile from "./components/Profile";
-import Notifications from "@mui/icons-material/Notifications";
+import Notifications from "./components/Notifications";
 import SecurityPrivacy from "./components/SecurityPrivacy";
 
 //,#2C165D,#27144B,#e8e1fa
