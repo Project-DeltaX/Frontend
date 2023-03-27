@@ -71,10 +71,8 @@ function App() {
       <ThemeProvider theme={theme}>
       <Account>
       <RouterComponent/>
-      </Account>
-
-      {/* <InternHomePage/> */}
-
+      </Account> */}
+      <AdminHomePage/>
       
       </ThemeProvider>
 
