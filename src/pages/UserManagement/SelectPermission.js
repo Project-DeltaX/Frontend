@@ -11,6 +11,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 // This component renders an Autocomplete input field that allows the user to select multiple options from a list of permissions
 
 export default function CheckboxesTags(props) {
+  
   return (
     <Autocomplete
       // The Autocomplete component is set to allow multiple selections and disables the option to close the menu on selection

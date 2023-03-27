@@ -14,7 +14,6 @@ const InternHomePage = () => {
       </Routes>
 
     </Layout>
-  
   );
 };
 
