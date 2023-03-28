@@ -4,8 +4,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
-
 import { useState } from "react";
+
+//CSS import
+import "../UserAuthentication/Authentication.css";
+
 // import Pool from "../UserPool.js";
 import {
   CognitoUserPool,
@@ -103,7 +106,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="loginbackgorund">
       <form onSubmit={(e) => handleSubmit(e)}>
         <Box
           display="flex"
@@ -152,7 +155,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "215px",
+                      width: "180px",
                       height: "15px",
                     },
                   }}
@@ -172,7 +175,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "215px",
+                      width: "180px",
                       height: "15px",
                     },
                   }}

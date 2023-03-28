@@ -70,14 +70,10 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <Account>
-      <RouterComponent/>
-      </Account>
-      {/* <AdminHomePage/> */}
-      
-      </ThemeProvider>
-
-        <Register />
+        <Account>
+          <RouterComponent />
+        </Account>
+        {/* <AdminHomePage/> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
