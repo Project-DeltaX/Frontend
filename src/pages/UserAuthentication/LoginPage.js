@@ -81,7 +81,6 @@ const LoginPage = () => {
     // Render Login page UI
 
     <div className="loginbackgorund">
-      {" "}
       {/* Login page background */}
       <Grid container spacing={0.2}>
         {/* Render page title */}
@@ -116,6 +115,7 @@ const LoginPage = () => {
               alignItems="center"
               justifyContent={"center"}
               marginX={{ md: 3, lg: 10 }}
+              // marginBottom={{md:15}}
               marginTop={{ md: 10 }}
               padding={6}
               borderRadius={20}

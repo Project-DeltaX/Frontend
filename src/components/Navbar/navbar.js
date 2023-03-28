@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import AppleIcon from "@mui/icons-material/Apple";
+import { Avatar } from "@mui/material";
 import { Icon } from "@iconify/react";
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
@@ -97,7 +97,8 @@ const Navbar = (props) => {
   return (
     <div>
       <Toolbar>
-      <Avatar alt="Logo" src="" />
+      <Avatar alt="Logo" src="Logo.jpg" />
+      <img src="Logo.jpg"/>
         {/* <AppleIcon
           color="primary"
           fontSize="large"
