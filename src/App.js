@@ -71,16 +71,16 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Account>
+        {/* <Account>
           <LoginPage />
-        </Account>
+        </Account> */}
 
         {/* <AdminHomePage/> */}
 
         <Register />
-        <ForgotPassword />
-        <EmailConfirmation />
-        <SuccessfulPasswordReset />
+        {/* <ForgotPassword /> */}
+        {/* <EmailConfirmation /> */}
+        {/* <SuccessfulPasswordReset /> */}
       </ThemeProvider>
     </div>
   );
