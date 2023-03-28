@@ -13,13 +13,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
-function createCData(Name, Position, email) {
-  return { Name, Position, email };
-}
-function createPData(PanelMemberName, JobTitle, email) {
-  return { PanelMemberName, JobTitle, email };
-}
-
 const Allocation = () => {
   const [member, setMember] = React.useState([]);
   const [cData, setCData] = useState([]);
@@ -63,13 +56,15 @@ const Allocation = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
-        <FormControl fullWidth  sx={{
-  '& label': {
-    color: '#1e0342',    // change text color
-    fontWeight: "bold" 
-  },
-  
-}}>
+        <FormControl
+          fullWidth
+          sx={{
+            "& label": {
+              color: "#1e0342", // change text color
+              fontWeight: "bold",
+            },
+          }}
+        >
           <InputLabel id="demo-simple-select-label">Panel member</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -92,9 +87,8 @@ const Allocation = () => {
             style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
           >
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#9485a8"}}>
+              <TableHead sx={{ backgroundColor: "#9485a8" }}>
                 <TableRow>
-              
                   <TableCell>PanelMemberName</TableCell>
                   <TableCell align="left">JobTitle</TableCell>
                   <TableCell align="left">Email</TableCell>
@@ -103,7 +97,7 @@ const Allocation = () => {
               <TableBody style={{ color: "Bluet" }}>
                 {pData.map((row) => (
                   <TableRow
-                    style = {{backgroundColor:"#b8a9cc"}}
+                    style={{ backgroundColor: "#b8a9cc" }}
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
@@ -120,13 +114,15 @@ const Allocation = () => {
         </div>
       </Grid>
       <Grid item xs={6}>
-        <FormControl fullWidth  sx={{
-  '& label': {
-    color: '#1e0342',    // change text color
-    fontWeight: "bold" 
-  },
-  
-}}>
+        <FormControl
+          fullWidth
+          sx={{
+            "& label": {
+              color: "#1e0342", // change text color
+              fontWeight: "bold",
+            },
+          }}
+        >
           <InputLabel id="demo-simple-select-label">Candidate</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -149,7 +145,7 @@ const Allocation = () => {
             style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
           >
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#9485a8"}}>
+              <TableHead sx={{ backgroundColor: "#9485a8" }}>
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell align="left">Position</TableCell>
@@ -159,7 +155,7 @@ const Allocation = () => {
               <TableBody style={{ color: "Blue" }}>
                 {cData.map((row) => (
                   <TableRow
-                  style = {{backgroundColor:"#b8a9cc"}}
+                    style={{ backgroundColor: "#b8a9cc" }}
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
@@ -176,7 +172,7 @@ const Allocation = () => {
         </div>
       </Grid>
       <Grid item xs={12}>
-        <Button variant="contained" style={{backgroundColor: '#1e0342',}}>
+        <Button variant="contained" style={{ backgroundColor: "#1e0342" }}>
           Allocate for interview
         </Button>
       </Grid>
