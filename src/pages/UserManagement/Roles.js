@@ -1,3 +1,5 @@
+
+//Common Roles---
 import { Grid, Link } from "@mui/material";
 // import React from "react";
 
@@ -67,7 +69,7 @@ const CommonRoles = () => {
       <Grid item>
         <TableContainer component={Paper}>
           <Table
-            sx={{ minWidth: 650, bgcolor: "#E8E1FA" }}
+            sx={{ minWidth: 500, bgcolor: "#E8E1FA" }}
             size="small"
             aria-label="a dense table"
           >

@@ -7,14 +7,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import AppleIcon from "@mui/icons-material/Apple";
+import { Avatar } from "@mui/material";
 import { Icon } from "@iconify/react";
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
 import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { DragIndicator } from "@mui/icons-material";
+import { DragIndicator, Image } from "@mui/icons-material";
 import interviewIcon from "@iconify/icons-openmoji/interview";
 import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
@@ -97,11 +97,13 @@ const Navbar = (props) => {
   return (
     <div>
       <Toolbar>
-        <AppleIcon
+      <Avatar alt="Logo" src="Logo.jpg" />
+      <img src="Logo.jpg"/>
+        {/* <AppleIcon
           color="primary"
           fontSize="large"
           sx={{ margin: "20px", marginInlineStart: "80px" }}
-        />
+        /> */}
       </Toolbar>
       <Divider
         textAlign="left"
