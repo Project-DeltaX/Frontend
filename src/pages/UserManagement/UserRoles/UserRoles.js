@@ -1,33 +1,34 @@
+
+//User_Roles
 import React from "react";
 
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { visuallyHidden } from "@mui/utils";
 // import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import SimpleDialog from "../../../components/ChangeRoles"
-
+import SimpleDialog from "../../../components/ChangeRoles";
 
 // function createData(UserName, Email, Country, Posting, Status,Role,Edit) {
 //   return {
@@ -38,7 +39,7 @@ import SimpleDialog from "../../../components/ChangeRoles"
 //     Status,
 //     Role,
 //     Edit,
-//     
+//
 //     };
 // }
 
@@ -69,11 +70,10 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
 
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -85,64 +85,68 @@ function stableSort(array, comparator) {
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
- 
 }
 
 const headCells = [
   {
-    id: 'Username',
+    id: "Username",
     numeric: false,
     disablePadding: true,
-    label: 'UserName',
+    label: "UserName",
   },
   {
-    id: 'Email',
+    id: "Email",
     numeric: false,
     disablePadding: false,
-    label: 'Email',
+    label: "Email",
   },
   {
-    id: 'Country',
+    id: "Country",
     numeric: false,
     disablePadding: false,
-    label: 'Country ',
+    label: "Country ",
   },
   {
-    id: 'Posting',
+    id: "Posting",
     numeric: false,
     disablePadding: false,
-    label: 'Posting ',
+    label: "Posting ",
   },
   {
-    id: 'Status',
+    id: "Status",
     numeric: false,
     disablePadding: false,
-    label: 'Status ',
+    label: "Status ",
   },
   {
-    id: 'Role',
+    id: "Role",
     numeric: false,
     disablePadding: false,
-    label: 'Role',
+    label: "Role",
   },
   {
-    id: 'Edit',
+    id: "Edit",
     numeric: false,
     disablePadding: false,
-    label: 'Edit',
+    label: "Edit",
   },
- 
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
   return (
-    <TableHead >
+    <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -151,28 +155,26 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              "aria-label": "select all desserts",
             }}
           />
-
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
-          
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -187,7 +189,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -202,13 +204,16 @@ function EnhancedTableToolbar(props) {
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.activatedOpacity
+            ),
         }),
       }}
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -217,12 +222,12 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
           component="div"
         >
-         <b>User_Roles</b> 
+          <b>User_Roles</b>
         </Typography>
       )}
 
@@ -248,32 +253,27 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function UserRole() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('Email');
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("Email");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-
-
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('https://0z3js6g6eg.execute-api.us-east-1.amazonaws.com/getuser/addinguserdata')
-      .then(response => response.json())
-      .then(data => setData(data))
-      .catch(error => console.error(error));
+    fetch(
+      "https://0z3js6g6eg.execute-api.us-east-1.amazonaws.com/getuser/addinguserdata"
+    )
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
   }, []);
 
-
-
-
-
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -299,7 +299,7 @@ export default function UserRole() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -324,14 +324,14 @@ export default function UserRole() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
-    <Box sx={{ width: '100%'}}>
-      <Paper sx={{ width: '100%', mb: 2 ,bgcolor:'#E8E1FA'}}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2, bgcolor: "#E8E1FA" }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -349,7 +349,7 @@ export default function UserRole() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow 
+                    <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.UserName)}
                       role="checkbox"
@@ -357,15 +357,15 @@ export default function UserRole() {
                       tabIndex={-1}
                       key={row.UserName}
                       selected={isItemSelected}
-                      display={'flex'}
-                      justifyContent={'center'}
+                      display={"flex"}
+                      justifyContent={"center"}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId,
+                            "aria-labelledby": labelId,
                           }}
                         />
                       </TableCell>
@@ -382,9 +382,8 @@ export default function UserRole() {
                       <TableCell align="left">{row.Posting}</TableCell>
                       <TableCell align="left">{row.Status}</TableCell>
                       <TableCell align="left">{row.Role}</TableCell>
-                       <SimpleDialog />
+                      <SimpleDialog />
                       <TableCell align="left">{row.Edit}</TableCell>
-
                     </TableRow>
                   );
                 })}
@@ -415,8 +414,5 @@ export default function UserRole() {
         label="Dense padding"
       />
     </Box>
-
-
-
   );
 }
