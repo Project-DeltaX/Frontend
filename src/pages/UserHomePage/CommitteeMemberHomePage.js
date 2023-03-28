@@ -9,7 +9,7 @@ import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
 import Dashboard from "../Dashboard/Dashboard";
 import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
-import Dashboard from "../DashBoard/Dashboard";
+
 const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {

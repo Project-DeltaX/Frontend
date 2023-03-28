@@ -80,11 +80,11 @@ function App() {
       {/* </ThemeProvider> */}
       <CommitteeMemberHomePage />
 
-        <Register />
+        {/* <Register /> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </div>
   );
 }
