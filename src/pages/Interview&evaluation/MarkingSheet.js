@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,50 +13,90 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import AWS from "aws-sdk";
 
 
 
 
 
 
-function createData(Criteria,Excellent, Good, Average, Poor,None) {
-  return {Criteria,Excellent, Good, Average, Poor,None };
-}
+// function createData(Criteria,Excellent, Good, Average, Poor,None) {
+//   return {Criteria,Excellent, Good, Average, Poor,None };
+// }
 
-const rows = [
-  createData('Self intro', '4mark', '3mark', '2mark', '1mark', '0mark'),
-  createData('Technical Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-  createData('Communication Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-  createData('Problem Solving skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-  createData('Personality and teamwork',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-];
+// const rows = [
+//   createData('Self intro', '4mark', '3mark', '2mark', '1mark', '0mark'),
+//   createData('Technical Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
+//   createData('Communication Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
+//   createData('Problem Solving skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
+//   createData('Personality and teamwork',  '4mark', '3mark', '2mark', '1mark', '0mark'),
+// ];
 const MarkingSheet= () => {
-    const [cid, setcid] = React.useState('');
+    const [Candidate_name, setCandidate_name] = React.useState('');
 
   const handleChange = (event) => {
-    setcid(event.target.value);
+    setCandidate_name(event.target.value);
   };
+  const [rowData, setRowData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch(
+      "https://8h66zb4an0.execute-api.us-east-1.amazonaws.com/new10/markingsheet"
+    );
+    const data = await response.json();
+    setRowData(
+      data.map((row) => ({
+        ...row,
+        selectedOption: null, // add a selectedOption property to each row initially set to null
+      }))
+    );
+  };
+
+  const handleOptionSelect = (rowIndex, optionValue) => {
+    setRowData((prevData) =>
+      prevData.map((row, i) =>
+        i === rowIndex ? { ...row, selectedOption: optionValue } : row
+      )
+    );
+  };
+
+  const calculateScore = () => {
+    // Calculate the score based on the selected options for each row
+    // Return the total score
+    return rowData.reduce((total, row) => total + row.selectedOption, 0);
+  };
+      
+    
+  
     return (
         <Box m={10} sx={{ minWidth: 10}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">CandidateID</InputLabel>
+        <InputLabel id="demo-simple-select-label">Candidate_name</InputLabel>
+        
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={cid}
+          value={"Candidate_name"}
           label="CandidateId"
           onChange={handleChange}
         >
-          <MenuItem value={'001.99x'}>001.99x</MenuItem>
-          <MenuItem value={'002.99x'}>002.99x</MenuItem>
-          <MenuItem value={'003.99x'}>003.99x</MenuItem>
+          {rowData.map((data,index)=> (
+          <MenuItem key={index}>{data.Candidate_name}</MenuItem>
+         
+          ))}
         </Select>
+
       </FormControl>
     
        
-        <Box m={10} sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
+        <Box m={10} sx={{  height: '100vh' }} >
         <TableContainer >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650,bgcolor: '#E8E1FA' }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Criteria</TableCell>
@@ -68,36 +108,41 @@ const MarkingSheet= () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+            {rowData.map((data,index)=> (
                 <TableRow
-                  key={row.Criteria}
+                  key={data.Criteria}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.Criteria}
+                    {data.Criteria}
                   </TableCell>
                   <TableCell align="right">
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" onClick={() => handleOptionSelect(index, 4)}
+                    disabled={data.selectedOption === 4} >
                   4marks
                   </Button></TableCell>
                   <TableCell align="right">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={() => handleOptionSelect(index,3)}
+                    disabled={data.selectedOption === 3} >
                   3marks
                   </Button>
 
                   </TableCell>
                   <TableCell align="right">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={() => handleOptionSelect(index, 2)}
+                    disabled={data.selectedOption === 2} >
                   2marks
                   </Button>
                   </TableCell>
                   <TableCell align="right">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={() => handleOptionSelect(index, 1)}
+                    disabled={data.selectedOption === 1} >
                   1marks
                   </Button>
                   </TableCell>
                   <TableCell align="right">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={() => handleOptionSelect(index, 0)}
+                    disabled={data.selectedOption === 0} >
                   0marks
                   </Button>
                   </TableCell>

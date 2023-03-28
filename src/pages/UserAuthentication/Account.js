@@ -7,22 +7,13 @@
 
 // const Account = (props) => {
 
-<<<<<<< HEAD
-//     const getSession = async =>{
-
-//     };
-//   const authenticate = async (Username, Password) => {
-//     return await new Promise((resolve, reject) => {
-//       const user = new CognitoUser({ Username, Pool });
-=======
-  const getSession = async =>{
-  };
+  // const getSession = async =>{
+  // };
 
 
-  const authenticate = async (Username, Password) => {
-    return await new Promise((resolve, reject) => {
-      const user = new CognitoUser({ Username, Pool });
->>>>>>> 8ede6648f1425d50dd54af35788ff71730f74085
+  // const authenticate = async (Username, Password) => {
+  //   return await new Promise((resolve, reject) => {
+  //     const user = new CognitoUser({ Username, Pool });
 
 //       const authDetails = new AuthenticationDetails({ Username, Password });
 
