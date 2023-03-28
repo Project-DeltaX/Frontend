@@ -3,7 +3,12 @@ import Layout from "../../components/Layout";
 import { Route, Routes } from "react-router-dom";
 import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
+
 const MenuArr = ["Dashboard", "CV Management", "Interview Schedule", "Account"];
+
+import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
+import Dashboard from "../Dashboard/Dashboard";
+
 
 const CommitteeMemberHomePage = () => {
   return (
@@ -20,4 +25,6 @@ const CommitteeMemberHomePage = () => {
   );
 };
 
+
 export default CommitteeMemberHomePage;
+
