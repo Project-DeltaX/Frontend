@@ -4,7 +4,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 //file resources
 import "@fontsource/poppins";
-import Bg01 from "../src/Images/BackgroundImg01.jpg";
 import "@fontsource/poppins";
 
 //user defined Component imports
@@ -72,7 +71,7 @@ function App() {
       <Account>
       <RouterComponent/>
       </Account>
-      <AdminHomePage/>
+      {/* <AdminHomePage/> */}
       
       </ThemeProvider>
 
