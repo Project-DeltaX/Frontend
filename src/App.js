@@ -1,7 +1,6 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-
 //file resources
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
@@ -13,7 +12,11 @@ import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePag
 import RouterComponent from "./MyRoutes";
 import InternHomePage from "./pages/UserHomePage/InternHomePage";
 import { Account } from "./pages/UserAuthentication/Account";
-
+import Register from "./pages/UserAuthentication/createNewAccount";
+import LoginPage from "./pages/UserAuthentication/LoginPage";
+import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
+import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
+import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -65,17 +68,20 @@ const theme = createTheme({
 });
 
 function App() {
-
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <Account>
-      <RouterComponent/>
-      </Account> 
-      <AdminHomePage/>
-      
-      </ThemeProvider>
+        <Account>
+          <LoginPage />
+        </Account>
 
+        {/* <AdminHomePage/> */}
+
+        <Register />
+        <ForgotPassword />
+        <EmailConfirmation />
+        <SuccessfulPasswordReset />
+      </ThemeProvider>
     </div>
   );
 }

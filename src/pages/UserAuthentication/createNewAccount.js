@@ -152,7 +152,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "215px",
+                      width: "180px",
                       height: "15px",
                     },
                   }}
@@ -161,7 +161,7 @@ const Register = () => {
                   variant="outlined"
                   placeholder="First Name"
                   name="firstName"
-                  value={formData.firstname}
+                  value={formData.firstName}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -172,7 +172,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "215px",
+                      width: "180px",
                       height: "15px",
                     },
                   }}
@@ -181,7 +181,7 @@ const Register = () => {
                   variant="outlined"
                   placeholder="Last Name"
                   name="lastName"
-                  value={formData.lastname}
+                  value={formData.lastName}
                   onChange={handleInputChange}
                 />
               </Grid>
