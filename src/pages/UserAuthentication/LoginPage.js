@@ -115,7 +115,7 @@ const LoginPage = () => {
               alignItems="center"
               justifyContent={"center"}
               marginX={{ md: 3, lg: 10 }}
-              // marginBottom={{md:15}}
+              marginBottom={{md:22}}
               marginTop={{ md: 10 }}
               padding={6}
               borderRadius={20}
