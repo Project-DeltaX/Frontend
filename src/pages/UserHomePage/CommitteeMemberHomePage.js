@@ -10,9 +10,7 @@ import CvManagement from "../CvManagement/CvManagement";
 import Dashboard from "../Dashboard/Dashboard";
 import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
 
-
-//Array that contains the side bar components of a specific user
-const MenuArr = ["Dashboard", "CV Management", "Interview Schedule", "Account"];
+const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
   return (
