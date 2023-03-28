@@ -17,7 +17,7 @@ const AdminHomePage = () => {
     <Layout MenuArr={MenuArr} IconArr="AIconArr">
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/adminHome/Dashboard" element={<Dashboard/>} />
+        <Route path="/Dashboard" element={<Dashboard/>} />
         <Route path="/UserManagement" element={<UserManagement/>} />
         <Route path="/Account" element={<OAccount />} />
       </Routes>
