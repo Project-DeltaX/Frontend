@@ -1,12 +1,14 @@
+import React, { useState } from "react";
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import pass from "../../Images/ForgotPassword.svg";
 
 import { CognitoUser } from "amazon-cognito-identity-js";
 
-import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import Pool from "../../pages/UserPool";
 import NewPassword from "./NewPassword";
+import "../UserAuthentication/Authentication.css";
 
 const ForgotPassword = () => {
   // Define state variables to track the stage and email entered by the user
@@ -44,7 +46,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
+    <div className="loginbackgorund">
       {/* Render different content based on the stage */}
       {stage === 1 && (
         <form onSubmit={sendCode}>
