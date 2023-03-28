@@ -87,7 +87,7 @@ const Register = () => {
     // Calling the signUp method on the userPool object to sign up the user with the provided details
 
     userPool.signUp(
-      formData.email,  // User email
+      formData.email,   // User email
       formData.password,  // User password
       attributeList,  // Array of user attributes
       null, // Validation data (optional)
@@ -152,7 +152,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "180px",
+                      width: "215px",
                       height: "15px",
                     },
                   }}
@@ -161,7 +161,7 @@ const Register = () => {
                   variant="outlined"
                   placeholder="First Name"
                   name="firstName"
-                  value={formData.firstName}
+                  value={formData.firstname}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -172,7 +172,7 @@ const Register = () => {
                       color: "#8C8B8B",
                       bgcolor: "#fff",
                       borderRadius: "20px",
-                      width: "180px",
+                      width: "215px",
                       height: "15px",
                     },
                   }}
@@ -181,7 +181,7 @@ const Register = () => {
                   variant="outlined"
                   placeholder="Last Name"
                   name="lastName"
-                  value={formData.lastName}
+                  value={formData.lastname}
                   onChange={handleInputChange}
                 />
               </Grid>
