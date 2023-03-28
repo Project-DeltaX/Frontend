@@ -45,7 +45,7 @@ const CssTextField = styled(TextField)({
 const Profile = () => {
   const [editedData, setEditedData] = useState([]);
   const [disable, setDisable] = useState(true);
-  const [username,setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
@@ -63,14 +63,15 @@ const Profile = () => {
       try {
         // Fetch data from the Lambda function API
         const response = await fetch(
-          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev",{
+          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev/profiledetails",
+          {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           }
         );
         const jsonData = await response.json();
 
-        setUsername(jsonData[0].username)
+        setUsername(jsonData[0].username);
         setName(jsonData[0].fullName);
         setGender(jsonData[0].Gender);
         setDob(jsonData[0].doB);
@@ -91,21 +92,21 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const updateUserProfile = async (dataArray) => {
-    const url = "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev";
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(dataArray),
-    };
-
+  const updateUserProfile = async (dataArrays) => {
     try {
-      const response = await fetch(url, options);
-      const editedData = await response.json();
-      console.log(editedData.message); // "Profile updated successfully."
+      const response = await fetch(
+        "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev/profiledetails",
+        {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        { method: "PUT" },
+        { body: JSON.stringify(dataArrays) }
+      );
+      const result = await response.json();
+      console.log(dataArrays);
+      return result;
+       // "Profile updated successfully."
     } catch (err) {
       console.error(err);
     }
@@ -124,7 +125,6 @@ const Profile = () => {
       Nationality: nationality,
     },
   ];
-
 
   const handleClick = (event) => {
     event.preventDefault();

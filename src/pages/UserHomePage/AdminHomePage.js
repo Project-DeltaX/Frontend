@@ -18,7 +18,7 @@ const AdminHomePage = () => {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Dashboard" element={<Dashboard/>} />
-        <Route path="/User Management" element={<UserManagement/>} />
+        <Route path="/UserManagement" element={<UserManagement/>} />
         <Route path="/Account" element={<OAccount />} />
       </Routes>
     </Layout>
