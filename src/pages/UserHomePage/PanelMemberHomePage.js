@@ -5,21 +5,19 @@ import Interview from "../Interview&evaluation/Interview";
 import Evaluation from "../Interview&evaluation/Evaluation";
 import OAccount from "../AccountSettings/OAccount";
 
-const MenuArr = ["Dashboard", "Interview","Evaluation", "Account"];
+const MenuArr = ["Dashboard", "Interview", "Evaluation", "Account"];
 
 const PanelMemberHomePage = () => {
   return (
     <Layout MenuArr={MenuArr} IconArr="PIconArr">
-     <Routes>
+      <Routes>
         <Route path="/" element={<h1>Hiii Dashboard</h1>} />
         <Route path="/dashboard" element={<h1>Hiii Dashboard</h1>} />
-        <Route path="/interview" element={<Interview/>}/>
-        <Route path="/evaluation" element={<Evaluation/>}/>
-        <Route path="/account" element={<OAccount/>}/>
+        <Route path="/interview" element={<Interview />} />
+        <Route path="/evaluation" element={<Evaluation />} />
+        <Route path="/account" element={<OAccount />} />
       </Routes>
-
     </Layout>
-  
   );
 };
 

@@ -1,37 +1,24 @@
-import { Grid, Link } from "@mui/material";
-// import React from "react";
-
+import { Grid } from "@mui/material";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Av from "../../Images/Avatar02.jpg";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import EditIcon from "@mui/icons-material/Edit";
+// import custom components
+
 import CircularStatus from "./CircularStatus";
-
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-
 import UserRoles from "./UserRoles/UserRoles";
 import CommonRoles from "./Roles";
-
+// define UserManagement component
 
 const UserManagement = () => {
   return (
-    <div  marginRight={"20px"}>
-      <Grid container direction={"column"} rowSpacing={2} marginLeft={"10px"} >
+    <div marginRight={"20px"}>
+      {/* container for the user management section */}
+
+      <Grid container direction={"column"} rowSpacing={2} marginLeft={"10px"}>
+        {/* header section */}
+
         <Grid item md={3}>
           <Typography>
             <h2>
@@ -39,6 +26,7 @@ const UserManagement = () => {
             </h2>
           </Typography>
         </Grid>
+        {/* statistics section */}
 
         <Grid item md={3} container spacing={10} display={"flex"}>
           <Grid item md={4}>
@@ -46,7 +34,7 @@ const UserManagement = () => {
               <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
-                    <Typography variant="h5" component="div" color="#E8E1FA" >
+                    <Typography variant="h5" component="div" color="#E8E1FA">
                       Committee Members
                     </Typography>
                   </Grid>
@@ -59,6 +47,7 @@ const UserManagement = () => {
               </CardContent>
             </Card>
           </Grid>
+          {/* panel members statistics */}
 
           <Grid item md={4}>
             <Card sx={{ bgcolor: "#27144B" }}>
@@ -78,6 +67,7 @@ const UserManagement = () => {
               </CardContent>
             </Card>
           </Grid>
+          {/* interns statistics */}
 
           <Grid item md={4}>
             <Card sx={{ bgcolor: "#27144B" }}>
@@ -98,12 +88,11 @@ const UserManagement = () => {
             </Card>
           </Grid>
         </Grid>
+        {/* user roles section */}
 
         <Grid item md={6}>
-          <CommonRoles/>
-     
-
-          <UserRoles />
+          <CommonRoles /> {/* render the common roles component */}
+          {/* <UserRoles /> render the user roles component */}
           {/* <index.js/> */}
         </Grid>
       </Grid>

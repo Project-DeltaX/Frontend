@@ -1,9 +1,11 @@
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import "../../App.css";
-
 import React, { useState } from "react";
+
+//Css imports
+import "../../App.css";
 import "../AccountSettings/OAccount.css";
 
+//Material UI component imports
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -14,10 +16,12 @@ import styled from "styled-components";
 import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 import SecurityPrivacy from "./components/SecurityPrivacy";
+import { Account } from "../UserAuthentication/Account";
 
+//Some used color codes
 //,#2C165D,#27144B,#e8e1fa
 
-
+// functional component for create a Tab
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -29,7 +33,7 @@ function TabPanel(props) {
       aria-labelledby={`${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, mx: "40px" }}>{children}</Box>}
     </div>
   );
 }
@@ -85,8 +89,6 @@ const OAccount = () => {
                   height: "38px",
                   color: "#1168DC",
                   backgroundColor: "#bdb2ff",
-                  // background:
-                  //   " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
                   borderRadius: "6px",
                   padding: "20px",
                 }}
@@ -111,7 +113,7 @@ const OAccount = () => {
               <Notifications />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <SecurityPrivacy />
+              <Account><SecurityPrivacy /></Account>
             </TabPanel>
           </Grid>
         </Grid>
