@@ -71,13 +71,13 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
       <Account>
-      <RouterComponent/>
+      {/* <RouterComponent/> */}
+      <LoginPage/>
       </Account>
       {/* <AdminHomePage/> */}
       
-      </ThemeProvider>
 
-        <Register />
+        {/* <Register /> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}

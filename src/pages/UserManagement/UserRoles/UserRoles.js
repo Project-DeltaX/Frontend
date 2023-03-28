@@ -93,6 +93,7 @@ const headCells = [
     numeric: false,
     disablePadding: true,
     label: "UserName",
+  
   },
   {
     id: "Email",
@@ -129,8 +130,9 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "Edit",
+   
   },
-];
+] ;
 
 function EnhancedTableHead(props) {
   const {
@@ -146,7 +148,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead >
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -161,6 +163,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+          style={{ color: "#27144B" }}
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -226,6 +229,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           id="tableTitle"
           component="div"
+          style={{ color: "#27144B" }}
         >
           <b>User_Roles</b>
         </Typography>
@@ -329,7 +333,7 @@ export default function UserRole() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 750}}               // border: '1px solid black'
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -359,6 +363,7 @@ export default function UserRole() {
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
+                      
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -366,6 +371,7 @@ export default function UserRole() {
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
+                            
                           }}
                         />
                       </TableCell>
@@ -374,14 +380,16 @@ export default function UserRole() {
                         id={labelId}
                         scope="row"
                         padding="none"
+                        
                       >
                         {row.Username}
                       </TableCell>
-                      <TableCell align="left">{row.Email}</TableCell>
-                      <TableCell align="left">{row.Country}</TableCell>
+                      <TableCell align="left">{row.Email}</TableCell>       
+                       {/* sx={{ border: '1px solid red'}}  */}
+                      <TableCell align="left" >{row.Country}</TableCell>
                       <TableCell align="left">{row.Posting}</TableCell>
                       <TableCell align="left">{row.Status}</TableCell>
-                      <TableCell align="left">{row.Role}</TableCell>
+                      <TableCell align="left" style={{ color: "#EB5E57" }} >{row.Role}</TableCell>
                       <SimpleDialog />
                       <TableCell align="left">{row.Edit}</TableCell>
                     </TableRow>

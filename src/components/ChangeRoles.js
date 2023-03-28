@@ -33,21 +33,21 @@ function SimpleDialog(props) {
 
   // Rendering the dialog box with a list of roles
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Change Role</DialogTitle>
+    <Dialog onClose={handleClose} open={open} >
+      <DialogTitle sx={{ color:'#27144B' }}>Change Role</DialogTitle>
       <ListItem sx={{ pt: 0 }}>
-        {values.map((email) => (
+        {values.map((role) => (
           <ListItem disableGutters>
             <ListItemButton
-              onClick={() => handleListItemClick(email)}
-              key={email}
+              onClick={() => handleListItemClick(role)}
+              key={role}
             >
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
                   <PersonIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={email} />
+              <ListItemText primary={role} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -87,7 +87,7 @@ export default function SimpleDialogDemo() {
         Selected: {selectedValue}
       </Typography>
       <br />
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen}  sx={{ backgroundColor: '#27144B',color:"#E8E1FA" }}>
         Change Role
       </Button>
       <SimpleDialog

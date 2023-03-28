@@ -1,4 +1,3 @@
-
 //Common Roles---
 import { Grid, Link } from "@mui/material";
 // import React from "react";
@@ -75,10 +74,10 @@ const CommonRoles = () => {
           >
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: "black" }}>
+                <TableCell sx={{ color: "#27144B" }}>
                   <b>Roles</b>
                 </TableCell>
-                <TableCell align="right" sx={{ color: "black" }}>
+                <TableCell align="right" sx={{ color: "#27144B" }}>
                   <b>Permission</b>
                 </TableCell>
               </TableRow>
@@ -89,9 +88,10 @@ const CommonRoles = () => {
               {rows.map((row) => (
                 <TableRow
                   key={row.Roles}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}  //bottom border
                 >
                   <TableCell component="th" scope="row" sx={{ color: "black" }}>
+                    {/* table elements */}
                     {row.Roles}
                   </TableCell>
                   <TableCell align="right" sx={{ color: "black" }}>

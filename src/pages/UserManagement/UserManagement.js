@@ -91,8 +91,8 @@ const UserManagement = () => {
         {/* user roles section */}
 
         <Grid item md={6}>
-          <CommonRoles /> {/* render the common roles component */}
-          {/* <UserRoles /> render the user roles component */}
+          <CommonRoles />    
+           {/* <UserRoles />  */}
           {/* <index.js/> */}
         </Grid>
       </Grid>
