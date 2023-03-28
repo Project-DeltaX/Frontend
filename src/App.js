@@ -69,19 +69,22 @@ const theme = createTheme({
 function App() {
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}>
       <Account>
       <RouterComponent/>
-      </Account>
-      {/* <AdminHomePage/> */}
-      
-      </ThemeProvider>
+      </Account> */}
 
-        <Register />
+      {/* <InternHomePage/> */}
+
+      
+      {/* </ThemeProvider> */}
+      <CommitteeMemberHomePage />
+
+        {/* <Register /> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </div>
   );
 }

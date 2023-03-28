@@ -7,7 +7,7 @@ import OAccount from "../AccountSettings/OAccount";
 import Dashboard from "../Dashboard/Dashboard";
 
 // Create an array of menu items to be displayed in the sidebar
-const MenuArr = ["Dashboard", "User Management", "Account"];
+const MenuArr = ["Dashboard", "UserManagement", "Account"];
 // Define the AdminHomePage component
 
 const AdminHomePage = () => {
