@@ -68,15 +68,16 @@ function App() {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}>
       <Account>
       <RouterComponent/>
-      </Account>
+      </Account> */}
 
       {/* <InternHomePage/> */}
 
       
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
+      <CommitteeMemberHomePage />
 
     </div>
   );

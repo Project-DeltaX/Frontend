@@ -1,12 +1,10 @@
 import React from "react";
-import { Grid,Tabs,Tab,Typography,Box } from "@mui/material";
+import { Grid, Tabs, Tab, Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import AvailabilityStatus from "./AvailabilityStatus";
 import Schedule from "./Schedule";
 import Mailing from "./Mailing";
 import Allocation from "./Allocation";
-
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +45,6 @@ const InterviewSchedule = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
 
   return (
     <Grid container spacing={2}>
@@ -57,20 +54,31 @@ const InterviewSchedule = () => {
           textAlign="left"
           fontSize="30px"
           color="#27144B"
-        
         >
-           <b> Interview Schedule</b> 
+          <b> Interview Schedule</b>
         </Typography>
-        
       </Grid>
       <Grid item xs={12} spacing={4}>
-        <Box sx={{ borderBottom: 3, borderColor: "#27144B"}}>
+       
+        <Box
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                sx={{
+                  width: "fit-content",
+                  height: "38px",
+                  color: "#460966",
+                  backgroundColor: "#ddb0f5",
+                  borderRadius: "6px",
+                  padding: "20px",
+                }}
+              >
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="Black"
+            indicatorColor="Blue"
             textColor="Black"
-            // centered
+           
           >
             <Tab className="textStyle" label="Availability" {...a11yProps(0)} />
             <Tab className="textStyle" label="Allocation" {...a11yProps(1)} />
@@ -84,17 +92,15 @@ const InterviewSchedule = () => {
           <AvailabilityStatus />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Allocation/>
-
+          <Allocation />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Schedule/>
+          <Schedule />
         </TabPanel>
         <TabPanel value={value} index={3}>
-     <Mailing/>
+          <Mailing />
         </TabPanel>
       </Grid>
-      
     </Grid>
   );
 };
