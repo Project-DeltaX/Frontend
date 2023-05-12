@@ -10,7 +10,6 @@ import Amplify, { Auth } from "aws-amplify";
 import routes from "./MyRoutes";
 import Pool from "./pages/UserPool.js";
 
-
 //Before Login routes
 import { Account } from "./pages/UserAuthentication/Account";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
@@ -23,20 +22,17 @@ import OAccount from "./pages/AccountSettings/OAccount";
 import UserManagement from "./pages/UserManagement/UserManagement";
 
 //auth
-import { AccountContext } from "./pages/UserAuthentication/Account"; 
+import { AccountContext } from "./pages/UserAuthentication/Account";
 import jwtDecode from "jwt-decode";
 
-
 function RouterComponent() {
-
-  const {getToken,getLoginStatus} = useContext(AccountContext);
+  const { getToken, getLoginStatus } = useContext(AccountContext);
   const token = getToken();
-  if(getLoginStatus()){
-    const jToken = token['accessToken']['jwtToken'];
-  const decodedToken = jwtDecode(jToken);
+  if (getLoginStatus()) {
+    const jToken = token["accessToken"]["jwtToken"];
+    const decodedToken = jwtDecode(jToken);
   }
-  
-  
+
   useEffect(() => {
     async function fetchData() {
       // const userType = await getUserType();
@@ -46,20 +42,30 @@ function RouterComponent() {
     fetchData();
   }, []);
 
-
-  return (<div>
+  return (
+    <div>
       <Routes>
-          <Route path="/" element={<Account><LoginPage /></Account>} />
-          <Route path="/createnewaccount" element={<Register/>} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/adminHome/*" element={<AdminHomePage />} />
-          {/* <Route path="/Emailconfirmationpage" element={<NewPassword />} />
+        <Route
+          path="/"
+          element={
+            <Account>
+              <LoginPage />
+            </Account>
+          }
+        />
+        <Route path="/createnewaccount" element={<Register />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/admin/*" element={<AdminHomePage><Dashboard /></AdminHomePage>} />
+        <Route path="/admin/Dashboard" element={<AdminHomePage><Dashboard /></AdminHomePage>} />
+        <Route path="/admin/UserManagement" element={<AdminHomePage><UserManagement /></AdminHomePage>} />
+        <Route path="/admin/Account" element={<AdminHomePage><OAccount /></AdminHomePage>} />
+
+        {/* <Route path="/Emailconfirmationpage" element={<NewPassword />} />
           <Route path="/newpw" element={<SuccessfulPasswordReset />} />
           <Route path="createacc" element={<EmailConfirmation />} /> */}
-        </Routes>
-      </div>
+      </Routes>
+    </div>
   );
-
 }
 
 export default RouterComponent;

@@ -106,7 +106,7 @@ const Profile = () => {
       const result = await response.json();
       console.log(dataArrays);
       return result;
-       // "Profile updated successfully."
+      // "Profile updated successfully."
     } catch (err) {
       console.error(err);
     }

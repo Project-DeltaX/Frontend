@@ -10,17 +10,12 @@ import Dashboard from "../Dashboard/Dashboard";
 const MenuArr = ["Dashboard", "UserManagement", "Account"];
 // Define the AdminHomePage component
 
-const AdminHomePage = () => {
+const AdminHomePage = (props) => {
   return (
     // Render the Layout component with the menu items passed as a prop
 
-    <Layout MenuArr={MenuArr} IconArr="AIconArr">
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/Dashboard" element={<Dashboard/>} />
-        <Route path="/UserManagement" element={<UserManagement/>} />
-        <Route path="/Account" element={<OAccount />} />
-      </Routes>
+    <Layout MenuArr={MenuArr} IconArr="AIconArr" userType="admin">
+      {props.children}
     </Layout>
   );
 };

@@ -144,7 +144,7 @@ const Register = () => {
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
-                Already have an Account?<Link href="#">Login</Link>
+                Already have an Account?<Link to={"/"}>Login</Link>
               </Typography>
             </Grid>
 

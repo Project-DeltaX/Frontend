@@ -1,28 +1,31 @@
 import React, { useState } from "react";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { Avatar } from "@mui/material";
-import { Icon } from "@iconify/react";
+
+//Material UI components
+import {
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Avatar,
+  Icon,
+  Box,
+  ListItemIcon
+} from "@mui/material";
+
+//Icons
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
 import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { DragIndicator, Image } from "@mui/icons-material";
 import interviewIcon from "@iconify/icons-openmoji/interview";
 import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
 import autoScheduleOutline from "@iconify/icons-material-symbols/auto-schedule-outline";
-import PropTypes from 'prop-types';
-import { Box } from "@mui/system";
-
-import { useLocation, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // const MenuArr = ["Dashboard", "User Management", "Account"];
 const AIconArr = [
@@ -47,9 +50,7 @@ const IIconArr = [
   <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
 ];
 
-
-
-
+//TabPanel functional component
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -79,14 +80,13 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
 
-
 const Navbar = (props) => {
   const [Navvalue, setNavvalue] = React.useState();
-  const { pathname } = useLocation();
+
 
   const [Sidevalue, setSidevalue] = React.useState(0);
 
@@ -97,13 +97,8 @@ const Navbar = (props) => {
   return (
     <div>
       <Toolbar>
-      <Avatar alt="Logo" src="Logo.jpg" />
-      <img src="Logo.jpg"/>
-        {/* <AppleIcon
-          color="primary"
-          fontSize="large"
-          sx={{ margin: "20px", marginInlineStart: "80px" }}
-        /> */}
+        <Avatar alt="Logo" src="Logo.jpg" />
+        <img src="Logo.jpg" />
       </Toolbar>
       <Divider
         textAlign="left"
@@ -125,7 +120,7 @@ const Navbar = (props) => {
             onChange={handleChange}
           >
             <ListItemButton
-              to={`/${text}`}
+              to={`/${props.userType}/${text}`}
               // {...a11yProps(index)}
             >
               <ListItemIcon>

@@ -42,7 +42,7 @@ const LoginPage = () => {
 
   if (getLoginStatus()) {
     console.log(isLoggedIn);
-    return <Navigate to={'/adminHome'}/>
+    return <Navigate to={'/admin'}/>
 
   }
 
