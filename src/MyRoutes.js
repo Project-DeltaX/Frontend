@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
   Routes,
+  Navigate,
 } from "react-router-dom";
 
 import Amplify, { Auth } from "aws-amplify";
@@ -53,12 +54,37 @@ function RouterComponent() {
             </Account>
           }
         />
-        <Route path="/createnewaccount" element={<Register />} />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/admin/*" element={<AdminHomePage><Dashboard /></AdminHomePage>} />
-        <Route path="/admin/Dashboard" element={<AdminHomePage><Dashboard /></AdminHomePage>} />
-        <Route path="/admin/UserManagement" element={<AdminHomePage><UserManagement /></AdminHomePage>} />
-        <Route path="/admin/Account" element={<AdminHomePage><OAccount /></AdminHomePage>} />
+        <Route path="createnewaccount" element={<Register />} />
+        <Route path="forgotPassword" element={<ForgotPassword />} />
+        <Route
+          path="admin"
+          element={
+            <AdminHomePage/>
+          }
+        >
+          <Route
+            path="Dashboard"
+            element={
+                <Dashboard />
+            }
+          />
+          <Route
+            path="UserManagement"
+            element={
+              <AdminHomePage>
+                <UserManagement />
+              </AdminHomePage>
+            }
+          />
+          <Route
+            path="Account"
+            element={
+              <AdminHomePage>
+                <OAccount />
+              </AdminHomePage>
+            }
+          />
+        </Route>
 
         {/* <Route path="/Emailconfirmationpage" element={<NewPassword />} />
           <Route path="/newpw" element={<SuccessfulPasswordReset />} />
