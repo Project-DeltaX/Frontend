@@ -6,7 +6,6 @@ import React, { useContext, useState } from "react";
 import { AccountContext } from "./Account";
 import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
-import { Link, Navigate } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
 import AdminHomePage from "../UserHomePage/AdminHomePage";
 // import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
@@ -23,7 +22,7 @@ import AdminHomePage from "../UserHomePage/AdminHomePage";
 // const userPool = new CognitoUserPool(poolData);
 
 //Routing
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate,Navigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -32,19 +31,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const { authenticate, setJToken } = useContext(AccountContext);
+  const { authenticate, setJToken, getShowAlert,getLoginStatus } = useContext(AccountContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     authenticate(email, password);
   };
-
-  if (getLoginStatus()) {
-    console.log(isLoggedIn);
-    return <Navigate to={'/adminHome'}/>
-
+  if(getLoginStatus()){
+    return <Navigate to={'/admin'}/>
   }
+  
+
+
 
   // Return statement containing the JSX for the login page
 
@@ -86,7 +84,7 @@ const LoginPage = () => {
               alignItems="center"
               justifyContent={"center"}
               marginX={{ md: 3, lg: 10 }}
-              marginBottom={{md:22}}
+              marginBottom={{ md: 22 }}
               marginTop={{ md: 10 }}
               padding={6}
               borderRadius={20}
@@ -148,7 +146,10 @@ const LoginPage = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              {/* Render forgot password link */}
+            
+              {getShowAlert() && (
+                <div className="alert">Incorrect username or password</div>
+              )}
 
               <Typography
                 color="blue"
