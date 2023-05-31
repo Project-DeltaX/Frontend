@@ -1,19 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+//Material UI components
 import { Box } from "@mui/system";
 import { Grid, Stack } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
 import Badge from "@mui/material/Badge";
-import AppleIcon from "@mui/icons-material/Apple";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import { FormatAlignJustify, Margin } from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MessageIcon from "@mui/icons-material/Message";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -100,6 +97,7 @@ const HeaderBar = () => {
 
   return (
       <Toolbar sx={{ display: "flex", justifyContent: "flex-end" }}>
+        
         <Stack direction="row" justifyContent="flex-end" spacing={3} alignItems="center">
           <NotificationsIcon width="24" height="24" sx={{ color: "#e8e1fa" }}/>
           <MessageIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />

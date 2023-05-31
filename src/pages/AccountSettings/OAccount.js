@@ -113,7 +113,9 @@ const OAccount = () => {
               <Notifications />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Account><SecurityPrivacy /></Account>
+              <Account>
+                <SecurityPrivacy />
+              </Account>
             </TabPanel>
           </Grid>
         </Grid>

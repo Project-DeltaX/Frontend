@@ -9,10 +9,9 @@ const InternHomePage = () => {
   return (
     <Layout MenuArr={MenuArr} IconArr="IIconArr">
       <Routes>
-        <Route path="/" element={<OAccount/>} />
-        <Route path="/Account" element={<OAccount/>}/>
+        <Route path="/" element={<OAccount />} />
+        <Route path="/Account" element={<OAccount />} />
       </Routes>
-
     </Layout>
   );
 };
