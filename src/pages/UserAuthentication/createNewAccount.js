@@ -116,6 +116,7 @@ const Register = () => {
           justifyContent={"center"}
           margin="auto"
           marginTop={5}
+          marginBottom={22}
           padding={5}
           borderRadius={10}
           boxShadow={"5px 5px 10px #ccc"}

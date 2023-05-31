@@ -8,8 +8,7 @@ import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link, Navigate } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
-
-import Snackbar from '@mui/material/Snackbar';
+import AdminHomePage from "../UserHomePage/AdminHomePage";
 // import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
 // import Pool from "..//UserPool.js" ;
 // import { AccountContext } from "./Account";
@@ -35,51 +34,17 @@ const LoginPage = () => {
 
   const { authenticate, setJToken } = useContext(AccountContext);
 
-
-  const [displayWarning, setDisplayWarning] = useState(false);
-  const [warningMessage, setWarningMessage] = useState('');
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     authenticate(email, password);
-    // .then(data => {
-    //   console.log("Logged in!");
-    //   // jToken = data;
-    //   // console.log(data['accessToken']['jwtToken']);
-    //   setIsLoggedIn(true);
-
-    // })
-    // .catch(err => {
-    // console.error("Failed to login",err);
-    // })
-
-    // const user=new CognitoUser({
-    //     Username:email,
-    //     Pool:userPool
-    // });
-    // const authDetails=new AuthenticationDetails({
-    //     Username:email,
-    //     Password:password,
-    // });
-    // user.authenticateUser(authDetails,{
-    //     onSuccess:(data)=>{
-    //         console.log("onSuccess:",data)
-    //     },
-    //     onFailure:(err)=>{
-    //         console.error("onFailure:",err);
-    //     },
-    //     newPasswordRequired:(data)=>{
-    //         console.log("newPasswordReq:",data);
-    //     }
-    // });
   };
 
-  // if (isLoggedIn) {
-  //   console.log(isLoggedIn);
-  //   return <Navigate to={'/adminHome'}/>
+  if (getLoginStatus()) {
+    console.log(isLoggedIn);
+    return <Navigate to={'/adminHome'}/>
 
-  // }
+  }
 
   // Return statement containing the JSX for the login page
 
