@@ -4,13 +4,17 @@ import Pool from "../UserPool.js"
 
 import React,{createContext, useState} from "react";
 
+
+
+
+
 // Create a new context object
 const AccountContext=createContext();
 // Define the Account component that will use the context
 
 const Account=(props)=>{
     // Define state variables for JWT token and login status
-
+    
   const [jToken,setJToken] = useState({});
   const [loginStatus,setLoginStatus] = useState(false);
     // Define a function to get the session for a user
@@ -72,33 +76,61 @@ const Account=(props)=>{
     });
           // Authenticate the user with the provided authentication details
 
+    // user.authenticateUser(authDetails,{
+    //     onSuccess:(data)=>{
+    //     // Print the access token and JWT token on successful authentication
+
+    //         console.log("onSuccess:")
+            
+    //         console.log(data['accessToken']['jwtToken']);
+    //                 // Resolve the promise with the authentication data and update state
+
+    //         resolve(data);
+    //         setJToken(data);
+    //         setLoginStatus(true);
+    //     },
+    //     onFailure:(err)=>{
+    //               // Log the error and reject the promise on authentication failure
+
+    //         console.error("onFailure:",err);
+    //         reject(err);
+    //     },
+    //     newPasswordRequired:(data)=>{
+    //               // Print a message if a new password is required
+
+    //         console.log("newPasswordReq:");
+    //         resolve(data);
+    //     },
+    // });
+
     user.authenticateUser(authDetails,{
-        onSuccess:(data)=>{
-        // Print the access token and JWT token on successful authentication
+      onSuccess:(data)=>{
+      // Print the access token and JWT token on successful authentication
 
-            console.log("onSuccess:")
-            console.log(data['accessToken']['jwtToken']);
-                    // Resolve the promise with the authentication data and update state
+          console.log("onSuccess:")
+          
+          console.log(data['accessToken']['jwtToken']);
+                  // Resolve the promise with the authentication data and update state
 
-            resolve(data);
-            setJToken(data);
-            setLoginStatus(true);
-        },
-        onFailure:(err)=>{
-                  // Log the error and reject the promise on authentication failure
+          resolve(data);
+          setJToken(data);
+          setLoginStatus(true);
+      },
+      onFailure:(err)=>{
+                // Log the error and reject the promise on authentication failure
 
-            console.error("onFailure:",err);
-            reject(err);
-        },
-        newPasswordRequired:(data)=>{
-                  // Print a message if a new password is required
+          console.error("onFailure:",err);
+          reject(err);
+      },
+      newPasswordRequired:(data)=>{
+                // Print a message if a new password is required
 
-            console.log("newPasswordReq:");
-            resolve(data);
-        },
-    });
-   })
-  };
+          console.log("newPasswordReq:");
+          resolve(data);
+      },
+  });
+ })
+}; 
 
   // This function returns the current JWT token
 

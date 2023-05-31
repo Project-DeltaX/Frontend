@@ -75,10 +75,10 @@ function App() {
           <RouterComponent />
         </Account>
         {/* <AdminHomePage/> */}
-
-        {/* <ForgotPassword /> */}
-        {/* <EmailConfirmation /> */}
-        {/* <SuccessfulPasswordReset /> */}
+{/* <Register/> */}
+        {/* <ForgotPassword />
+        <EmailConfirmation />
+        <SuccessfulPasswordReset /> */}
       </ThemeProvider>
     </div>
   );

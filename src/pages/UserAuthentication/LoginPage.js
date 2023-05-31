@@ -8,6 +8,8 @@ import LoginImg from "../../Images/Login.svg";
 //import AdminHomePage from "../UserHomePage/AdminHomePage";
 import { Link, Navigate } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
+
+import Snackbar from '@mui/material/Snackbar';
 // import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
 // import Pool from "..//UserPool.js" ;
 // import { AccountContext } from "./Account";
@@ -32,6 +34,10 @@ const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { authenticate, setJToken } = useContext(AccountContext);
+
+
+  const [displayWarning, setDisplayWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -203,6 +209,17 @@ const LoginPage = () => {
               >
                 <b>Login</b>
               </Button>
+
+
+              <Snackbar
+        open={displayWarning}
+        message={warningMessage}
+        autoHideDuration={6000}
+        onClose={() => setDisplayWarning(false)}
+      />
+
+
+
               <Typography
                 color="#E8E1FA"
                 variant="h6"
