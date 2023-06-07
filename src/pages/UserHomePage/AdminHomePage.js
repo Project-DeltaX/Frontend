@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import UserManagement from "../UserManagement/UserManagement";
 import OAccount from "../AccountSettings/OAccount";
 import Dashboard from "../Dashboard/Dashboard";
+import { Route, Routes } from "react-router-dom";
+
 
 // Create an array of menu items to be displayed in the sidebar
 const MenuArr = ["Dashboard", "User Management", "Account"];
@@ -15,7 +17,14 @@ const AdminHomePage = (props) => {
     // Render the Layout component with the menu items passed as a prop
     <>
     <Layout MenuArr={MenuArr} IconArr="AIconArr">
+      
     <Outlet/>
+    <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/User Management" element={<UserManagement />} />
+        <Route path="/Account" element={<OAccount />} />
+      </Routes>
     </Layout>
     
     </>

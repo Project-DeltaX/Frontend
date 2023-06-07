@@ -30,6 +30,7 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
 
+
 // function createData(firstName, email, Country, Posting, Status,Role,Edit) {
 //   return {
 //     firstName,
@@ -44,19 +45,19 @@ import SimpleDialog from "../../../components/ChangeRoles";
 // }
 
 // const rows = [
-//   createData('Danuraha', 'danuraha@gemail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gemail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gemail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gemail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gemail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gemail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gemail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gemail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gemail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gemail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gemail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gemail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gemail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
+//   createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
+//   createData('Mahilan', 'mahilan@gmail.com', 'India', 'pm', '','Committee Member',''),
+//   createData('Thanusiyan', 'thanusiyan@gmail.com', 'France','th', '','Committee Member',''),
+//   createData('Tharanika', 'tharanika@gmail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
+//   createData('Baakisan', 'bakkisan@gmail.com', 'India', 'bd', '','Committee Member',''),
+//   createData('Thanosan', 'thanosan@gmail.com', 'Canada', 'gf', '','Committee Member',''),
+//   createData('Jathiswarya', 'jathiswarya@gmail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
+//   createData('Vinuja', 'vinuja@gmail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
+//   createData('Kaanuja', 'kaanuja@gmail.com', 'India', 'jh', '','Committee Member',''),
+//   createData('Varaki', 'varaki@gmail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
+//   createData('Liyonisha', 'liyonisha@gmail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
+//   createData('Krishikan', 'krishikan@gmail.com', 'USA', 'sa','', 'Committee Member',''),
+//   createData('Nishoban', 'nishoban@gmail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
 // ];
 
 function descendingComparator(a, b, orderBy) {
@@ -231,7 +232,7 @@ function EnhancedTableToolbar(props) {
           component="div"
           style={{ color: "#27144B" }}
         >
-          <b>Committee Members</b>
+          <b>Interns</b>
         </Typography>
       )}
 
@@ -256,7 +257,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function UserRole() {
+export default function UserRoles3() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("email");
   const [selected, setSelected] = React.useState([]);
@@ -268,7 +269,7 @@ export default function UserRole() {
 
   useEffect(() => {
     fetch(
-      "https://p7zszo9ar2.execute-api.us-east-1.amazonaws.com/dev/committeemember"
+      "https://2bse7r109c.execute-api.us-east-1.amazonaws.com/dev/intern"
     )
       .then((response) => response.json())
       .then((data) => setData(data))
@@ -290,12 +291,12 @@ export default function UserRole() {
     setSelected([]);
   };
 
-  const handleClick = (event,firstName) => {
+  const handleClick = (event, firstName) => {
     const selectedIndex = selected.indexOf(firstName);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected,firstName);
+      newSelected = newSelected.concat(selected, firstName);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {

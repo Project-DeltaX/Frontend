@@ -11,7 +11,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import PersonIcon from "@mui/icons-material/Person";
 import Typography from "@mui/material/Typography";
-import { blue } from "@mui/material/colors";
+import { blue, purple } from "@mui/material/colors";
+import EditIcon from "@mui/icons-material/Edit";
 
 // An array containing different roles
 const values = ["committee member", "Panel member", "Intern"];
@@ -43,7 +44,7 @@ function SimpleDialog(props) {
               key={role}
             >
               <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                <Avatar sx={{ bgcolor: '#E8E1FA', color: '#27144B' }}>
                   <PersonIcon />
                 </Avatar>
               </ListItemAvatar>
@@ -78,18 +79,43 @@ export default function SimpleDialogDemo() {
   const handleClose = (value) => {
     setOpen(false);
     setSelectedValue(value);
+
+
+    // Retrieve the authorization token from the local storage
+  const authorizationToken = localStorage.getItem('authorizationToken');
+
+    fetch('https://pyer3mwem4.execute-api.us-east-1.amazonaws.com/dev/changeuserrole', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ${authorizationToken}'
+    },
+    body: JSON.stringify({ role: value })
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Role updated successfully:', data);
+    })
+    .catch((error) => {
+      console.error('Error updating role:', error);
+    });
   };
+
+
+
+  
 
   // Rendering the main component
   return (
     <div>
-      <Typography variant="subtitle1" component="div">
+      {/* <Typography variant="subtitle1" component="div">
         Selected: {selectedValue}
-      </Typography>
-      <br />
-      <Button variant="outlined" onClick={handleClickOpen}  sx={{ backgroundColor: '#27144B',color:"#E8E1FA" }}>
+      </Typography> */}
+      {/* <br /> */}
+      {/* <Button variant="outlined" onClick={handleClickOpen}  sx={{ backgroundColor: '#27144B',color:"#E8E1FA" }}>
         Change Role
-      </Button>
+      </Button> */}
+      <EditIcon  onClick={handleClickOpen} sx={{cursor:'pointer',marginLeft:'45px'}}/>
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

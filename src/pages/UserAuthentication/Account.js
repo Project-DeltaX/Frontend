@@ -117,10 +117,12 @@ const Account = (props) => {
   const getLoginStatus = () => {
     return loginStatus;
   };
+  const getShowAlert = () => {
+    return showAlert;
+  };
 
-  }
+  // Here, a new AccountContext is created with the necessary values passed in as a value object
   // These values are used throughout the application to manage user authentication and login status
-// These values are used throughout the application to manage user authentication and login status
   return (
     <AccountContext.Provider
       value={{
@@ -135,6 +137,7 @@ const Account = (props) => {
       {props.children}
     </AccountContext.Provider>
   );
+};
 // The Account and AccountContext components are exported to be used in other parts of the application
 
 export { Account, AccountContext };

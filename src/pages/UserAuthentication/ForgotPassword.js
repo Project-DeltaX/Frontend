@@ -15,6 +15,7 @@ const ForgotPassword = () => {
 
   const [stage, setStage] = useState(1);
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(""); // State variable for error message
 
   // Function to get a CognitoUser object based on the email entered by the user
 
@@ -29,6 +30,10 @@ const ForgotPassword = () => {
   const sendCode = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
+    if (!email) {
+      setError("Email is required"); // Set the error message
+      return; // Stop further execution
+    }
     // Call the forgotPassword function on the CognitoUser object
 
     getUser().forgotPassword({
@@ -56,13 +61,14 @@ const ForgotPassword = () => {
             display="flex"
             flexDirection={"column"}
             maxWidth={500}
+            // maxHeight={600}
             alignItems="center"
             justifyContent={"center"}
             margin="auto"
             marginTop={5}
             padding={5}
             borderRadius={10}
-            boxShadow={"5px 5px 10px #ccc"}
+            // boxShadow={"5px 5px 10px #ccc"}
             bgcolor="#27144B"
             sx={{
               background:
@@ -119,6 +125,11 @@ const ForgotPassword = () => {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
+                {error && (
+                  <Typography color="error" variant="body2" align="center">
+                    {error}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
             {/* Styling for the "Send" button */}

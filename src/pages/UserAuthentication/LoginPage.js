@@ -43,7 +43,6 @@ const LoginPage = () => {
   
 
 
-
   // Return statement containing the JSX for the login page
 
   return (
@@ -175,17 +174,6 @@ const LoginPage = () => {
               >
                 <b>Login</b>
               </Button>
-
-
-              <Snackbar
-        open={displayWarning}
-        message={warningMessage}
-        autoHideDuration={6000}
-        onClose={() => setDisplayWarning(false)}
-      />
-
-
-
               <Typography
                 color="#E8E1FA"
                 variant="h6"
@@ -208,3 +196,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+

@@ -106,7 +106,7 @@ const CommonRoles = () => {
       <Grid item padding={3} alignSelf={"flex-end"}>
         {/* Add a button to add new roles */}
 
-        <Button
+        {/* <Button
           sx={{
             marginTop: 3,
             borderRadius: 4,
@@ -118,7 +118,7 @@ const CommonRoles = () => {
           startIcon={<AddCircleIcon />}
         >
           ADD
-        </Button>
+        </Button> */}
       </Grid>
     </Grid>
   );
