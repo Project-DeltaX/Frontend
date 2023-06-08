@@ -56,6 +56,8 @@ const AllocatedCandidates = () => {
     setData(data);
   
   };
+
+
   return (
    <Box m={10}>
     <TableContainer
@@ -66,10 +68,12 @@ const AllocatedCandidates = () => {
               '#E8E1FA' }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Candidate_Id</TableCell>
+                {/* <TableCell>Candidate_Id</TableCell> */}
                 <TableCell align="left">email</TableCell>
                 <TableCell align="left">First_name </TableCell>
                 <TableCell align="left">Last_name</TableCell>
+                <TableCell align="left">Resume</TableCell>
+                
                 
               </TableRow>
             </TableHead>
@@ -79,9 +83,9 @@ const AllocatedCandidates = () => {
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="data">
+                  {/* <TableCell component="th" scope="data">
                     {data.Candidate_Id}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell align="left">{data.email}</TableCell>
                   <TableCell align="left">{data.First_name}</TableCell>
                   <TableCell align="left">{data.Last_name}</TableCell>

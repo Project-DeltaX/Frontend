@@ -14,9 +14,6 @@ import "@fontsource/poppins";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/poppins";
 import Bg01 from "../src/Images/BackgroundImg01.jpg";
-
-
-import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
 import { Login, RotateLeftOutlined } from "@mui/icons-material";
 // import ChangePassword from "./pages/AccountSettings/components/draftpw";
 
@@ -103,8 +100,9 @@ function App() {
 
         
       </Routes> */}
-        <CommitteeMemberHomePage/>
+        <PanelMemberHomePage />
 
+        {/* <AdminHomePage /> */}
       </ThemeProvider>
     </div>
   );

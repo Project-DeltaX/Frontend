@@ -9,6 +9,7 @@ import { TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 
 import AWS from "aws-sdk";
@@ -42,6 +43,29 @@ const CandidateExam = () => {
     setRowData(data);
     
   };
+  const handleGotoInterview = async (event, email, totalMarks) => {
+    try {
+      // This function handles the action you want to perform when the button is clicked
+      console.log("Submit button clicked!");
+      
+      const response = await fetch(
+        "https://your-lambda-function-endpoint",
+        {
+          method: "POST",
+          body: JSON.stringify({ email, totalMarks }),
+        }
+      );
+  
+      if (response.ok) {
+        alert("Scores submitted successfully!");
+      } else {
+        alert("Failed to submit scores.");
+      }
+    } catch (error) {
+      alert("Error submitting scores.");
+    }
+  };
+  
 
   return (
     <Box m={10}>
@@ -61,6 +85,8 @@ const CandidateExam = () => {
             <TableCell align="right">Written_exam</TableCell>
             <TableCell align="right">Practical_test</TableCell>
             <TableCell align="right">Total</TableCell>
+            <TableCell align="right">Status</TableCell>
+
             
            
             
@@ -80,6 +106,11 @@ const CandidateExam = () => {
               <TableCell align="right">{data.Written_exam}</TableCell>
               <TableCell align="right">{data.Practical_test}</TableCell>
               <TableCell align="right">{data.Total}</TableCell>
+              <TableCell align="right">
+              <Button variant="contained" color="primary" onClick={handleGotoInterview} >
+                Submit
+                  </Button>
+              </TableCell>
       
               
               

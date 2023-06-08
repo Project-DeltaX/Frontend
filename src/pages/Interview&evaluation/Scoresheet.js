@@ -38,6 +38,13 @@ const Scoresheet = () => {
     setRowData(data);
     
   };
+ // loop through the data and add a sum field to each object
+rowData.forEach(data => {
+  data.sum = parseInt(data.Candidate_exam) + parseInt(data.Candidate_exam);
+});
+
+// calculate the total
+let Total = rowData.reduce((acc, data) => acc + data.sum, 0);
   const handleGotoInterview = (event) => {
     // This function handles the action you want to perform when the button is clicked
     console.log("Goto Interview button clicked!");
@@ -74,8 +81,8 @@ const Scoresheet = () => {
                 <TableCell align="right">{data.Candidate_ID}</TableCell>
                 <TableCell align="center">{data.email}</TableCell>
                 <TableCell align="center">{data.Candidate_exam}</TableCell>
-                <TableCell align="center">{data.Interview}</TableCell>
-                <TableCell align="center">{data.Total}</TableCell>
+                <TableCell align="center">{data.Candidate_exam}</TableCell>
+                <TableCell align="center">{Total}</TableCell>
                 <TableCell align="center">
                 <Button variant="contained" color="primary" onClick={handleGotoInterview}>
                  submit
