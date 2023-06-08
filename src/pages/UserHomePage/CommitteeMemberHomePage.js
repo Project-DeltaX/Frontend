@@ -10,11 +10,10 @@ import CvManagement from "../CvManagement/CvManagement";
 import Dashboard from "../Dashboard/Dashboard";
 import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
 
-const MenuArr = ["Dashboard", "CV Management", "Interview Schedule", "Account"];
 
 const CommitteeMemberHomePage = () => {
   return (
-    <Layout MenuArr={MenuArr} IconArr="CIconArr">
+    <Layout>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Dashboard" element={<Dashboard />} />

@@ -1,5 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import jwtDecode from "jwt-decode";
+import useAuth from "../../hooks/useAuth.js";
 
 //Material UI components
 import { Box } from "@mui/system";
@@ -86,62 +89,92 @@ const DropDownMenu = styled((props) => (
 }));
 
 const HeaderBar = () => {
+  const navigate = useNavigate();
   const [profileDrop, setProfileDrop] = React.useState(null);
   const open = Boolean(profileDrop);
+  const token = localStorage.getItem("idtoken");
+  let name = null;
+
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      name = decodedToken["given_name"];
+    } catch (error) {
+      console.error("Error decoding the JWT token:", error);
+    }
+  }
   const handleClick = (event) => {
     setProfileDrop(event.currentTarget);
   };
   const handleClose = () => {
     setProfileDrop(null);
   };
+  function handleEditRequest() {
+    handleClose();
+    navigate("/homepage/account");
+  }
+  const handleLogout = () => {
+    handleClose();
+    localStorage.removeItem("accesstoken");
+    localStorage.removeItem("idtoken");
+    navigate("/");
+  };
 
   return (
-      <Toolbar sx={{ display: "flex", justifyContent: "flex-end" }}>
-        
-        <Stack direction="row" justifyContent="flex-end" spacing={3} alignItems="center">
-          <NotificationsIcon width="24" height="24" sx={{ color: "#e8e1fa" }}/>
-          <MessageIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar  alt="Nick John" srcSet="src/Images/Avatar01.png" />
-          </StyledBadge>
-          <Button
-            id="demo-customized-button"
-            
-            aria-controls={open ? "profitl-dropdown-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            sx={{color:"#e8e1fa", fontFamily: "poppins , sans-serif", textTransform:"capitalize",fontWeight:"500" , fontSize:"16px"}}
-            variant="text"
-            disableElevation
-            onClick={handleClick}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            Nick John
-          </Button>
-          <DropDownMenu
-            id="profile-drop-down-menu"
-            MenuListProps={{
-              "aria-labelledby": "profile-drop-down-menu",
-            }}
-            anchorEl={profileDrop}
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose} disableRipple>
-              <EditIcon />
-              Edit Profile
-            </MenuItem>
-            <MenuItem onClick={handleClose}  LinkComponent={Link} to={"/"}>
-              <LogoutIcon />
-              Logout
-            </MenuItem>
-          </DropDownMenu>
-        </Stack>
-      </Toolbar>
+    <Toolbar sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Stack
+        direction="row"
+        justifyContent="flex-end"
+        spacing={3}
+        alignItems="center"
+      >
+        <NotificationsIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />
+        <MessageIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />
+        <StyledBadge
+          overlap="circular"
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          variant="dot"
+        >
+          <Avatar alt="Nick John" srcSet="src/Images/Avatar01.png" />
+        </StyledBadge>
+        <Button
+          id="demo-customized-button"
+          aria-controls={open ? "profitl-dropdown-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          sx={{
+            color: "#e8e1fa",
+            fontFamily: "poppins , sans-serif",
+            textTransform: "capitalize",
+            fontWeight: "500",
+            fontSize: "16px",
+          }}
+          variant="text"
+          disableElevation
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDownIcon />}
+        >
+          {name}
+        </Button>
+        <DropDownMenu
+          MenuListProps={{
+            "aria-labelledby": "profile-drop-down-menu",
+          }}
+          anchorEl={profileDrop}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleEditRequest} disableRipple>
+            <EditIcon />
+            Edit Profile
+          </MenuItem>
+          <MenuItem onClick={handleLogout} LinkComponent={Link} to={"/"}>
+            <LogoutIcon />
+            Logout
+          </MenuItem>
+        </DropDownMenu>
+      </Stack>
+    </Toolbar>
   );
 };
 

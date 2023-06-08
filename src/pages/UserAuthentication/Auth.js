@@ -1,3 +1,4 @@
+import React, { createContext, useState, useEffect } from "react";
 // Import necessary modules
 import {
   CognitoUserPool,
@@ -5,22 +6,22 @@ import {
   AuthenticationDetails,
   CognitoUser,
 } from "amazon-cognito-identity-js";
-import Pool from "../UserPool.js";
+import Pool, { poolData } from "../../UserPool.js";
 
-import React, { createContext, useState } from "react";
+
 import { Navigate } from "react-router-dom";
 
 // Create a new context object
-const AccountContext = createContext();
-// Define the Account component that will use the context
+const AuthContext = createContext();
+// Define the Auth component that will use the context
 
-const Account = (props) => {
+const Auth = (props) => {
   // Alert message
   const [showAlert, setShowAlert] = useState(false);
 
   // Define state variables for JWT token and login status
 
-  const [jToken, setJToken] = useState({});
+  const [jwtToken, setJWTToken] = useState('');
   const [loginStatus, setLoginStatus] = useState(false);
 
   // Define a function to get the session for a user
@@ -50,6 +51,7 @@ const Account = (props) => {
                   // Resolve the promise with the results object
 
                   resolve(results);
+                  console.log(results);
                 }
               });
             });
@@ -83,10 +85,12 @@ const Account = (props) => {
           // Print the access token and JWT token on successful authentication
 
           console.log("onSuccess:");
-          // console.log(data['accessToken']['jwtToken']);
           // Resolve the promise with the authentication data and update state
           resolve(data);
-          setJToken(data);
+          const token = data;
+          setJWTToken(token["idToken"]["jwtToken"]);
+          localStorage.setItem('idtoken',token["idToken"]["jwtToken"]);
+          localStorage.setItem('accesstoken',token["accessToken"]["jwtToken"])
           setLoginStatus(true);
           setShowAlert(false);
         },
@@ -107,10 +111,60 @@ const Account = (props) => {
     });
   };
 
+  
+
+  // function isJwtExpired(jwtToken) {
+  //   try {
+  //     const decoded = jwt.verify(jwtToken, 'your_secret_key_here');
+  //     const expirationTime = decoded.exp; // Get the expiration timestamp from the decoded JWT
+  //     const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current timestamp in seconds
+  //     return currentTimestamp >= expirationTime; // Compare the timestamps
+  //   } catch (error) {
+  //     if (error.name === 'TokenExpiredError') {
+  //       return true; // JWT has already expired
+  //     } else {
+  //       return false; // Invalid JWT (could not be verified)
+  //     }
+  //   }
+  // }
+
+  // const jwksUrl =
+  //   "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_JeGJ5dp7G/.well-known/jwks.json";
+
+  //   const verifyToken = async () => {
+  //     try {
+  //       const response = await fetch(jwksUrl);
+  //       if (response.ok) {
+  //         const jwks = await response.json();
+  //         const token = iDToken["idToken"]["jwtToken"]
+  //         // // const publicKey = jwks.keys.find(key => key.kid === jwtDecode(token).header.kid);
+  //         // // Verify the JWT signature using the public key
+  //         // const decodedToken = jwtDecode(token);
+  //         // const isTokenValid = verifySignature(token, publicKey);
+  //         // if (isTokenValid) {
+  //         //   // Token verification succeeded
+  //         //   console.log('Token verified:', decodedToken);
+  //         //   // Proceed with using the token for authentication and authorization
+  //         //   // ...
+  //         // } else {
+  //         //   // Token verification failed
+  //         //   console.error('Token verification failed');
+  //         // }
+  //       } else {
+  //         throw new Error('Error retrieving JWKS');
+  //       }
+  //     } catch (error) {
+  //       // Handle any errors that occur during the request
+  //       console.error('Error retrieving JWKS:', error);
+  //     }
+  //   };
+
+
+
   // This function returns the current JWT token
 
-  const getToken = () => {
-    return jToken;
+  const getjwtToken = () => {
+    return jwtToken;
   };
   // This function returns the current login status
 
@@ -121,23 +175,23 @@ const Account = (props) => {
     return showAlert;
   };
 
-  // Here, a new AccountContext is created with the necessary values passed in as a value object
+
+  // Here, a new AuthContext is created with the necessary values passed in as a value object
   // These values are used throughout the application to manage user authentication and login status
   return (
-    <AccountContext.Provider
+    <AuthContext.Provider
       value={{
         authenticate,
         getSession,
-        setJToken,
-        getToken,
+        getjwtToken,
         getShowAlert,
         getLoginStatus,
       }}
     >
       {props.children}
-    </AccountContext.Provider>
+    </AuthContext.Provider>
   );
 };
-// The Account and AccountContext components are exported to be used in other parts of the application
+// The Auth and AuthContext components are exported to be used in other parts of the application
 
-export { Account, AccountContext };
+export { Auth, AuthContext, };

@@ -3,23 +3,9 @@
 //Danuraha@123-pw
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { AccountContext } from "./Account";
+import useAuth from "../../hooks/useAuth";
 import LoginImg from "../../Images/Login.svg";
-//import AdminHomePage from "../UserHomePage/AdminHomePage";
 import "../UserAuthentication/Authentication.css";
-import AdminHomePage from "../UserHomePage/AdminHomePage";
-// import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
-// import Pool from "..//UserPool.js" ;
-// import { AccountContext } from "./Account";
-// import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-// // import { Email } from "@mui/icons-material";
-
-// const poolData = {
-//   UserPoolId: 'us-east-1_JeGJ5dp7G',
-//   ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
-// };
-
-// const userPool = new CognitoUserPool(poolData);
 
 //Routing
 import { Link, useLocation, useNavigate,Navigate } from "react-router-dom";
@@ -31,14 +17,17 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const { authenticate, setJToken, getShowAlert,getLoginStatus } = useContext(AccountContext);
+  const { authenticate, getjwtToken, getShowAlert,getLoginStatus } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     authenticate(email, password);
+
   };
+  
   if(getLoginStatus()){
-    return <Navigate to={'/admin'}/>
+
+    return <Navigate to={'/homepage'}/>
   }
   
 

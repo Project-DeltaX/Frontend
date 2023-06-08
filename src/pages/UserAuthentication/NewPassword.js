@@ -3,7 +3,7 @@
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import { CognitoUser } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
-import Pool from "../../pages/UserPool";
+import Pool from "../../UserPool";
 
 // Define the NewPassword component
 

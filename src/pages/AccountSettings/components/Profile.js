@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
 import "../../../App.css";
 
+import jwtDecode from "jwt-decode";
+
 const CssTextField = styled(TextField)({
   padding: "8px",
 
@@ -61,15 +63,21 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const decodedToken = jwtDecode(localStorage.getItem("idToken"));
+        // const accessToken = localStorage.getItem("accesstoken");
+        // const email = decodedToken["email"];
+
         // Fetch data from the Lambda function API
         const response = await fetch(
-          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev/profiledetails",
+          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev/profiledetails?email=thanusiyant2000@gmail.com",
           {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
+            
           }
         );
         const jsonData = await response.json();
+        console.log(jsonData);
 
         setUsername(jsonData[0].username);
         setName(jsonData[0].fullName);
