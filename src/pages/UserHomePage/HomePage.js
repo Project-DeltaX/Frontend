@@ -10,11 +10,11 @@ import Dashboard from "../Dashboard/Dashboard";
 const MenuArr = ["Dashboard", "UserManagement", "Account"];
 // Define the AdminHomePage component
 
-const AdminHomePage = (props) => {
+const HomePage = (props) => {
   return (
     // Render the Layout component with the menu items passed as a prop
     <>
-    <Layout MenuArr={MenuArr} IconArr="AIconArr">
+    <Layout>
     <Outlet/>
     </Layout>
     
@@ -25,4 +25,4 @@ const AdminHomePage = (props) => {
 };
 // Export the AdminHomePage component as the default export
 
-export default AdminHomePage;
+export default HomePage;
