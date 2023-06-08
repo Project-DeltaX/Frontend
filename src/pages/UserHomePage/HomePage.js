@@ -5,26 +5,17 @@ import { Outlet } from "react-router-dom";
 import UserManagement from "../UserManagement/UserManagement";
 import OAccount from "../AccountSettings/OAccount";
 import Dashboard from "../Dashboard/Dashboard";
-import { Route, Routes } from "react-router-dom";
-
 
 // Create an array of menu items to be displayed in the sidebar
-const MenuArr = ["Dashboard", "User Management", "Account"];
+const MenuArr = ["Dashboard", "UserManagement", "Account"];
 // Define the AdminHomePage component
 
-const AdminHomePage = (props) => {
+const HomePage = (props) => {
   return (
     // Render the Layout component with the menu items passed as a prop
     <>
-    <Layout MenuArr={MenuArr} IconArr="AIconArr">
-      
+    <Layout>
     <Outlet/>
-    <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/User Management" element={<UserManagement />} />
-        <Route path="/Account" element={<OAccount />} />
-      </Routes>
     </Layout>
     
     </>
@@ -34,4 +25,4 @@ const AdminHomePage = (props) => {
 };
 // Export the AdminHomePage component as the default export
 
-export default AdminHomePage;
+export default HomePage;

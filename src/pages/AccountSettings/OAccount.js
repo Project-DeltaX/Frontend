@@ -16,7 +16,7 @@ import styled from "styled-components";
 import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 import SecurityPrivacy from "./components/SecurityPrivacy";
-import { Account } from "../UserAuthentication/Account";
+import { Auth } from "../UserAuthentication/Auth";
 
 //Some used color codes
 //,#2C165D,#27144B,#e8e1fa
@@ -113,9 +113,9 @@ const OAccount = () => {
               <Notifications />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Account>
+              <Auth>
                 <SecurityPrivacy />
-              </Account>
+              </Auth>
             </TabPanel>
           </Grid>
         </Grid>

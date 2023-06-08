@@ -23,9 +23,10 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 //Cognito userpool configuration
-import Pool from "../../UserPool.js";
-import { AccountContext } from "../../UserAuthentication/Account";
+import Pool from "../../../UserPool.js";
+import { AccountContext } from "../../UserAuthentication/Auth";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import jwtDecode from "jwt-decode";
 
 //password field
 import IconButton from "@mui/material/IconButton";
@@ -111,13 +112,16 @@ const SecurityPrivacy = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const decodedToken = jwtDecode(localStorage.getItem('idtoken'));
+    console.log(decodedToken['email']);
+
 
     const cognitoUser = new CognitoUser({
-      Username: "danurahatheva@gmail.com",
+      Username: decodedToken['email'],
       Pool: Pool,
     });
     const authenticationDetails = new AuthenticationDetails({
-      Username: "danurahatheva@gmail.com",
+      Username: decodedToken['email'],
       Password: currentPassword,
     });
 
@@ -132,14 +136,15 @@ const SecurityPrivacy = () => {
                 console.log(err);
               } else {
                 alert("Password changed successfully!");
-                setConfirmPassword(null);
-                setCurrentPassword(null);
-                setNewPassword(null);
+                setConfirmPassword("");
+                setCurrentPassword("");
+                setNewPassword("");
               }
             }
           );
         },
         onFailure: (err) => {
+          alert("Incorrect Old Password")
           console.log(err);
         },
       });

@@ -6,7 +6,7 @@ import { CognitoUser } from "amazon-cognito-identity-js";
 
 
 import { Link } from "react-router-dom";
-import Pool from "../../pages/UserPool";
+import Pool from "../../UserPool";
 import NewPassword from "./NewPassword";
 import "../UserAuthentication/Authentication.css";
 
