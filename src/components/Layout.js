@@ -43,7 +43,7 @@ const Layout = (props) => {
           variant="permanent"
           anchor="left"
         >
-          <Navbar MenuArr={props.MenuArr} IconArr={props.IconArr} />
+          <Navbar/>
         </Drawer>
       </Box>
       <Box

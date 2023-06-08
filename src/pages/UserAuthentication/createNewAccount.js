@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 
 //CSS import
 import "../UserAuthentication/Authentication.css";
@@ -28,7 +29,10 @@ const userPool = new CognitoUserPool(poolData);
 // functional component for user registration
 
 const Register = () => {
-    // create a state to store form data
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // const [showAlert, setShowAlert] = useState(false);
+  // create a state to store form data
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -47,13 +51,71 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-// This function is used to handle the form submission
+  // This function is used to handle the form submission
 
-  const handleSubmit = (e) => {
-    e.preventDefault();  // Preventing the default form submission behaviour
+
+  
+
+
+
+
+
+
+
+  const updateData=async () => {
+    try {
+      const response = await fetch("https://1dxqyteuva.execute-api.us-east-1.amazonaws.com/dev/registration", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
+      });
+
+      if (!response.ok) {
+        console.error("Failed to insert data into DynamoDB");
+        return;
+      }else{ 
+        console.log("Data inserted into DynamoDB");}
+
+     
+    } catch (error) {
+      console.error("An error occurred", error);
+    }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+  const handleSubmit = async(e) => {
+    e.preventDefault(); // Preventing the default form submission behaviour
     // Creating an empty array to store user attributes
 
-    const attributeList = [];
+    //adding new
+    if (
+      formData.firstName.trim() === "" ||
+      formData.lastName.trim() === "" ||
+      formData.email.trim() === "" ||
+      formData.password.trim() === "" ||
+      formData.guestRole.trim() === ""
+    ) {
+      // setShowAlert(true);
+      setErrorMessage("All fields are required");
+      return;
+    }
+    //
+    else {
+      
+      const attributeList = [];
     // Creating an object containing the user's email and adding it to the attributeList array
 
     const dataEmail = {
@@ -97,12 +159,31 @@ const Register = () => {
       (err, result) => {  // Callback function
         if (err) {  // If an error occurs
           console.log(err);  // Logging the error to the console
+
+//adding new
+setErrorMessage(err.message); // Display the error message in an alert
+//
+
+
+
           return;  // Exiting the function
         }
         const cognitoUser = result.user; // If successful, creating a new CognitoUser object with the returned user object from the result parameter
         console.log("successful ");  // Logging a success message to the console
-      }
+
+
+        //adding new
+        setErrorMessage("Sign up successful!.Go to the mail to verify!"); // Display a success message in an alert
+        //
+     updateData();
+
+    }
     );
+    }
+
+
+
+    
   };
 
   return (
@@ -119,7 +200,7 @@ const Register = () => {
           marginBottom={22}
           padding={5}
           borderRadius={10}
-          boxShadow={"5px 5px 10px #ccc"}
+          // boxShadow={"5px 5px 10px #ccc"}
           bgcolor="#27144B"
           sx={{
             background:
@@ -144,7 +225,7 @@ const Register = () => {
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
-                Already have an Account?<Link href="#">Login</Link>
+                Already have an Account?<Link to={"/"}>Login</Link>
               </Typography>
             </Grid>
 
@@ -268,6 +349,16 @@ const Register = () => {
               </Grid>
             </Grid>
           </Grid>
+          {/* {setShowAlert() && (
+                <div className="alert">All fields are required</div>
+              )} */}
+
+{errorMessage && (
+    <Typography color="#FF0000" variant="subtitle1">
+      {errorMessage}
+    </Typography>
+  )}
+
           <Button
             LinkComponent={Link}
             type="submit"
