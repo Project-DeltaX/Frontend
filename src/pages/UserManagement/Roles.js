@@ -20,6 +20,7 @@ import CheckboxesTags from "./SelectPermission";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import AllUsers from "././UserRoles/AllUsers"
 
 // Define a new component for the select permission button
 
@@ -120,6 +121,8 @@ const CommonRoles = () => {
           ADD
         </Button> */}
       </Grid>
+      <div><AllUsers/></div>
+
     </Grid>
   );
 };

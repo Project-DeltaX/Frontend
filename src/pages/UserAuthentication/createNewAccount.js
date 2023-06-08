@@ -29,8 +29,9 @@ const userPool = new CognitoUserPool(poolData);
 // functional component for user registration
 
 const Register = () => {
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [showAlert, setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
   // create a state to store form data
 
   const [formData, setFormData] = useState({
@@ -106,7 +107,7 @@ const Register = () => {
       formData.guestRole.trim() === ""
     ) {
       // setShowAlert(true);
-      alert("All fields are required");
+      setErrorMessage("All fields are required");
       return;
     }
     //
@@ -158,7 +159,7 @@ const Register = () => {
           console.log(err);  // Logging the error to the console
 
 //adding new
-alert(err.message); // Display the error message in an alert
+setErrorMessage(err.message); // Display the error message in an alert
 //
 
 
@@ -170,7 +171,7 @@ alert(err.message); // Display the error message in an alert
 
 
         //adding new
-        alert("Sign up successful!.Go to the mail to verify!"); // Display a success message in an alert
+        setErrorMessage("Sign up successful!.Go to the mail to verify!"); // Display a success message in an alert
         //
      updateData();
 
@@ -349,6 +350,12 @@ alert(err.message); // Display the error message in an alert
           {/* {setShowAlert() && (
                 <div className="alert">All fields are required</div>
               )} */}
+
+{errorMessage && (
+    <Typography color="#FF0000" variant="subtitle1">
+      {errorMessage}
+    </Typography>
+  )}
 
           <Button
             LinkComponent={Link}

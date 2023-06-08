@@ -28,13 +28,12 @@ import { visuallyHidden } from "@mui/utils";
 import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import SimpleDialog from "../../../components/ChangeRoles";
+// import SimpleDialog from "../../../components/ChangeRoles";
 
-
-// function createData(firstName, mail, Country, Posting, Status,Role,Edit) {
+// function createData(firstName, email, Country, Posting, Status,Role,Edit) {
 //   return {
 //     firstName,
-//     mail,
+//     email,
 //     Country,
 //     Posting,
 //     Status,
@@ -45,19 +44,19 @@ import SimpleDialog from "../../../components/ChangeRoles";
 // }
 
 // const rows = [
-//   createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gmail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gmail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gmail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gmail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gmail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gmail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gmail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gmail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gmail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gmail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gmail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gmail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
+//   createData('Danuraha', 'danuraha@gemail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
+//   createData('Mahilan', 'mahilan@gemail.com', 'India', 'pm', '','Committee Member',''),
+//   createData('Thanusiyan', 'thanusiyan@gemail.com', 'France','th', '','Committee Member',''),
+//   createData('Tharanika', 'tharanika@gemail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
+//   createData('Baakisan', 'bakkisan@gemail.com', 'India', 'bd', '','Committee Member',''),
+//   createData('Thanosan', 'thanosan@gemail.com', 'Canada', 'gf', '','Committee Member',''),
+//   createData('Jathiswarya', 'jathiswarya@gemail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
+//   createData('Vinuja', 'vinuja@gemail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
+//   createData('Kaanuja', 'kaanuja@gemail.com', 'India', 'jh', '','Committee Member',''),
+//   createData('Varaki', 'varaki@gemail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
+//   createData('Liyonisha', 'liyonisha@gemail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
+//   createData('Krishikan', 'krishikan@gemail.com', 'USA', 'sa','', 'Committee Member',''),
+//   createData('Nishoban', 'nishoban@gemail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
 // ];
 
 function descendingComparator(a, b, orderBy) {
@@ -126,13 +125,13 @@ const headCells = [
     disablePadding: false,
     label: "guestRole",
   },
-  {
-    id: "changeRole",
-    numeric: false,
-    disablePadding: false,
-    label: "changeRole",
+  // {
+  //   id: "changeRole",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "changeRole",
    
-  },
+  // },
 ] ;
 
 function EnhancedTableHead(props) {
@@ -232,18 +231,25 @@ function EnhancedTableToolbar(props) {
           component="div"
           style={{ color: "#27144B" }}
         >
-          <b>Panel Member</b>
+          <b>All Users</b>
         </Typography>
       )}
 
-{numSelected > 0 ? (
-  <Tooltip title="Delete">
-    <IconButton>
-      <DeleteIcon />
-    </IconButton>
-  </Tooltip>
-) : null}
-
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      )
+       : (
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )
+      }
     </Toolbar>
   );
 }
@@ -252,7 +258,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function UserRole2() {
+export default function AllUsers() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("email");
   const [selected, setSelected] = React.useState([]);
@@ -264,12 +270,19 @@ export default function UserRole2() {
 
   useEffect(() => {
     fetch(
-      "https://b2ah3pbngb.execute-api.us-east-1.amazonaws.com/dev/panelmember"
+      "https://zkn2zdwdn7.execute-api.us-east-1.amazonaws.com/dev/allusersdetails",
+      // { method: 'GET',
+      // mode: 'no-cors',
+      // headers: {
+      //   'Content-Type': 'application/json',
+      //   'Access-Control-Allow-Origin': '*', // Allowing CORS for all origins
+      // },}
     )
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
+  console.log(data);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -286,12 +299,12 @@ export default function UserRole2() {
     setSelected([]);
   };
 
-  const handleClick = (event, firstName) => {
+  const handleClick = (event,firstName) => {
     const selectedIndex = selected.indexOf(firstName);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, firstName);
+      newSelected = newSelected.concat(selected,firstName);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -386,8 +399,8 @@ export default function UserRole2() {
                       <TableCell align="left">{row.Posting}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
                       <TableCell align="left"  >{row.guestRole}</TableCell>
-                      <SimpleDialog />
-                      <TableCell align="left">{row.changeRole}</TableCell>
+                      {/* <SimpleDialog /> */}
+                      {/* <TableCell align="left">{row.changeRole}</TableCell> */}
                     </TableRow>
                   );
                 })}
