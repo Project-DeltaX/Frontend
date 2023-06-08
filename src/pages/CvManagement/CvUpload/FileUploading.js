@@ -33,6 +33,9 @@ const FileUploading = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Method": "POST",
+            'Access-Control-Allow-Origin': "*",
+
           },
           body: JSON.stringify({
             fileName: file.name,
@@ -74,7 +77,13 @@ const FileUploading = () => {
             </Grid>
 
             <Grid item md={6} pl={2} pt={2} container>
-              <Grid item md={6} display={"flex"} justifyContent="left" container>
+              <Grid
+                item
+                md={6}
+                display={"flex"}
+                justifyContent="left"
+                container
+              >
                 <Grid item md={4}>
                   <h6>Full Name of the Candidate</h6>
                 </Grid>
@@ -84,7 +93,13 @@ const FileUploading = () => {
                 </Grid>
               </Grid>
 
-              <Grid item md={6} display={"flex"} justifyContent={"right"} container>
+              <Grid
+                item
+                md={6}
+                display={"flex"}
+                justifyContent={"right"}
+                container
+              >
                 <Grid item md={4}>
                   <h6>E-mail of the Candidate</h6>
                 </Grid>

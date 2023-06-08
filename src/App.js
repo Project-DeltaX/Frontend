@@ -70,13 +70,15 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Account>
+        {/* <Account>
           <RouterComponent />
-        </Account>
+        </Account> */}
         {/* <AdminHomePage/> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
+
+        <CommitteeMemberHomePage/>
       </ThemeProvider>
     </div>
   );
