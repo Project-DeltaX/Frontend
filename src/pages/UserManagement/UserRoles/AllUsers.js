@@ -30,34 +30,8 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 // import SimpleDialog from "../../../components/ChangeRoles";
 
-// function createData(firstName, email, Country, Posting, Status,Role,Edit) {
-//   return {
-//     firstName,
-//     email,
-//     Country,
-//     Posting,
-//     Status,
-//     Role,
-//     Edit,
-//
-//     };
-// }
 
-// const rows = [
-//   createData('Danuraha', 'danuraha@gemail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gemail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gemail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gemail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gemail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gemail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gemail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gemail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gemail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gemail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gemail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gemail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gemail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
-// ];
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -270,13 +244,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     fetch(
-      "https://zkn2zdwdn7.execute-api.us-east-1.amazonaws.com/dev/allusersdetails",
-      // { method: 'GET',
-      // mode: 'no-cors',
-      // headers: {
-      //   'Content-Type': 'application/json',
-      //   'Access-Control-Allow-Origin': '*', // Allowing CORS for all origins
-      // },}
+      "https://zkn2zdwdn7.execute-api.us-east-1.amazonaws.com/dev/allusersdetails"
     )
       .then((response) => response.json())
       .then((data) => setData(data))

@@ -16,6 +16,8 @@ import LoginPage from "./pages/UserAuthentication/LoginPage";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
+import Status from "./pages/UserAuthentication/Status";
+import Settings from "./pages/UserAuthentication/Settings";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -70,10 +72,11 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* <Account>
+        <Account>
           <RouterComponent />
-        </Account> */}
-        <AdminHomePage/>
+         
+        </Account>
+        {/* <AdminHomePage/> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}

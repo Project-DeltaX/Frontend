@@ -66,18 +66,20 @@ const Register = () => {
     try {
       const response = await fetch("https://1dxqyteuva.execute-api.us-east-1.amazonaws.com/dev/registration", {
         method: "POST",
+        body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
+        // body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
       });
 
       if (!response.ok) {
         console.error("Failed to insert data into DynamoDB");
         return;
-      }
+      }else{ 
+        console.log("Data inserted into DynamoDB");}
 
-      console.log("Data inserted into DynamoDB");
+     
     } catch (error) {
       console.error("An error occurred", error);
     }
