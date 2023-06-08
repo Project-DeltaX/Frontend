@@ -4,7 +4,7 @@ import { Grid, Tabs, Tab, Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import AvailabilityStatus from "./AvailabilityStatus";
 import Schedule from "./Schedule";
-import Mailing from "./Mailing";
+import Mailing from "./Mailing/Mailing";
 import Allocation from "./Allocation";
 
 // A helper function to render the tab panels based on the selected tab

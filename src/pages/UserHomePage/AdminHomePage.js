@@ -15,12 +15,12 @@ const AdminHomePage = () => {
     // Render the Layout component with the menu items passed as a prop
 
     <Layout MenuArr={MenuArr} IconArr="AIconArr">
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Dashboard" element={<Dashboard/>} />
         <Route path="/UserManagement" element={<UserManagement/>} />
         <Route path="/Account" element={<OAccount />} />
-      </Routes>
+      </Routes> */}
     </Layout>
   );
 };

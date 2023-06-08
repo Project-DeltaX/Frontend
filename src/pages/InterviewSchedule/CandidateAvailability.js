@@ -35,7 +35,7 @@ const CandidateAvailability = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://1j4hao1j8f.execute-api.us-east-1.amazonaws.com/dev/candidatedata"
+          "https://bgn8o86ukl.execute-api.us-east-1.amazonaws.com/New/candidatedata"
         );
         const jsonCdata = await response.json();
         setCdata(jsonCdata);
@@ -54,20 +54,22 @@ const CandidateAvailability = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell align="right">Position</StyledTableCell>
+                <StyledTableCell align="right">JobRole</StyledTableCell>
                 <StyledTableCell align="right">Email</StyledTableCell>
+                <StyledTableCell align="right">CandidateId</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {cdata.map((row) => (
-                <StyledTableRow key={row.Name}>
+                <StyledTableRow key={row.name}>
                   <StyledTableCell component="th" scope="row">
-                    {row.Name}
+                    {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.Position}
+                    {row.jobRole}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.email}</StyledTableCell>
+                  <StyledTableCell align="right">{row.CandidateID}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
