@@ -32,7 +32,6 @@ const LoginPage = () => {
   
 
 
-
   // Return statement containing the JSX for the login page
 
   return (
@@ -186,3 +185,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
