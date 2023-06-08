@@ -88,7 +88,10 @@ const DropDownMenu = styled((props) => (
   },
 }));
 
+
+
 const HeaderBar = () => {
+  const {logout} = useAuth();
   const navigate = useNavigate();
   const [profileDrop, setProfileDrop] = React.useState(null);
   const open = Boolean(profileDrop);
@@ -115,6 +118,7 @@ const HeaderBar = () => {
   }
   const handleLogout = () => {
     handleClose();
+    logout();
     localStorage.removeItem("accesstoken");
     localStorage.removeItem("idtoken");
     navigate("/");

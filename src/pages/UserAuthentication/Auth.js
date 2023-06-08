@@ -111,6 +111,13 @@ const Auth = (props) => {
     });
   };
 
+  const logout=()=>{
+    const user = Pool.getCurrentUser();
+    if(user){
+      user.signOut();
+    }
+  }
+
   
 
   // function isJwtExpired(jwtToken) {
@@ -186,6 +193,7 @@ const Auth = (props) => {
         getjwtToken,
         getShowAlert,
         getLoginStatus,
+        logout
       }}
     >
       {props.children}
