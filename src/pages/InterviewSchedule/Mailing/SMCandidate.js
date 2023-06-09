@@ -15,8 +15,8 @@ const SMCandidate = () => {
      useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://np9fx7zlm6.execute-api.us-east-1.amazonaws.com/intern1"
+        const response = await fetch("https://71sozhk0d6.execute-api.us-east-1.amazonaws.com/st1/internlist"
+         
         );
         const jsonData = await response.json();
         setSData(jsonData);

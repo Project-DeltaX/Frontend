@@ -198,16 +198,16 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 
 const Allocation = () => {
-  const [member, setMember] = React.useState([]);
+  // const [member, setMember] = React.useState([]);
   const [cData, setCData] = useState([]);
   const [pData, setPData] = useState([]);
   const [selectedPanelMember, setSelectedPanelMember] = useState(null);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
 
 
-  const handleChange = (event) => {
-    setMember(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setMember(event.target.value);
+  // };
   const handlePanelMemberSelection = (panelMember) => {
     setSelectedPanelMember(panelMember);
   };
@@ -218,16 +218,19 @@ const Allocation = () => {
 
   const handleAllocateInterview = async () => {
     if (selectedPanelMember && selectedCandidate) {
-      const allocationData = {
+      const body = {
         panelMemberName: selectedPanelMember.firstName,
         panelMemberEmail: selectedPanelMember.email,
         candidateName: selectedCandidate.name,
         candidateEmail: selectedCandidate.email,
       };
       try {
-        const response = await fetch("https://y3xkww2phf.execute-api.us-east-1.amazonaws.com/allocation1/allocation", {
+        const response = await fetch("https://llucuxl5cc.execute-api.us-east-1.amazonaws.com/stage2/allocation", {
           method: "POST",
-          body: JSON.stringify(allocationData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
         });
 
         if (response.ok) {
@@ -286,7 +289,7 @@ const Allocation = () => {
             },
           }}
         >
-          <InputLabel id="demo-simple-select-label">Panel member</InputLabel>
+          {/* <InputLabel id="demo-simple-select-label">Panel member</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -294,15 +297,35 @@ const Allocation = () => {
             label="Panel member"
             onChange={handleChange}
           >
-            <MenuItem value={10}>One</MenuItem>
-            <MenuItem value={20}>Two</MenuItem>
-            <MenuItem value={30}>Three</MenuItem>
+            <MenuItem value={1}>One</MenuItem>
+            
+          </Select> */}
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} spacing={2}>
+      <Grid item xs={6} spacing={2}>
+        <FormControl fullWidth>
+          <InputLabel id="panel-member-label">Panel Member</InputLabel>
+          <Select
+            labelId="panel-member-label"
+            id="panel-member-select"
+            value={selectedPanelMember}
+            label="Panel Member"
+            onChange={(e) => handlePanelMemberSelection(e.target.value)}
+          >
+            {pData.map((panelMember) => (
+              <MenuItem key={panelMember.email} value={panelMember}>
+                {panelMember.firstName}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12}>
+      <Grid>
+        
+      </Grid>
         <div className="Table">
-          <h3>Panel Member List</h3>
+          {/* <h3>Panel Member List</h3> */}
           <TableContainer
             component={Paper}
             style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -320,11 +343,14 @@ const Allocation = () => {
                 {pData.map((row) => (
                   <TableRow
                     style={{ backgroundColor: "#b8a9cc" }}
-                    key={row.name}
+                    key={row.email}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                     <TableCell padding="checkbox">
-                      <Checkbox />
+                      <Checkbox 
+                      checked={selectedPanelMember === row}
+                      onChange={() => handlePanelMemberSelection(row)}
+                      />
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {row.firstName}
@@ -348,7 +374,7 @@ const Allocation = () => {
             },
           }}
         >
-          <InputLabel id="demo-simple-select-label">Candidate</InputLabel>
+          {/* <InputLabel id="demo-simple-select-label">Candidate</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -356,15 +382,35 @@ const Allocation = () => {
             label="Candidate"
             onChange={handleChange}
           >
-            <MenuItem value={10}>One</MenuItem>
-            <MenuItem value={20}>Two</MenuItem>
-            <MenuItem value={30}>Three</MenuItem>
-          </Select>
+            <MenuItem value={1}>One</MenuItem>
+           
+          </Select> */}
         </FormControl>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} spacing={2}>
+      <Grid item xs={6} spacing={2}>
+      <FormControl fullWidth>
+        <InputLabel id="candidate-label">Candidate</InputLabel>
+        <Select
+          labelId="candidate-label"
+          id="candidate-select"
+          value={selectedCandidate}
+          label="Candidate"
+          onChange={(e) => handleCandidateSelection(e.target.value)}
+        >
+          {cData.map((candidate) => (
+            <MenuItem key={candidate.email} value={candidate}>
+              {candidate.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Grid>
+    <Grid>
+
+    </Grid>
         <div className="Table">
-          <h3>Candidate list</h3>
+          {/* <h3>Candidate list</h3> */}
           <TableContainer
             component={Paper}
             style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -386,7 +432,10 @@ const Allocation = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell padding="checkbox">
-                      <Checkbox />
+                      <Checkbox 
+                      checked={selectedCandidate === row}
+                      onChange={() => handleCandidateSelection(row)}
+                      />
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -401,7 +450,11 @@ const Allocation = () => {
         </div>
       </Grid>
       <Grid item xs={12}>
-        <Button variant="contained" style={{ backgroundColor: "#1e0342" }}>
+        <Button variant="contained" style={{ backgroundColor: "#1e0342",color:"white" }}
+        onClick={handleAllocateInterview}
+        disabled={!selectedPanelMember || !selectedCandidate}
+          
+        >
           Allocate for interview
         </Button>
       </Grid>
