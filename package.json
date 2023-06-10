@@ -31,6 +31,8 @@
     "react-async": "^10.0.1",
     "react-dom": "^18.2.0",
     "react-dropzone-uploader": "^2.11.0",
+    "react-icon": "^1.0.0",
+    "react-icons": "^4.8.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.5.0",
     "styled-components": "^5.3.9",
@@ -67,7 +69,17 @@
     "@iconify/icons-material-symbols": "^1.2.25",
     "@iconify/icons-openmoji": "^1.2.19",
     "@iconify/icons-pepicons-pop": "^1.2.3",
-    "@iconify/react": "^4.0.1",
-    "react-router-dom": "^6.6.2"
+    "@iconify/react": "^4.1.0",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "react-router-dom": "^6.6.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
   }
 }

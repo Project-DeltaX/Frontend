@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
 import "../../../App.css";
 
+import jwtDecode from "jwt-decode";
+
 const CssTextField = styled(TextField)({
   padding: "8px",
 
@@ -58,18 +60,33 @@ const Profile = () => {
   const [mnumber, setMnumber] = useState("");
   const [email, setEmail] = useState("");
 
+  const accessToken = localStorage.getItem("accesstoken");
+  console.log(accessToken);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const decodedToken = jwtDecode(localStorage.getItem("idtoken"));
+
+        const email = decodedToken["email"];
+
         // Fetch data from the Lambda function API
         const response = await fetch(
-          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev/profiledetails",
+          "https://cisy7zw3u6.execute-api.us-east-1.amazonaws.com/new/profiledata?email=thanusiyant2000@gmail.com",
           {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+              "Access-Control-Request-Origin": "*",
+              "Access-Control-Request-Methods": "GET",
+            },
+          
           }
         );
         const jsonData = await response.json();
+        console.log(jsonData);
+        console.log(accessToken);
 
         setUsername(jsonData[0].username);
         setName(jsonData[0].fullName);
@@ -106,7 +123,7 @@ const Profile = () => {
       const result = await response.json();
       console.log(dataArrays);
       return result;
-       // "Profile updated successfully."
+      // "Profile updated successfully."
     } catch (err) {
       console.error(err);
     }

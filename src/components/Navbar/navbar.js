@@ -1,109 +1,112 @@
-import React, { useState } from "react";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { Avatar } from "@mui/material";
-import { Icon } from "@iconify/react";
+import React, { useState, useContext } from "react";
+
+import jwtDecode from "jwt-decode";
+
+//Material UI components
+import {
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Avatar,
+  Icon,
+  Box,
+  ListItemIcon,
+} from "@mui/material";
+
+//Icons
 import dashboardSolidBadged from "@iconify/icons-clarity/dashboard-solid-badged";
 import userCog from "@iconify/icons-fa-solid/user-cog";
 import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { DragIndicator, Image } from "@mui/icons-material";
 import interviewIcon from "@iconify/icons-openmoji/interview";
 import chartEvaluation from "@iconify/icons-carbon/chart-evaluation";
 import cvIcon from "@iconify/icons-pepicons-pop/cv";
 import autoScheduleOutline from "@iconify/icons-material-symbols/auto-schedule-outline";
-import PropTypes from 'prop-types';
-import { Box } from "@mui/system";
+import PropTypes from "prop-types";
+import { AiFillDashboard, AiFillSchedule } from "react-icons/ai";
+import { FaUserCog, FaUserTie } from "react-icons/fa";
+import { GrDocumentUser } from "react-icons/gr";
+import { GiProgression } from "react-icons/gi";
 
-import { useLocation, Link } from "react-router-dom";
-
-// const MenuArr = ["Dashboard", "User Management", "Account"];
-const AIconArr = [
-  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
-  <Icon icon={userCog} color="#e8e1fa" width="24" height="24" />,
-  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
-];
-const CIconArr = [
-  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
-  <Icon icon={cvIcon} color="#e8e1fa" width="24" height="24" />,
-  <Icon icon={autoScheduleOutline} color="#e8e1fa" width="24" height="24" />,
-  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
-];
-
-const PIconArr = [
-  <Icon icon={dashboardSolidBadged} color="#e8e1fa" width="24" height="24" />,
-  <Icon icon={interviewIcon} color="#e8e1fa" width="24" height="24" />,
-  <Icon icon={chartEvaluation} color="#e8e1fa" width="24" height="24" />,
-  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
-];
-const IIconArr = [
-  <SwitchAccountIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />,
-];
-
-
-
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
+import { AuthContext } from "../../pages/UserAuthentication/Auth";
+function SideBar(props) {
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
+    <ListItem disablePadding>
+      <ListItemButton to={`/homepage/${props.path}`}>
+        <ListItemIcon sx={{ paddingLeft: "16px" }}>
+          {props.title === "Dashboard" && (
+            <AiFillDashboard color="#e8e1fa" size={24} />
+          )}
+          {props.title === "User Management" && (
+            <FaUserCog color="#e8e1fa" size={24} />
+          )}
+          {props.title === "CV Management" && (
+            <GrDocumentUser color="#e8e1fa" size={24} />
+          )}
+          {props.title === "Interview Schedule" && (
+            <AiFillSchedule color="#e8e1fa" size={24} />
+          )}
+          {props.title === "Interview" && (
+            <FaUserTie color="#e8e1fa" size={24} />
+          )}
+          {props.title === "Evaluation" && (
+            <GiProgression color="#e8e1fa" size={24} />
+          )}
+          {props.title === "Account" && (
+            <SwitchAccountIcon
+              width="24"
+              height="24"
+              sx={{ color: "#e8e1fa" }}
+            />
+          )}
+        </ListItemIcon>
+        <ListItemText
+          primary={props.title}
+          primaryTypographyProps={{
+            fontFamily: "Poppins",
+            color: "#e8e1fa",
+            backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
+            fontSize: 16,
+            margin: 0,
+            padding: 0,
+          }}
+        />
+      </ListItemButton>
+    </ListItem>
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
-
-
 const Navbar = (props) => {
-  const [Navvalue, setNavvalue] = React.useState();
-  const { pathname } = useLocation();
+  // const [role, setRole] = useState("");
+  const { getToken, getLoginStatus } = useContext(AuthContext);
+  const token = localStorage.getItem("idtoken");
+  let role = null;
 
-  const [Sidevalue, setSidevalue] = React.useState(0);
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      role = decodedToken["custom:guestRole"];
+    } catch (error) {
+      console.error("Error decoding the JWT token:", error);
+    }
+  }
 
-  const handleChange = (event, newValue) => {
-    setSidevalue(newValue);
-  };
+  // const [Sidevalue, setSidevalue] = React.useState(0);
+
+  // const handleChange = (event, newValue) => {
+  //   setSidevalue(newValue);
+  // };
 
   return (
     <div>
       <Toolbar>
-      <Avatar alt="Logo" src="Logo.jpg" />
-      <img src="Logo.jpg"/>
-        {/* <AppleIcon
-          color="primary"
-          fontSize="large"
-          sx={{ margin: "20px", marginInlineStart: "80px" }}
-        /> */}
+        <Avatar alt="Logo" src="Logo.jpg" />
+        <img src="Logo.jpg" />
       </Toolbar>
       <Divider
         textAlign="left"
@@ -117,40 +120,30 @@ const Navbar = (props) => {
         Main Menu
       </Divider>
       <List>
-        {props.MenuArr.map((text, index) => (
-          <ListItem
-            key={text}
-            disablePadding
-            value={Sidevalue}
-            onChange={handleChange}
-          >
-            <ListItemButton
-              to={`/${text}`}
-              // {...a11yProps(index)}
-            >
-              <ListItemIcon>
-                {props.IconArr === "AIconArr"
-                  ? AIconArr[index]
-                  : props.IconArr === "CIconArr"
-                  ? CIconArr[index]
-                  : props.IconArr === "PIconArr"
-                  ? PIconArr[index]
-                  : IIconArr[index]}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                primaryTypographyProps={{
-                  fontFamily: "Poppins",
-                  color: "#e8e1fa",
-                  backgroundColor: "text-shadow(2px 2px 5px #FB8257)",
-                  // text-shadow: 1px 1px 3px #FB8257
-                  fontSize: 16,
-                }}
-              />
-            </ListItemButton>
-            {/* </Link> */}
-          </ListItem>
-        ))}
+        {(role === "Admin" ||
+          role === "PanelMember" ||
+          role === "CommitteeMember") && (
+          <SideBar title="Dashboard" path="dashboard" />
+        )}
+        {role === "Admin" && (
+          <SideBar title="User Management" path="usermanagement" />
+        )}
+        {role === "CommitteeMember" && (
+          <SideBar title="CV Management" path="cvmanagement" />
+        )}
+        {role === "CommitteeMember" && (
+          <SideBar title="Interview Schedule" path="interviewschedule" />
+        )}
+        {role === "PanelMember" && (
+          <SideBar title="Interview" path="interview" />
+        )}
+        {role === "PanelMember" && (
+          <SideBar title="Evaluation" path="evaluation" />
+        )}
+        {(role === "Admin" ||
+          role === "PanelMember" ||
+          role === "CommitteeMember" ||
+          role === "Intern") && <SideBar title="Account" path="account" />}
       </List>
       <Divider
         textAlign="left"
@@ -167,7 +160,7 @@ const Navbar = (props) => {
         {["Support", "Settings"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
+              <ListItemIcon sx={{ paddingLeft: "16px" }}>
                 {index === 0 ? (
                   <SupportAgentIcon
                     width="24"
@@ -186,7 +179,6 @@ const Navbar = (props) => {
                 primary={text}
                 primaryTypographyProps={{
                   fontFamily: "Poppins, sans-serif",
-
                   fontSize: 16,
                   color: "#E8E1FA",
                 }}

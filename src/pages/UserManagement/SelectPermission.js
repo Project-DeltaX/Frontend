@@ -30,7 +30,7 @@ export default function CheckboxesTags(props) {
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
-            style={{ marginRight: 20, position:'flex' }}
+            style={{ marginRight: 10, position:'flex' }}
             // The Checkbox component's 'checked' prop is set to reflect whether the current option is selected or not
 
             checked={selected}
@@ -40,7 +40,7 @@ export default function CheckboxesTags(props) {
       )}
       // The Autocomplete component's style is set to define its width and background color
 
-      style={{ width: 280, backgroundColor: "white"  }}
+      style={{ width: 180, backgroundColor: "white"  }}
       // The renderInput prop is set to render a TextField with a label and placeholder
 
       renderInput={(params) => (

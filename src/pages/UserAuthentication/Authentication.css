@@ -13,3 +13,8 @@
     inset 0px 4px 25px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(20px);
 }
+
+.alert{
+  color: red;
+  align-self: flex-end;
+}

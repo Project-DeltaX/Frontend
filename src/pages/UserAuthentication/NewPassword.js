@@ -3,7 +3,7 @@
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import { CognitoUser } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
-import Pool from "../../pages/UserPool";
+import Pool from "../../UserPool";
 
 // Define the NewPassword component
 
@@ -15,6 +15,7 @@ const NewPassword = (props) => {
   const [code, setCode] = useState(""); // Verification code entered by user
   const [password, setPassword] = useState(""); // New password entered by user
   const [confirmPassword, setConfirmPassword] = useState(""); // Confirm new password entered by user
+   const [errorMessage, setErrorMessage] = useState("");
 
   // Define a function to get the current user
 
@@ -32,10 +33,27 @@ const NewPassword = (props) => {
 
     // Check if the new passwords match
 
-    if (password !== confirmPassword) {
-      console.error("Password are not the same");
+    // if (password !== confirmPassword) {
+    //   console.error("Password are not the same");
+    //   // alert("Passwords do not match");
+    //   return;
+    // }
+
+
+    if (!code || !password || !confirmPassword) {
+      setErrorMessage("Please fill in all fields");
       return;
     }
+
+
+  if (password !== confirmPassword){
+    console.error("Password are not the same");
+    setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    setErrorMessage("");
+
     // Call the confirmPassword method of the CognitoUser object to reset the user's password
 
     getUser().confirmPassword(code, password, {
@@ -56,6 +74,7 @@ const NewPassword = (props) => {
           display="flex"
           flexDirection={"column"}
           maxWidth={500}
+          maxHeight={600}
           alignItems="center"
           justifyContent={"center"}
           margin="auto"
@@ -145,7 +164,7 @@ const NewPassword = (props) => {
               </Grid>
             </Grid>
 
-            <Grid padding={2}>
+            <Grid padding={3}>
               <Grid>
                 <Typography
                   color="#E8E1FA"
@@ -178,11 +197,16 @@ const NewPassword = (props) => {
             </Grid>
           </Grid>
           <Grid padding={3}>
+          {errorMessage && (
+    <Typography color="#FF0000" variant="subtitle1">
+      {errorMessage}
+    </Typography>
+  )}
             <Button
               // LinkComponent={Link}
               // to={"/newpw"}
               sx={{
-                marginTop: 3,
+                marginTop: 0.5,
                 borderRadius: 4,
                 bgcolor: "#EB5E57",
                 color: "black",

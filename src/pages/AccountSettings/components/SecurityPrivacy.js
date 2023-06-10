@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AWS from "aws-sdk";
 import "../../../App.css";
 import {
@@ -23,10 +23,10 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 //Cognito userpool configuration
-import Pool from "../../UserPool.js";
-import { AccountContext } from "../../UserAuthentication/Account";
-import { CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
-
+import Pool from "../../../UserPool.js";
+import { AccountContext } from "../../UserAuthentication/Auth";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import jwtDecode from "jwt-decode";
 
 //password field
 import IconButton from "@mui/material/IconButton";
@@ -44,7 +44,6 @@ const TermsConditions = [
   "Terms Conditions 02",
   "Terms Conditions 03",
 ];
-
 
 const CssTypography = styled(Typography)({
   // color: "white",
@@ -109,43 +108,50 @@ const SecurityPrivacy = () => {
   const [showOPassword, setShowOPassword] = useState(false);
   const [showNPassword, setShowNPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
-  const [isMatched,setIsMatched] = useState(false);
+  const [isMatched, setIsMatched] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const decodedToken = jwtDecode(localStorage.getItem('idtoken'));
+    console.log(decodedToken['email']);
+
 
     const cognitoUser = new CognitoUser({
-      Username: 'danurahatheva@gmail.com',
+      Username: decodedToken['email'],
       Pool: Pool,
     });
     const authenticationDetails = new AuthenticationDetails({
-      Username: 'danurahatheva@gmail.com',
-      Password: currentPassword
+      Username: decodedToken['email'],
+      Password: currentPassword,
     });
 
-    if(newPassword===confirmPassword){
+    if (newPassword === confirmPassword) {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: () => {
-          cognitoUser.changePassword(currentPassword, newPassword, (err, result) => {
-            if (err) {
-              console.log(err);
-            } else {
-              alert('Password changed successfully!');
-              setConfirmPassword(null);
-              setCurrentPassword(null);
-              setNewPassword(null);
+          cognitoUser.changePassword(
+            currentPassword,
+            newPassword,
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                alert("Password changed successfully!");
+                setConfirmPassword("");
+                setCurrentPassword("");
+                setNewPassword("");
+              }
             }
-          });
+          );
         },
         onFailure: (err) => {
+          alert("Incorrect Old Password")
           console.log(err);
-        }
+        },
       });
-    }else{
-      setMessage('Confirm Password is not matched')
+    } else {
+      setMessage("Confirm Password is not matched");
       setIsMatched(true);
     }
-    
   };
 
   return (
@@ -231,7 +237,7 @@ const SecurityPrivacy = () => {
                     variant="outlined"
                   >
                     <CssInput
-                      id="old_password"
+                      id="new_password"
                       type={showNPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
@@ -248,7 +254,7 @@ const SecurityPrivacy = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      placeholder="Old Password"
+                      placeholder="New Password"
                     />
                   </FormControl>
                 </Grid>
@@ -259,7 +265,7 @@ const SecurityPrivacy = () => {
                     variant="outlined"
                   >
                     <CssInput
-                      id="old_password"
+                      id="confirm_password"
                       type={showCPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
@@ -276,7 +282,7 @@ const SecurityPrivacy = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      placeholder="Old Password"
+                      placeholder="Confirm Password"
                     />
                   </FormControl>
                 </Grid>
@@ -294,10 +300,11 @@ const SecurityPrivacy = () => {
                   Change
                 </Button>
               </Grid>
-              {isMatched?<Typography alignSelf={"flex-end"} sx={{ color: "red" }}>
-                {message}
-              </Typography>:null}
-              
+              {isMatched ? (
+                <Typography alignSelf={"flex-end"} sx={{ color: "red" }}>
+                  {message}
+                </Typography>
+              ) : null}
             </Grid>
           </TabPanel>
           {/* Reset Password */}

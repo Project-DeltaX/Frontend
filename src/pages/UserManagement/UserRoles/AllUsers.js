@@ -28,36 +28,10 @@ import { visuallyHidden } from "@mui/utils";
 import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import SimpleDialog from "../../../components/ChangeRoles";
+// import SimpleDialog from "../../../components/ChangeRoles";
 
-// function createData(firstName, email, Country, Posting, Status,Role,Edit) {
-//   return {
-//     firstName,
-//     email,
-//     Country,
-//     Posting,
-//     Status,
-//     Role,
-//     Edit,
-//
-//     };
-// }
 
-// const rows = [
-//   createData('Danuraha', 'danuraha@gemail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gemail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gemail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gemail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gemail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gemail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gemail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gemail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gemail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gemail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gemail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gemail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gemail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
-// ];
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -125,13 +99,13 @@ const headCells = [
     disablePadding: false,
     label: "guestRole",
   },
-  {
-    id: "changeRole",
-    numeric: false,
-    disablePadding: false,
-    label: "changeRole",
+  // {
+  //   id: "changeRole",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "changeRole",
    
-  },
+  // },
 ] ;
 
 function EnhancedTableHead(props) {
@@ -231,18 +205,25 @@ function EnhancedTableToolbar(props) {
           component="div"
           style={{ color: "#27144B" }}
         >
-          <b>Committee Members</b>
+          <b>All Users</b>
         </Typography>
       )}
 
-{numSelected > 0 ? (
-  <Tooltip title="Delete">
-    <IconButton>
-      <DeleteIcon />
-    </IconButton>
-  </Tooltip>
-) : null}
-
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      )
+       : (
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )
+      }
     </Toolbar>
   );
 }
@@ -251,7 +232,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function UserRole() {
+export default function AllUsers() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("email");
   const [selected, setSelected] = React.useState([]);
@@ -263,12 +244,13 @@ export default function UserRole() {
 
   useEffect(() => {
     fetch(
-      "https://p7zszo9ar2.execute-api.us-east-1.amazonaws.com/dev/committeemember"
+      "https://zkn2zdwdn7.execute-api.us-east-1.amazonaws.com/dev/allusersdetails"
     )
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
+  console.log(data);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -385,8 +367,8 @@ export default function UserRole() {
                       <TableCell align="left">{row.Posting}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
                       <TableCell align="left"  >{row.guestRole}</TableCell>
-                      <SimpleDialog />
-                      <TableCell align="left">{row.changeRole}</TableCell>
+                      {/* <SimpleDialog /> */}
+                      {/* <TableCell align="left">{row.changeRole}</TableCell> */}
                     </TableRow>
                   );
                 })}

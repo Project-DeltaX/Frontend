@@ -6,16 +6,17 @@ import "@fontsource/poppins";
 import "@fontsource/poppins";
 
 //user defined Component imports
-import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
+import AdminHomePage from "./pages/UserHomePage/HomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import RouterComponent from "./MyRoutes";
 import InternHomePage from "./pages/UserHomePage/InternHomePage";
-import { Account } from "./pages/UserAuthentication/Account";
+import { Auth } from "./pages/UserAuthentication/Auth";
 import Register from "./pages/UserAuthentication/createNewAccount";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
+import Profile from "./pages/AccountSettings/components/Profile";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -69,17 +70,17 @@ const theme = createTheme({
 function App() {
   return (
     <div>
-      {/* <ThemeProvider theme={theme}> */}
-        <Account>
+      <ThemeProvider theme={theme}>
+        <Auth>
           <RouterComponent />
-        </Account>
-        <CommitteeMemberHomePage/>
-         {/* <HomePage/> */}
+        </Auth>
+        {/* <Profile/> */}
         {/* <AdminHomePage/> */}
+        <CommitteeMemberHomePage/>
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
-      {/* </ThemeProvider> */}
+      </ThemeProvider>
     </div>
   );
 }

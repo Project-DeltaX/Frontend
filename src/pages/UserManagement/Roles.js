@@ -1,4 +1,3 @@
-
 //Common Roles---
 import { Grid, Link } from "@mui/material";
 // import React from "react";
@@ -21,6 +20,7 @@ import CheckboxesTags from "./SelectPermission";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import AllUsers from "././UserRoles/AllUsers"
 
 // Define a new component for the select permission button
 
@@ -75,10 +75,10 @@ const CommonRoles = () => {
           >
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: "black" }}>
+                <TableCell sx={{ color: "#27144B" }}>
                   <b>Roles</b>
                 </TableCell>
-                <TableCell align="right" sx={{ color: "black" }}>
+                <TableCell align="right" sx={{ color: "#27144B" }}>
                   <b>Permission</b>
                 </TableCell>
               </TableRow>
@@ -89,9 +89,10 @@ const CommonRoles = () => {
               {rows.map((row) => (
                 <TableRow
                   key={row.Roles}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}  //bottom border
                 >
                   <TableCell component="th" scope="row" sx={{ color: "black" }}>
+                    {/* table elements */}
                     {row.Roles}
                   </TableCell>
                   <TableCell align="right" sx={{ color: "black" }}>
@@ -106,7 +107,7 @@ const CommonRoles = () => {
       <Grid item padding={3} alignSelf={"flex-end"}>
         {/* Add a button to add new roles */}
 
-        <Button
+        {/* <Button
           sx={{
             marginTop: 3,
             borderRadius: 4,
@@ -118,8 +119,10 @@ const CommonRoles = () => {
           startIcon={<AddCircleIcon />}
         >
           ADD
-        </Button>
+        </Button> */}
       </Grid>
+      <div><AllUsers/></div>
+
     </Grid>
   );
 };

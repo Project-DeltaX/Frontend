@@ -3,27 +3,12 @@
 //Danuraha@123-pw
 import { TextField, Box, Button, Typography, Grid } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { AccountContext } from "./Account";
+import useAuth from "../../hooks/useAuth";
 import LoginImg from "../../Images/Login.svg";
-//import AdminHomePage from "../UserHomePage/AdminHomePage";
-import { Link, Navigate } from "react-router-dom";
 import "../UserAuthentication/Authentication.css";
-import AdminHomePage from "../UserHomePage/AdminHomePage";
-// import { CognitoUserPool, CognitoUser,AuthenticationDetails } from "amazon-cognito-identity-js";
-// import Pool from "..//UserPool.js" ;
-// import { AccountContext } from "./Account";
-// import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-// // import { Email } from "@mui/icons-material";
-
-// const poolData = {
-//   UserPoolId: 'us-east-1_JeGJ5dp7G',
-//   ClientId: '4b98f6bsasaj3e9bf8mva3ei6k'
-// };
-
-// const userPool = new CognitoUserPool(poolData);
 
 //Routing
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate,Navigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -32,19 +17,20 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const { authenticate, setJToken,getLoginStatus } = useContext(AccountContext);
+  const { authenticate, getjwtToken, getShowAlert,getLoginStatus } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     authenticate(email, password);
+
   };
+  
+  if(getLoginStatus()){
 
-  if (getLoginStatus()) {
-    console.log(isLoggedIn);
-    return <Navigate to={'/adminHome'}/>
-
+    return <Navigate to={'/homepage'}/>
   }
+  
+
 
   // Return statement containing the JSX for the login page
 
@@ -86,7 +72,7 @@ const LoginPage = () => {
               alignItems="center"
               justifyContent={"center"}
               marginX={{ md: 3, lg: 10 }}
-              marginBottom={{md:22}}
+              marginBottom={{ md: 22 }}
               marginTop={{ md: 10 }}
               padding={6}
               borderRadius={20}
@@ -148,7 +134,10 @@ const LoginPage = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              {/* Render forgot password link */}
+            
+              {getShowAlert() && (
+                <div className="alert">Incorrect username or password</div>
+              )}
 
               <Typography
                 color="blue"
@@ -196,3 +185,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
