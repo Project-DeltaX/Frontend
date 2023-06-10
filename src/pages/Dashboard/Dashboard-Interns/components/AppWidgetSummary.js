@@ -46,7 +46,7 @@ export default function AppWidgetSummary({ title, total, icon, sx, ...other }) {
           padding:"10px",
           boxShadow: 0,
           textAlign: "center",
-          bgcolor: "#e4e0ff",
+          bgcolor: "#27144B",
         }}
         {...other}
       >
@@ -58,7 +58,7 @@ export default function AppWidgetSummary({ title, total, icon, sx, ...other }) {
                 align="left"
                 ml={3}
                 marginBottom={0}
-                sx={{ opacity: 0.72 }}
+                sx={{ color:"#e4e0ff"}}
               >
                 {title}
               </Typography>
@@ -69,7 +69,7 @@ export default function AppWidgetSummary({ title, total, icon, sx, ...other }) {
                   position:'initial',
                   marginTop:"-10px",
                   marginLeft:"30px",
-                  color: "#27144B",
+                  color: "#e4e0ff",
                   width: "fit-content",
                   height: "fit-content",
                 }}
@@ -79,7 +79,7 @@ export default function AppWidgetSummary({ title, total, icon, sx, ...other }) {
             </MyGrid>
           </MyGrid>
           <MyGrid item md={6}>
-            <Typography variant="h4" align="left" ml={3}>
+            <Typography variant="h4" align="left" ml={3}color={"#e4e0ff"}>
               {total}
             </Typography>
           </MyGrid>
