@@ -1,3 +1,4 @@
+//need to delete this file
 import * as React from "react";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
@@ -55,7 +56,7 @@ const Permissions = [
   { number: "Dashboard Access" },
   { number: "View and filter CV documents" },
   { number: "CV uploading Access" },
-  { number: "Mail Access" },
+  // { number: "Mail Access" },
   { number: "send emails" },
   { number: "Score sheet Access" },
   { number: "Progress Report Access" },

@@ -61,19 +61,20 @@ const ForgotPassword = () => {
             display="flex"
             flexDirection={"column"}
             maxWidth={500}
-            // maxHeight={600}
+            // maxHeight={500}
             alignItems="center"
             justifyContent={"center"}
             margin="auto"
-            marginTop={5}
-            padding={5}
+            marginTop={9}
+            padding={4}
             borderRadius={10}
             // boxShadow={"5px 5px 10px #ccc"}
-            bgcolor="#27144B"
-            sx={{
-              background:
-                " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
-            }}
+            // bgcolor="#27144B"
+            // sx={{
+            //   background:
+            //     " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
+            // }}
+            className="logingrad"
           >
             <img src={pass} width="250px" />
 
@@ -105,7 +106,7 @@ const ForgotPassword = () => {
                   textAlign="center"
                   fontFamily="Abril Fatface"
                 >
-                  Enter E-mail Address
+                  Enter  Verified E-mail Address only
                 </Typography>
                 {/* Text field to input email */}
 
@@ -137,7 +138,7 @@ const ForgotPassword = () => {
             <Grid pb={1}>
               <Button
                 sx={{
-                  marginTop: 3,
+                  marginTop: 2,
                   borderRadius: 4,
                   fontFamily: "Abril Fatface",
                   color: "black",
