@@ -25,14 +25,16 @@ import CvManagement from "./pages/CvManagement/CvManagement";
 import InterviewSchedule from "./pages/InterviewSchedule/InterviewSchedule";
 import Interview from "./pages/Interview&evaluation/Interview";
 import Evaluation from "./pages/Interview&evaluation/Evaluation";
-import RequireAuth from "./pages/UserAuthentication/RequireAuth";
+import PrivateRoute from "./pages/UserAuthentication/PrivateRoute";
+import useAuth from "./hooks/useAuth";
+import AccessDenied from "./pages/ErrorPages/AccessDenied";
 
 //auth
 import { AccountContext } from "./pages/UserAuthentication/Auth";
 import jwtDecode from "jwt-decode";
 
 function RouterComponent() {
-  const location = useLocation();
+  const { getLoginStatus } = useAuth();
 
   return (
     <div>
@@ -40,16 +42,46 @@ function RouterComponent() {
         <Route path="/" element={<LoginPage />} />
         <Route path="createnewaccount" element={<Register />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
-          <Route path="homepage" element={<RequireAuth><HomePage /></RequireAuth>}>
+        <Route
+          path="homepage"
+          element={
+            getLoginStatus() ? <HomePage /> : <Navigate to="/" replace />
+          }
+        >
+          <Route
+            element={
+              <PrivateRoute
+                allowedRoles={["Admin", "CommitteeMember", "PanelMember"]}
+              />
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["Admin"]} />}>
             <Route path="usermanagement" element={<UserManagement />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["CommitteeMember"]} />}>
             <Route path="cvmanagement" element={<CvManagement />} />
             <Route path="interviewschedule" element={<InterviewSchedule />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["PanelMember"]} />}>
             <Route path="interview" element={<Interview />} />
             <Route path="evaluation" element={<Evaluation />} />
+          </Route>
+          <Route
+            element={
+              <PrivateRoute
+                allowedRoles={["Admin", "CommitteeMember", "PanelMember","Intern"]}
+              />
+            }
+          >
             <Route path="account" element={<OAccount />} />
           </Route>
+
+          
+        </Route>
+        <Route path="/access-denied" element={<AccessDenied/>}/>
       </Routes>
     </div>
   );

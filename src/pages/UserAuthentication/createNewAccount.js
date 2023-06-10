@@ -26,6 +26,7 @@ const CssInput = styled(InputBase)({
   backgroundColor: "white",
   borderRadius: "20px",
   height: "80%",
+  width:"430px"
   // "& .MuiInputBase-input": {
   //   fontFamily: "Poppins",
   //   fontSize: "14px",
@@ -78,29 +79,29 @@ const Register = () => {
 
 
 
-  const updateData=async () => {
-    try {
-      const response = await fetch("https://1dxqyteuva.execute-api.us-east-1.amazonaws.com/dev/registration", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
-      });
+  // const updateData=async () => {
+  //   try {
+  //     const response = await fetch("https://1dxqyteuva.execute-api.us-east-1.amazonaws.com/dev/registration", {
+  //       method: "POST",
+  //       body: JSON.stringify(formData),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       // body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
+  //     });
 
-      if (!response.ok) {
-        console.error("Failed to insert data into DynamoDB");
-        return;
-      }else{ 
-        console.log("Data inserted into DynamoDB");}
+  //     if (!response.ok) {
+  //       console.error("Failed to insert data into DynamoDB");
+  //       return;
+  //     }else{ 
+  //       console.log("Data inserted into DynamoDB");}
 
      
-    } catch (error) {
-      console.error("An error occurred", error);
-    }
+  //   } catch (error) {
+  //     console.error("An error occurred", error);
+  //   }
     
-  }
+  // }
 
 
 
@@ -191,7 +192,7 @@ setErrorMessage(err.message); // Display the error message in an alert
         //adding new
         setErrorMessage("Sign up successful!.Go to the mail to verify!"); // Display a success message in an alert
         //
-     updateData();
+    //  updateData();
 
     }
     );
@@ -290,16 +291,19 @@ setErrorMessage(err.message); // Display the error message in an alert
               </Grid>
             </Grid>
 
-            <Grid container direction="column" >
-              <TextField
+            <Grid container direction="column"  >
+              <Grid sx={{marginBottom:3,marginTop:2}} >
+                <TextField
                 sx={{
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
                     borderRadius: "20px",
                     height: "15px",
-                    marginBottom:4,
-                    marginTop:3
+                    width:"400px"
+                    // marginBottom:4,
+                    // marginTop:3
+
                   },
                 }}
                 // margin="normal"
@@ -311,6 +315,8 @@ setErrorMessage(err.message); // Display the error message in an alert
                 value={formData.email}
                 onChange={handleInputChange}
               />{" "}
+              </Grid>
+              <Grid>
               <CssInput
                 sx={{
                   input: {
@@ -344,6 +350,9 @@ setErrorMessage(err.message); // Display the error message in an alert
                   )}
                 </IconButton>}
               />
+              </Grid>
+              
+              
               <Grid container spacing={0.2} padding="5px" marginTop='30px'>
                 <Grid item>
                   <Typography
