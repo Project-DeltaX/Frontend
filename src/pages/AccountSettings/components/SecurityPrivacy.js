@@ -175,7 +175,6 @@ const SecurityPrivacy = () => {
             orientation="vertical"
           >
             <Tab label="Change Password" {...a11yProps(0)} />
-            <Tab label="Reset Password" {...a11yProps(1)} />
             <Tab label="Privacy instructions" {...a11yProps(2)} />
             <Tab label="Delete Account" {...a11yProps(3)} />
           </Tabs>

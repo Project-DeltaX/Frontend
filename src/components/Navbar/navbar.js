@@ -46,7 +46,7 @@ function SideBar(props) {
             <FaUserCog color="#e8e1fa" size={24} />
           )}
           {props.title === "CV Management" && (
-            <GrDocumentUser color="#e8e1fa" size={24} />
+            <GrDocumentUser color="#ffffff"  size={24} />
           )}
           {props.title === "Interview Schedule" && (
             <AiFillSchedule color="#e8e1fa" size={24} />
@@ -83,7 +83,6 @@ function SideBar(props) {
 
 const Navbar = (props) => {
   // const [role, setRole] = useState("");
-  const { getToken, getLoginStatus } = useContext(AuthContext);
   const token = localStorage.getItem("idtoken");
   let role = null;
 
@@ -157,9 +156,9 @@ const Navbar = (props) => {
         Other
       </Divider>
       <List>
-        {["Support", "Settings"].map((text, index) => (
+        { ["Settings"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton to={'/homepage/account'}>
               <ListItemIcon sx={{ paddingLeft: "16px" }}>
                 {index === 0 ? (
                   <SupportAgentIcon

@@ -18,7 +18,7 @@ const SelectCss = styled(Select)({
 });
 
 const Dashboard = () => {
-  const [transformType, setTransformType] = useState("applicants");
+  const [transformType, setTransformType] = useState("candidates");
 
   const handleChange = (event) => {
     setTransformType(event.target.value);
@@ -29,10 +29,10 @@ const Dashboard = () => {
       case "applicants":
         return <h1>Applicants</h1>;
         break;
+      // case "interns":
+      //   return <h1>Candidates</h1>;
+      //   break;
       case "candidates":
-        return <h1>Candidates</h1>;
-        break;
-      case "interns":
         return <DashboardInterns />;
         break;
       default:

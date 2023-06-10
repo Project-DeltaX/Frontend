@@ -22,7 +22,6 @@ const Auth = (props) => {
   // Define state variables for JWT token and login status
 
   const [jwtToken, setJWTToken] = useState('');
-  const [loginStatus, setLoginStatus] = useState(false);
 
   // Define a function to get the session for a user
 
@@ -90,8 +89,6 @@ const Auth = (props) => {
           const token = data;
           setJWTToken(token["idToken"]["jwtToken"]);
           localStorage.setItem('idtoken',token["idToken"]["jwtToken"]);
-          localStorage.setItem('accesstoken',token["accessToken"]["jwtToken"])
-          setLoginStatus(true);
           setShowAlert(false);
         },
         onFailure: (err) => {
@@ -110,13 +107,6 @@ const Auth = (props) => {
       });
     });
   };
-
-  const logout=()=>{
-    const user = Pool.getCurrentUser();
-    if(user){
-      user.signOut();
-    }
-  }
 
   
 
@@ -176,7 +166,7 @@ const Auth = (props) => {
   // This function returns the current login status
 
   const getLoginStatus = () => {
-    return loginStatus;
+    return (localStorage.getItem("idtoken") != null);
   };
   const getShowAlert = () => {
     return showAlert;
@@ -193,7 +183,6 @@ const Auth = (props) => {
         getjwtToken,
         getShowAlert,
         getLoginStatus,
-        logout
       }}
     >
       {props.children}
