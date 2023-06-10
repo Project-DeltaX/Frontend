@@ -13,12 +13,14 @@ import CandidateAvailability from "./CandidateAvailability";
 import PanelAvailability from "./PanelAvailability";
 
 const AvailabilityStatus = () => {
-  const [selectedOption, setSelectedOption] = useState("Candidate");
+  // Defining the functional component AvailabilityStatus using arrow function syntax
+  const [selectedOption, setSelectedOption] = useState("Candidate"); // Initializing state for selectedOption using useState hook with default value "Candidate"
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    // Defining a handleChange function to handle changes to selectedOption state
+    setSelectedOption(event.target.value); // Updating the selectedOption state with the value of the select option that was clicked
   };
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(null); // Initializing state for the selected interview date using useState hook with default value null
 
   return (
     <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -41,7 +43,7 @@ const AvailabilityStatus = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={selectedOption}
+              value={selectedOption} // Setting the value of the select dropdown to the selectedOption state
               label="Availability"
               onChange={handleChange}
             >
@@ -56,7 +58,6 @@ const AvailabilityStatus = () => {
           </FormControl>
         </Box>
       </Grid>
-      
     </Grid>
   );
 };
