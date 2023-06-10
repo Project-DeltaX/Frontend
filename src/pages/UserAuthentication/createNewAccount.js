@@ -1,4 +1,4 @@
-import { TextField, Box, Button, Typography, Grid } from "@mui/material";
+import { TextField, Box, Button, Typography, Grid,IconButton ,styled,InputBase} from "@mui/material";
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Visibility,VisibilityOff } from "@mui/icons-material";
 
 //CSS import
 import "../UserAuthentication/Authentication.css";
@@ -19,6 +20,19 @@ import {
 } from "amazon-cognito-identity-js";
 // user pool data
 
+
+const CssInput = styled(InputBase)({
+  padding: "5px",
+  backgroundColor: "white",
+  borderRadius: "20px",
+  height: "80%",
+  // "& .MuiInputBase-input": {
+  //   fontFamily: "Poppins",
+  //   fontSize: "14px",
+  // },
+});
+
+
 const poolData = {
   UserPoolId: "us-east-1_JeGJ5dp7G",
   ClientId: "4b98f6bsasaj3e9bf8mva3ei6k",
@@ -30,6 +44,8 @@ const userPool = new CognitoUserPool(poolData);
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
 
   // const [showAlert, setShowAlert] = useState(false);
   // create a state to store form data
@@ -190,6 +206,7 @@ setErrorMessage(err.message); // Display the error message in an alert
     <div className="loginbackgorund">
       <form onSubmit={(e) => handleSubmit(e)}>
         <Box
+        className="logingrad"
           display="flex"
           flexDirection={"column"}
           maxWidth={500}
@@ -201,11 +218,11 @@ setErrorMessage(err.message); // Display the error message in an alert
           padding={5}
           borderRadius={10}
           // boxShadow={"5px 5px 10px #ccc"}
-          bgcolor="#27144B"
-          sx={{
-            background:
-              " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
-          }}
+          // bgcolor="#27144B"
+          // sx={{
+          //   background:
+          //     " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
+          // }}
         >
           <Grid container direction="column">
             <Grid container direction="column">
@@ -225,7 +242,8 @@ setErrorMessage(err.message); // Display the error message in an alert
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
-                Already have an Account?<Link to={"/"}>Login</Link>
+                Already have an Account?<Link sx={{color:"#3E51F5"}}  to={"/"}><b>Login</b>
+                 </Link>
               </Typography>
             </Grid>
 
@@ -266,13 +284,13 @@ setErrorMessage(err.message); // Display the error message in an alert
                   variant="outlined"
                   placeholder="Last Name"
                   name="lastName"
-                  value={formData.lastname}
+                  value={formData.lastName}
                   onChange={handleInputChange}
                 />
               </Grid>
             </Grid>
 
-            <Grid container direction="column">
+            <Grid container direction="column" >
               <TextField
                 sx={{
                   input: {
@@ -280,9 +298,12 @@ setErrorMessage(err.message); // Display the error message in an alert
                     bgcolor: "#fff",
                     borderRadius: "20px",
                     height: "15px",
+                    marginBottom:4,
+                    marginTop:3
                   },
                 }}
-                margin="normal"
+                // margin="normal"
+                
                 type={"email"}
                 variant="outlined"
                 placeholder="E-mail Address"
@@ -290,24 +311,40 @@ setErrorMessage(err.message); // Display the error message in an alert
                 value={formData.email}
                 onChange={handleInputChange}
               />{" "}
-              <TextField
+              <CssInput
                 sx={{
                   input: {
                     color: "#8C8B8B",
                     bgcolor: "#fff",
-                    borderRadius: "20px",
-                    height: "15px",
+                    marginX:1
+                    // borderRadius: "20px",
+                    // height: "15px",
                   },
                 }}
-                margin="normal"
-                type={"password"}
+                // margin="normal"
+                // type={"password"}
                 variant="outlined"
                 placeholder="Password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
+                type={passwordVisible ? "text" : "password"}
+                endAdornment={ <IconButton
+                sx={{marginX:1}}
+                  edge="end"
+                  // sx={{ color: "white" }}
+                  onClick={() =>
+                    setPasswordVisible(!passwordVisible)
+                  }
+                >
+                  {passwordVisible ? (
+                    <Visibility />
+                  ) : (
+                    <VisibilityOff />
+                  )}
+                </IconButton>}
               />
-              <Grid container spacing={0.2} padding="10px">
+              <Grid container spacing={0.2} padding="5px" marginTop='30px'>
                 <Grid item>
                   <Typography
                     color="#E8E1FA"

@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 
 const SuccessfulPasswordReset = () => {
   return (
+    <div className="loginbackgorund">
     <div>
       <form>
         {/* Container with styled box */}
 
         <Box
           display="flex"
+          className="logingrad"
+
           flexDirection={"column"}
           maxWidth={500}
           alignItems="center"
@@ -20,12 +23,12 @@ const SuccessfulPasswordReset = () => {
           marginTop={5}
           padding={5}
           borderRadius={10}
-          boxShadow={"5px 5px 10px #ccc"}
-          bgcolor="#27144B"
-          sx={{
-            background:
-              " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
-          }}
+          // boxShadow={"5px 5px 10px #ccc"}
+          // bgcolor="#27144B"
+          // sx={{
+          //   background:
+          //     " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
+          // }}
         >
           {/* Password reset image */}
 
@@ -39,7 +42,7 @@ const SuccessfulPasswordReset = () => {
             <Typography
               color="#E8E1FA"
               variant="h5"
-              padding={4}
+              padding={2}
               textAlign="center"
               fontFamily="Abril Fatface"
             >
@@ -49,13 +52,16 @@ const SuccessfulPasswordReset = () => {
 
             <Typography
               color="blue"
-              variant="h7"
+              variant="h5"
               alignContent={"center"}
-              marginLeft={"100px"}
+              // marginLeft={"100px"}
+              textAlign="center"
               component={Link}
               to={"/"}
+              fontFamily="Abril Fatface"
             >
-              click to Login
+              <b>Click to Login</b>
+              
             </Typography>
           </Grid>
           {/* Container with typography */}
@@ -65,11 +71,13 @@ const SuccessfulPasswordReset = () => {
 
             <Typography variant="h8" color="#E8E1FA" fontFamily="Abril Fatface">
               You can now <br /> use your new password to <br /> Login to your
-              account! <Link href="#">Resend Confirmation mail</Link>
+              account! 
+              {/* <Link href="#">Resend Confirmation mail</Link> */}
             </Typography>
           </Grid>
         </Box>
       </form>
+    </div>
     </div>
   );
 };
