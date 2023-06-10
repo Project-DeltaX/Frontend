@@ -12,7 +12,8 @@ import { useEffect } from "react";
 import UserRoles from "./UserRoles/UserRoles";
 import UserRole2 from "./UserRoles/UserRoles2";
 import UserRole3 from "./UserRoles/UserRoles3";
-import CommonRoles from "./Roles";
+// import CommonRoles from "./Roles";
+import AllUsers from "./UserRoles/AllUsers"
 // define UserManagement component
 
 const UserManagement = () => {
@@ -80,7 +81,7 @@ const UserManagement = () => {
   const transformComponent = () => {
     switch (transformType) {
       case "/":
-        return <CommonRoles/>;
+        return <AllUsers/>;
         break;
       case "committeeMembers":
         return <UserRoles/>;
@@ -106,10 +107,10 @@ const UserManagement = () => {
         {/* header section */}
 
         <Grid item md={3}>
-          <Typography>
-            <h2>
+          <Typography variant="h5">
+            
               <b>User Management</b>
-            </h2>
+            
           </Typography>
         </Grid>
         {/* statistics section */}

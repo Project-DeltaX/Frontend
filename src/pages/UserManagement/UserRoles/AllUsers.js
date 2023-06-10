@@ -76,16 +76,28 @@ const headCells = [
     label: "email",
   },
   {
-    id: "Country",
+    id: "Nationality",
     numeric: false,
     disablePadding: false,
-    label: "Country ",
+    label: "Nationality ",
   },
   {
-    id: "Posting",
+    id: "gender",
     numeric: false,
     disablePadding: false,
-    label: "Posting ",
+    label: "gender",
+  },
+  {
+    id: "dob",
+    numeric: false,
+    disablePadding: false,
+    label: "dob",
+  },
+  {
+    id: "jobTitle",
+    numeric: false,
+    disablePadding: false,
+    label: "jobTitle ",
   },
   // {
   //   id: "Status",
@@ -98,6 +110,12 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "guestRole",
+  },
+  {
+    id: "mobileNumber",
+    numeric: false,
+    disablePadding: false,
+    label: "mobileNumber",
   },
   // {
   //   id: "changeRole",
@@ -209,21 +227,14 @@ function EnhancedTableToolbar(props) {
         </Typography>
       )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      )
-       : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )
-      }
+{numSelected > 0 ? (
+  <Tooltip title="Delete">
+    <IconButton>
+      <DeleteIcon />
+    </IconButton>
+  </Tooltip>
+) : null}
+
     </Toolbar>
   );
 }
@@ -363,12 +374,15 @@ export default function AllUsers() {
                       </TableCell>
                       <TableCell align="left">{row.email}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
-                      <TableCell align="left" >{row.Country}</TableCell>
-                      <TableCell align="left">{row.Posting}</TableCell>
+                      <TableCell align="left" >{row.Nationality}</TableCell>
+                      <TableCell align="left" >{row.gender}</TableCell>
+                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
                       <TableCell align="left"  >{row.guestRole}</TableCell>
                       {/* <SimpleDialog /> */}
                       {/* <TableCell align="left">{row.changeRole}</TableCell> */}
+                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
                     </TableRow>
                   );
                 })}

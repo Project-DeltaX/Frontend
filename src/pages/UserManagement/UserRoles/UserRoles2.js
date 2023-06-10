@@ -31,12 +31,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
 
 
-// function createData(firstName, mail, Country, Posting, Status,Role,Edit) {
+// function createData(firstName, mail, Country, jobTitle, Status,Role,Edit) {
 //   return {
 //     firstName,
 //     mail,
 //     Country,
-//     Posting,
+//     jobTitle,
 //     Status,
 //     Role,
 //     Edit,
@@ -103,16 +103,28 @@ const headCells = [
     label: "email",
   },
   {
-    id: "Country",
+    id: "Nationality",
     numeric: false,
     disablePadding: false,
-    label: "Country ",
+    label: "Nationality ",
   },
   {
-    id: "Posting",
+    id: "gender",
     numeric: false,
     disablePadding: false,
-    label: "Posting ",
+    label: "gender",
+  },
+  {
+    id: "dob",
+    numeric: false,
+    disablePadding: false,
+    label: "dob",
+  },
+  {
+    id: "jobTitle",
+    numeric: false,
+    disablePadding: false,
+    label: "jobTitle ",
   },
   // {
   //   id: "Status",
@@ -125,6 +137,13 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "guestRole",
+  },
+  
+  {
+    id: "mobileNumber",
+    numeric: false,
+    disablePadding: false,
+    label: "mobileNumber",
   },
   {
     id: "changeRole",
@@ -382,10 +401,16 @@ export default function UserRole2() {
                       </TableCell>
                       <TableCell align="left">{row.email}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
-                      <TableCell align="left" >{row.Country}</TableCell>
-                      <TableCell align="left">{row.Posting}</TableCell>
+                      {/* <TableCell align="left" >{row.Country}</TableCell> */}
+                      <TableCell align="left" >{row.Nationality}</TableCell>
+                      <TableCell align="left" >{row.gender}</TableCell>
+                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
                       <TableCell align="left"  >{row.guestRole}</TableCell>
+                      
+                      
+                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
                       <SimpleDialog />
                       <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>

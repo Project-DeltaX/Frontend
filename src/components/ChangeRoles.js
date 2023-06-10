@@ -84,11 +84,12 @@ export default function SimpleDialogDemo() {
     // Retrieve the authorization token from the local storage
   const authorizationToken = localStorage.getItem('authorizationToken');
 
-    fetch('https://pyer3mwem4.execute-api.us-east-1.amazonaws.com/dev/changeuserrole', {
-    method: 'PUT',
+    fetch('https://hxbbw4n3pd.execute-api.us-east-1.amazonaws.com/dev/changeuserrole', {
+    method: 'POST',
+    // mode:'no-cors',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ${authorizationToken}'
+      // Authorization: 'Bearer ${authorizationToken}'
     },
     body: JSON.stringify({ role: value })
   })

@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Profile from "./pages/AccountSettings/components/Profile";
+import ForceChangePasswordPage from "./pages/UserAuthentication/ForceChangePassword";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -74,6 +75,7 @@ function App() {
         <Auth>
           <RouterComponent />
         </Auth>
+        {/* <ForceChangePasswordPage/> */}
         {/* <Profile/> */}
         {/* <AdminHomePage/> */}
         <CommitteeMemberHomePage/>

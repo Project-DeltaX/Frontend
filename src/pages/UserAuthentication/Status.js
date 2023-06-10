@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+//need to delete this file
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "./Account";
+=======
 // import React, { useState, useContext, useEffect } from "react";
 // import { AccountContext } from "./Account";
+>>>>>>> d1f07cdcf914bf22c210e5abb0ffeb84ffc3f496
 
 // const Status = () => {
 //   // State variable to keep track of the login status

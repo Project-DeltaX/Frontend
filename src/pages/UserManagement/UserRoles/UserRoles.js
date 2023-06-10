@@ -30,34 +30,7 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
 
-// function createData(firstName, email, Country, Posting, Status,Role,Edit) {
-//   return {
-//     firstName,
-//     email,
-//     Country,
-//     Posting,
-//     Status,
-//     Role,
-//     Edit,
-//
-//     };
-// }
 
-// const rows = [
-//   createData('Danuraha', 'danuraha@gemail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gemail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gemail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gemail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gemail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gemail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gemail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gemail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gemail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gemail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gemail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gemail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gemail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
-// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -102,16 +75,28 @@ const headCells = [
     label: "email",
   },
   {
-    id: "Country",
+    id: "Nationality",
     numeric: false,
     disablePadding: false,
-    label: "Country ",
+    label: "Nationality ",
   },
   {
-    id: "Posting",
+    id: "gender",
     numeric: false,
     disablePadding: false,
-    label: "Posting ",
+    label: "gender",
+  },
+  {
+    id: "dob",
+    numeric: false,
+    disablePadding: false,
+    label: "dob",
+  },
+  {
+    id: "jobTitle",
+    numeric: false,
+    disablePadding: false,
+    label: "jobTitle ",
   },
   // {
   //   id: "Status",
@@ -124,6 +109,13 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "guestRole",
+  },
+  
+  {
+    id: "mobileNumber",
+    numeric: false,
+    disablePadding: false,
+    label: "mobileNumber",
   },
   {
     id: "changeRole",
@@ -381,11 +373,17 @@ export default function UserRole() {
                       </TableCell>
                       <TableCell align="left">{row.email}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
-                      <TableCell align="left" >{row.Country}</TableCell>
-                      <TableCell align="left">{row.Posting}</TableCell>
+                      {/* <TableCell align="left" >{row.Country}</TableCell> */}
+                      <TableCell align="left" >{row.Nationality}</TableCell>
+                      <TableCell align="left" >{row.gender}</TableCell>
+                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
                       <TableCell align="left"  >{row.guestRole}</TableCell>
-                      <SimpleDialog />
+                     
+                      
+                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
+                       <SimpleDialog />
                       <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );
