@@ -30,6 +30,7 @@
     "react-apexcharts": "^1.4.0",
     "react-async": "^10.0.1",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-dropzone-uploader": "^2.11.0",
     "react-icons": "^4.8.0",
     "react-scripts": "5.0.1",

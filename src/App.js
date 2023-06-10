@@ -80,6 +80,8 @@ function App() {
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
+
+        <CommitteeMemberHomePage/>
       </ThemeProvider>
     </div>
   );
