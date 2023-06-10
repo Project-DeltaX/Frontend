@@ -81,7 +81,7 @@ function App() {
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
 
-        <CommitteeMemberHomePage/>
+        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );
