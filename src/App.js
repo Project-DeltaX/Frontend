@@ -78,7 +78,6 @@ function App() {
         {/* <ForceChangePasswordPage/> */}
         {/* <Profile/> */}
         {/* <AdminHomePage/> */}
-        <CommitteeMemberHomePage/>
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}
