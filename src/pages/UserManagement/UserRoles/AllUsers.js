@@ -62,13 +62,13 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
- 
+
   {
     id: "email",
     numeric: false,
     disablePadding: false,
     label: "email",
-  }, {
+  },  {
     id: "firstName",
     numeric: false,
     disablePadding: true,
@@ -245,6 +245,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function AllUsers() {
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("email");
   const [selected, setSelected] = React.useState([]);
@@ -253,6 +254,7 @@ export default function AllUsers() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const [data, setData] = useState([]);
+  
 
   useEffect(() => {
     fetch(
@@ -370,10 +372,10 @@ export default function AllUsers() {
                         scope="row"
                         padding="none"
                         
-                      >{row.email}
-                       
+                      >
+                        {row.email}
                       </TableCell>
-                      <TableCell align="left"> {row.firstName}</TableCell>       
+                      <TableCell align="left">{row.firstName}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
                       <TableCell align="left" >{row.Nationality}</TableCell>
                       <TableCell align="left" >{row.gender}</TableCell>

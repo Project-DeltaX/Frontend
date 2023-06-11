@@ -61,18 +61,18 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  {
-    id: "firstName",
-    numeric: false,
-    disablePadding: true,
-    label: "firstName",
-  
-  },
+ 
   {
     id: "email",
     numeric: false,
     disablePadding: false,
     label: "email",
+  }, {
+    id: "firstName",
+    numeric: false,
+    disablePadding: true,
+    label: "firstName",
+  
   },
   {
     id: "Nationality",
@@ -270,19 +270,19 @@ export default function UserRole() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.firstName);
+      const newSelected = data.map((n) => n.email);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event,firstName) => {
-    const selectedIndex = selected.indexOf(firstName);
+  const handleClick = (event,email) => {
+    const selectedIndex = selected.indexOf(email);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected,firstName);
+      newSelected = newSelected.concat(selected,email);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -310,7 +310,7 @@ export default function UserRole() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (firstName) => selected.indexOf(firstName) !== -1;
+  const isSelected = (email) => selected.indexOf(email) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -336,17 +336,17 @@ export default function UserRole() {
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.firstName);
+                  const isItemSelected = isSelected(row.email);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.firstName)}
+                      onClick={(event) => handleClick(event, row.email)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.firstName}
+                      key={row.email}
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
@@ -369,9 +369,9 @@ export default function UserRole() {
                         padding="none"
                         
                       >
-                        {row.firstName}
+                        {row.email}
                       </TableCell>
-                      <TableCell align="left">{row.email}</TableCell>       
+                      <TableCell align="left">{row.firstName}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
                       {/* <TableCell align="left" >{row.Country}</TableCell> */}
                       <TableCell align="left" >{row.Nationality}</TableCell>
