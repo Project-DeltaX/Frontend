@@ -1,23 +1,28 @@
 import React from "react";
-import Layout from "../../components/Layout";
 import { Route, Routes } from "react-router-dom";
+
+//user defined components
+import Layout from "../../components/Layout";
+
+//side bar component imports
 import OAccount from "../AccountSettings/OAccount";
 import CvManagement from "../CvManagement/CvManagement";
-const MenuArr = ["Dashboard", "CV Management","Interview Schedule", "Account"];
+import Dashboard from "../Dashboard/Dashboard";
+import InterviewSchedule from "../InterviewSchedule/InterviewSchedule";
+
 
 const CommitteeMemberHomePage = () => {
   return (
-    <Layout MenuArr={MenuArr} IconArr="CIconArr">
+    <Layout>
       <Routes>
-        <Route path="/" element={<h1>Hiii Dashboard</h1>} />
-        <Route path="/Dashboard" element={<h1>Hiii Dashboard</h1>} />
-        <Route path="/CV Management" element={<CvManagement/>}/>
-        <Route path="/Interview Schedule" element={<h1>Hiii Interview Schedule</h1>} />
-        <Route path="/Account" element={<OAccount/>}/>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/CV Management" element={<CvManagement />} />
+        <Route path="/Interview Schedule" element={<InterviewSchedule />} />
+        <Route path="/Account" element={<OAccount />} />
       </Routes>
     </Layout>
-  
   );
 };
 
-export default CommitteeMemberHomePage;;
+export default CommitteeMemberHomePage;

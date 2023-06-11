@@ -1,7 +1,15 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AWS from "aws-sdk";
 import "../../../App.css";
-import {Grid,styled,Paper,Typography,Card,Box,Divider} from "@mui/material";
+import {
+  Grid,
+  styled,
+  Paper,
+  Typography,
+  Card,
+  Box,
+  Divider,
+} from "@mui/material";
 import "../../AccountSettings/OAccount.css";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -14,6 +22,12 @@ import Checkbox from "@mui/material/Checkbox";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+//Cognito userpool configuration
+import Pool from "../../../UserPool.js";
+import { AccountContext } from "../../UserAuthentication/Auth";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import jwtDecode from "jwt-decode";
+
 //password field
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
@@ -23,12 +37,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { hover } from "@testing-library/user-event/dist/hover";
 import { warning } from "@remix-run/router";
-
-
-
-
-
-
 
 //Arrays
 const TermsConditions = [
@@ -87,8 +95,6 @@ function a11yProps(index) {
   };
 }
 
-
-
 const SecurityPrivacy = () => {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -102,15 +108,51 @@ const SecurityPrivacy = () => {
   const [showOPassword, setShowOPassword] = useState(false);
   const [showNPassword, setShowNPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
-  const [currentPasswordFromDB, setCurrentPasswordFromDB] = useState('');
+  const [isMatched, setIsMatched] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    const decodedToken = jwtDecode(localStorage.getItem('idtoken'));
+    console.log(decodedToken['email']);
 
-      
+
+    const cognitoUser = new CognitoUser({
+      Username: decodedToken['email'],
+      Pool: Pool,
+    });
+    const authenticationDetails = new AuthenticationDetails({
+      Username: decodedToken['email'],
+      Password: currentPassword,
+    });
+
+    if (newPassword === confirmPassword) {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: () => {
+          cognitoUser.changePassword(
+            currentPassword,
+            newPassword,
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                alert("Password changed successfully!");
+                setConfirmPassword("");
+                setCurrentPassword("");
+                setNewPassword("");
+              }
+            }
+          );
+        },
+        onFailure: (err) => {
+          alert("Incorrect Old Password")
+          console.log(err);
+        },
+      });
+    } else {
+      setMessage("Confirm Password is not matched");
+      setIsMatched(true);
     }
-  
+  };
 
   return (
     <Paper
@@ -120,17 +162,6 @@ const SecurityPrivacy = () => {
         height: "fit-content",
         color: "#1168DC",
         backgroundColor: "#e4e0ff",
-        //bdb2ff
-        //   /* From https://css.glass */
-        //   background: "rgba(47, 24, 113, 0.87)",
-        //   borderRadius: "16px",
-        //   boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-        //   backdropFilter: "blur(5.8px)",
-        //   webkitBackdropEffect: " blur(5.8px)",
-        //   border: "1px solid rgba(47, 24, 113, 0.3)",
-
-        // background: " radial-gradient(circle,#321873,#2F1871,#2C165D,#27144B)",
-        //   borderRadius: "16px",
         padding: "30px",
       }}
       elevation={16}
@@ -144,7 +175,6 @@ const SecurityPrivacy = () => {
             orientation="vertical"
           >
             <Tab label="Change Password" {...a11yProps(0)} />
-            <Tab label="Reset Password" {...a11yProps(1)} />
             <Tab label="Privacy instructions" {...a11yProps(2)} />
             <Tab label="Delete Account" {...a11yProps(3)} />
           </Tabs>
@@ -206,7 +236,7 @@ const SecurityPrivacy = () => {
                     variant="outlined"
                   >
                     <CssInput
-                      id="old_password"
+                      id="new_password"
                       type={showNPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
@@ -223,7 +253,7 @@ const SecurityPrivacy = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      placeholder="Old Password"
+                      placeholder="New Password"
                     />
                   </FormControl>
                 </Grid>
@@ -234,7 +264,7 @@ const SecurityPrivacy = () => {
                     variant="outlined"
                   >
                     <CssInput
-                      id="old_password"
+                      id="confirm_password"
                       type={showCPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
@@ -251,7 +281,7 @@ const SecurityPrivacy = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      placeholder="Old Password"
+                      placeholder="Confirm Password"
                     />
                   </FormControl>
                 </Grid>
@@ -269,9 +299,11 @@ const SecurityPrivacy = () => {
                   Change
                 </Button>
               </Grid>
-              <Typography alignSelf={"flex-end"} sx={{ color: "red" }}>
-                {message}
-              </Typography>
+              {isMatched ? (
+                <Typography alignSelf={"flex-end"} sx={{ color: "red" }}>
+                  {message}
+                </Typography>
+              ) : null}
             </Grid>
           </TabPanel>
           {/* Reset Password */}

@@ -1,18 +1,19 @@
 import React from "react";
 import Layout from "../../components/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UserProfile from "../AccountSettings/UserProfile";
+import OAccount from "../AccountSettings/OAccount";
 
 const MenuArr = ["Account"];
 
 const InternHomePage = () => {
   return (
     <Layout MenuArr={MenuArr} IconArr="IIconArr">
-      <h1>Hiii InternHomePage</h1>
-
+      <Routes>
+        <Route path="/" element={<OAccount />} />
+        <Route path="/Account" element={<OAccount />} />
+      </Routes>
     </Layout>
-  
   );
 };
 
-export default InternHomePage;;
+export default InternHomePage;

@@ -1,68 +1,144 @@
-import { Grid, Link } from "@mui/material";
-// import React from "react";
-
+import { Grid } from "@mui/material";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Av from "../../Images/Avatar02.jpg";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Button from '@mui/material/Button';
+import { useState } from "react";
+import { useEffect } from "react";
+// import custom components
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import EditIcon from "@mui/icons-material/Edit";
-import CircularStatus from "./CircularStatus";
-
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-
+// import CircularStatus from "./CircularStatus";
 import UserRoles from "./UserRoles/UserRoles";
-import CommonRoles from "./Roles";
-
+import UserRole2 from "./UserRoles/UserRoles2";
+import UserRole3 from "./UserRoles/UserRoles3";
+// import CommonRoles from "./Roles";
+import AllUsers from "./UserRoles/AllUsers"
+// define UserManagement component
 
 const UserManagement = () => {
+  
+  const [transformType, setTransformType] = useState("/");
+  const [committeeMembersCount, setCommitteeMembersCount] = useState(0);
+  const [panelMembersCount, setPanelMembersCount] = useState(0);
+  const [internsCount, setInternsCount] = useState(0);
+
+
+
+
+  const handleChange = (event) => {
+    setTransformType(event.target.defaultValue);
+  };
+
+  const fetchCommitteeMembersCount = () => {
+    fetch('https://pyf6lzcajk.execute-api.us-east-1.amazonaws.com/dev/committeememberstatus')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setCommitteeMembersCount(data.count);
+      })
+      .catch(error => {
+        console.error('Error fetching Committee Members count:', error);
+      });
+  };
+
+
+
+  const fetchPanelMembersCountCount = () => {
+    fetch('https://de53o85765.execute-api.us-east-1.amazonaws.com/dev/panelmemberstatus')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setPanelMembersCount(data.count);
+      })
+      .catch(error => {
+        console.error('Error fetching Panel Members count:', error);
+      });
+  };
+
+
+
+  const fetchInternsCount = () => {
+    fetch('https://estsn66whh.execute-api.us-east-1.amazonaws.com/dev/internstatus')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setInternsCount(data.count);
+      })
+      .catch(error => {
+        console.error('Error fetching Interns count:', error);
+      });
+  };
+
+  useEffect(() => {
+    fetchCommitteeMembersCount();
+    fetchPanelMembersCountCount();
+    fetchInternsCount();
+  }, []);
+
+
+
+  const transformComponent = () => {
+    switch (transformType) {
+      case "/":
+        return <AllUsers/>;
+        break;
+      case "committeeMembers":
+        return <UserRoles/>;
+        break;
+        case "panelMembers":
+          return <UserRole2/>;
+          break;
+          case "interns":
+        return <UserRole3/>;
+        break;
+      default:
+        return null;
+    }
+  };
+
+
+
   return (
-    <div  marginRight={"20px"}>
-      <Grid container direction={"column"} rowSpacing={2} marginLeft={"10px"} >
+    <div marginRight={"20px"}>
+      {/* container for the user management section */}
+
+      <Grid container direction={"column"} rowSpacing={2} marginLeft={"10px"}>
+        {/* header section */}
+
         <Grid item md={3}>
-          <Typography>
-            <h2>
+          <Typography variant="h5">
+            
               <b>User Management</b>
-            </h2>
+            
           </Typography>
         </Grid>
+        {/* statistics section */}
 
         <Grid item md={3} container spacing={10} display={"flex"}>
           <Grid item md={4}>
-            <Card sx={{ bgcolor: "#27144B" }}>
-              <CardContent>
+            <Card sx={{ bgcolor: "#27144B" ,cursor:'pointer'}} onClick={()=>{setTransformType('committeeMembers')}}>
+              <CardContent >
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
-                    <Typography variant="h5" component="div" color="#E8E1FA" >
+                    <Typography variant="h5" component="div" color="#E8E1FA">
                       Committee Members
                     </Typography>
                   </Grid>
 
                   <Grid item md={6}>
-                    <CircularStatus /> <br />
-                    <Typography variant="body2">15</Typography>
+                    {/* <CircularStatus /> <br /> */}
+                    <Typography  variant="h3" sx={{color:"white" ,marginLeft:'8px'}}><b>{committeeMembersCount}</b></Typography>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
+          {/* panel members statistics */}
 
           <Grid item md={4}>
-            <Card sx={{ bgcolor: "#27144B" }}>
-              <CardContent>
+          <Card sx={{ bgcolor: "#27144B" ,cursor:'pointer'}} onClick={()=>{setTransformType('panelMembers')}}>
+                          <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
                     <Typography variant="h5" component="div" color="#E8E1FA">
@@ -71,40 +147,41 @@ const UserManagement = () => {
                   </Grid>
 
                   <Grid item md={6}>
-                    <CircularStatus /> <br />
-                    <Typography variant="body2">9</Typography>
+                    {/* <CircularStatus /> <br /> */}
+                    <Typography variant="h3" sx={{color:"white" ,marginLeft:'8px'}}><b>{panelMembersCount}</b></Typography>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
+          {/* interns statistics */}
 
           <Grid item md={4}>
-            <Card sx={{ bgcolor: "#27144B" }}>
-              <CardContent>
+          <Card sx={{ bgcolor: "#27144B" ,cursor:'pointer'}} onClick={()=>{setTransformType('interns')}}>
+                          <CardContent>
                 <Grid container spacing={8} display={"flex"}>
                   <Grid item md={6}>
                     <Typography variant="h5" component="div" color="#E8E1FA">
-                      Interns
+                      Company Interns
                     </Typography>
                   </Grid>
 
                   <Grid item md={6}>
-                    <CircularStatus /> <br />
-                    <Typography variant="body2">30</Typography>
+                    {/* <CircularStatus /> <br /> */}
+                    <Typography variant="h3" sx={{color:"white" ,marginLeft:'8px'}}><b>{internsCount}</b></Typography>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
+        {/* user roles section */}
 
         <Grid item md={6}>
-          <CommonRoles/>
-     
-
-          <UserRoles />
+          {/* <CommonRoles />     */}
+           {/* <UserRoles />  */}
           {/* <index.js/> */}
+          {transformComponent()}
         </Grid>
       </Grid>
     </div>

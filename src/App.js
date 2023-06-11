@@ -1,36 +1,23 @@
 import "./App.css";
-import Layout from "./components/Layout";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+//file resources
+import "@fontsource/poppins";
+import "@fontsource/poppins";
+
+//user defined Component imports
+import AdminHomePage from "./pages/UserHomePage/HomePage";
+import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
+import RouterComponent from "./MyRoutes";
+import InternHomePage from "./pages/UserHomePage/InternHomePage";
+import { Auth } from "./pages/UserAuthentication/Auth";
+import Register from "./pages/UserAuthentication/createNewAccount";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
-import CreateNewAccount from "./pages/UserAuthentication/createNewAccount";
-import NewPassword from "./pages/UserAuthentication/NewPassword";
+import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
-import Verification from "./pages/UserAuthentication/Verification";
-import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
-import AdminHomePage from "./pages/UserHomePage/AdminHomePage";
-import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import "@fontsource/poppins";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "@fontsource/poppins";
-import Bg01 from "../src/Images/BackgroundImg01.jpg";
-import { Login, RotateLeftOutlined } from "@mui/icons-material";
-// import ChangePassword from "./pages/AccountSettings/components/draftpw";
-
-import Dashboard from "./pages/Dashboard/Dashboard";
-
-
-import Register from "./pages/UserAuthentication/createNewAccount";
-
-import { Account } from "./pages/UserAuthentication/Account";
-import Status from "./pages/UserAuthentication/Status";
-import Settings from "./pages/UserAuthentication/Settings";
-import ChangePassword from "./pages/UserAuthentication/ChangePassword";import PanelMemberHomePage from "./pages/UserHomePage/PanelMemberHomePage";
-
-
-//
-
-//
+import Profile from "./pages/AccountSettings/components/Profile";
+import ForceChangePasswordPage from "./pages/UserAuthentication/ForceChangePassword";
 
 //"#e8e1fa"
 const theme = createTheme({
@@ -82,27 +69,21 @@ const theme = createTheme({
 });
 
 function App() {
-
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* <Routes>
-        {/* <Routes>
-        <Route path="/" element={<Account><LoginPage/></Account>} />
-        <Route path="/createnewaccount" element={<CreateNewAccount/>} />
-        <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/verification" element={<Verification/>} />
-        <Route path="/Emailconfirmationpage" element={<NewPassword/>} />
-        <Route path="/newpw" element={<SuccessfulPasswordReset/>} />
-        <Route path="createacc" element={<EmailConfirmation/>} />
-        <Route path="/adminHome" element={status?<AdminHomePage/>:<div>Failed</div>}/>
-        <Route path="/adminHome/Dashboard" element={<Dashboard/>}/>
+        <Auth>
+          <RouterComponent />
+        </Auth>
+        {/* <ForceChangePasswordPage/> */}
+        {/* <Profile/> */}
+        {/* <AdminHomePage/> */}
+        <CommitteeMemberHomePage/>
+        {/* <ForgotPassword /> */}
+        {/* <EmailConfirmation /> */}
+        {/* <SuccessfulPasswordReset /> */}
 
-        
-      </Routes> */}
-        <PanelMemberHomePage />
-
-        {/* <AdminHomePage /> */}
+        {/* <CommitteeMemberHomePage/> */}
       </ThemeProvider>
     </div>
   );

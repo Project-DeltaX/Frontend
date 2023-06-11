@@ -6,8 +6,11 @@ import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
 import "../../../App.css";
 
+import jwtDecode from "jwt-decode";
+
 const CssTextField = styled(TextField)({
   padding: "8px",
+  width: "400px",
 
   "& 	.MuiInputBase-root": {
     color: "#27144B",
@@ -43,47 +46,60 @@ const CssTextField = styled(TextField)({
 });
 
 const Profile = () => {
-  const [editedData, setEditedData] = useState([]);
   const [disable, setDisable] = useState(true);
-  const [username,setUsername] = useState("");
-  const [name, setName] = useState("");
+  const [userdata, setUserData] = useState([]);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [role, setRole] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
   const [nationality, setNationality] = useState("");
   const [jobtitle, setJobTitle] = useState("");
-  const [lane, setLane] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
   const [mnumber, setMnumber] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState(null);
+  const [lane, setLane] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [country, setCountry] = useState("");
 
+  const idToken = localStorage.getItem("idtoken");
+  const decodedToken = jwtDecode(idToken);
+  const Email = decodedToken["email"];
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch data from the Lambda function API
         const response = await fetch(
-          "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev",{
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+          "https://sg5z9g2df4.execute-api.us-east-1.amazonaws.com/new/userdata?email="+Email,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+              "Content-Type": "application/json",
+            },
           }
         );
         const jsonData = await response.json();
 
-        setUsername(jsonData[0].username)
-        setName(jsonData[0].fullName);
-        setGender(jsonData[0].Gender);
-        setDob(jsonData[0].doB);
+        setFname(jsonData[0].firstName);
+        setLname(jsonData[0].lastName);
+        setRole(jsonData[0].guestRole);
+        setGender(jsonData[0].gender);
+        setEmail(jsonData[0].email);
+        setDob(jsonData[0].dob);
         setNationality(jsonData[0].Nationality);
         setJobTitle(jsonData[0].jobTitle);
-        setLane(jsonData[0].Address[0]);
-        setCity(jsonData[0].Address[1]);
-        setState(jsonData[0].Address[2]);
-        setCountry(jsonData[0].Address[3]);
+        setAddress(jsonData[0].Address);
         setMnumber(jsonData[0].mobileNumber);
-        setEmail(jsonData[0].eMail);
 
-        // setData(jsonData);
+        if (jsonData[0].Address) {
+          const [lane, city, province, country] = jsonData[0].Address;
+          setLane(lane);
+          setCity(city);
+          setProvince(province);
+          setCountry(country);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -91,40 +107,59 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const updateUserProfile = async (dataArray) => {
-    const url = "https://htnd6gtdd6.execute-api.us-east-1.amazonaws.com/dev";
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(dataArray),
-    };
+  // setFname(userdata.firstName);
+  // setLname(userdata.lastName);
+  // setRole(userdata.guestRole);
+  // setGender(userdata.Gender);
+  // setEmail(userdata.email);
+  // setDob(userdata.doB);
+  // setNationality(userdata.Nationality);
+  // setJobTitle(userdata.jobTitle);
+  // setAddress(userdata.Address);
+  // setMnumber(userdata.mobileNumber);
 
+  // if (jsonData[0].Address) {
+  //   const [lane, city, province, country] = jsonData[0].Address;
+  //   setLane(lane);
+  //   setCity(city);
+  //   setProvince(province);
+  //   setCountry(country);
+  // }
+
+  const updateUserProfile = async (dataArrays) => {
     try {
-      const response = await fetch(url, options);
-      const editedData = await response.json();
-      console.log(editedData.message); // "Profile updated successfully."
+      const response = await fetch(
+        "https://sg5z9g2df4.execute-api.us-east-1.amazonaws.com/new/userdata",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+            "Content-Type": "application/json",
+          },
+          mode:'no-cors',
+          body: JSON.stringify( dataArrays ),
+        }
+      );
+      const result = await response.json();
+      console.log(result.body);
+      return result;
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   const dataArrays = [
     {
-      Address: [lane, city, state, country],
+      Address: [lane, city, province, country],
       Gender: gender,
-      eMail: email,
+      email: email,
       doB: dob,
-      username: username,
-      fullName: name,
       jobTitle: jobtitle,
       mobileNumber: mnumber,
       Nationality: nationality,
     },
   ];
-
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -157,7 +192,7 @@ const Profile = () => {
   return (
     <Paper
       sx={{
-        width: "70%",
+        width: "fit-content",
         height: "fit-content",
         color: "#1168DC",
         backgroundColor: "#e4e0ff",
@@ -191,10 +226,9 @@ const Profile = () => {
               <CssTextField
                 label="Full Name"
                 id="name"
-                value={name}
+                value={fname + " " + lname}
                 size="small"
-                disabled={disable}
-                onChange={(event) => setName(event.target.value)}
+                disabled
 
                 // onChange={handleChange}
               />
@@ -232,6 +266,13 @@ const Profile = () => {
                 disabled={disable}
                 onChange={(event) => setJobTitle(event.target.value)}
               />
+              <CssTextField
+                label="Role"
+                id="role"
+                value={role}
+                size="small"
+                disabled
+              />
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6} md={6} container spacing={2}>
@@ -263,10 +304,10 @@ const Profile = () => {
                 <CssTextField
                   label="State"
                   id="state"
-                  value={state}
+                  value={province}
                   size="small"
                   disabled={disable}
-                  onChange={(event) => setState(event.target.value)}
+                  onChange={(event) => setProvince(event.target.value)}
                 />
                 <CssTextField
                   label="Country"
@@ -300,8 +341,7 @@ const Profile = () => {
                   id="email"
                   value={email}
                   size="small"
-                  disabled={disable}
-                  onChange={(event) => setEmail(event.target.value)}
+                  disabled
                 />
               </Grid>
             </Grid>
@@ -318,158 +358,6 @@ const Profile = () => {
           {disable ? "Edit" : "Update"}
         </Button>
       </form>
-      {/* <form>
-        {data.map((Users, index) => (
-          <Grid container spacing={2} direction={"column"}>
-            <Grid item xs={12} sm={6} md={6} container spacing={2}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                <img src={ProfilePic} width="230px" height="230px" />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                display={"flex"}
-                flexDirection={"column"}
-                justifyContent={"space-evenly"}
-              >
-                <CssTextField
-                  label="Full Name"
-                  id="name"
-                  value={name}
-                  size="small"
-                  disabled={disable}
-                  // onChange={(event)=>setName(event.target.value)}
-                  onChange={handleChange}
-                />
-                <CssTextField
-                  label="Gender"
-                  id="gender"
-                  value={gender}
-                  size="small"
-                  disabled={disable}
-                  // onChange={(event)=>setGender(event.target.value)}
-                />
-                <CssTextField
-                  label="Date Of Birth"
-                  id="dob"
-                  value={dob}
-                  size="small"
-                  type="date"
-                  format="dd-mm-yyyy"
-                  disabled={disable}
-                  // onChange={(event)=>setDob(event.target.value)}
-                />
-                <CssTextField
-                  label="Nationality"
-                  id="nationality"
-                  value={nationality}
-                  size="small"
-                  disabled={disable}
-                  // onChange={(event)=>setNationality(event.target.value)}
-                />
-                <CssTextField
-                  label="Job Title"
-                  id="jobtitle"
-                  value={jobtitle}
-                  size="small"
-                  disabled={disable}
-                  // onChange={(event)=>setJobTitle(event.target.value)}
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h5">Address</Typography>
-                <Grid
-
-                  item
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"space-evenly"}
-                  marginTop="10px"
-                >
-                  <CssTextField
-                    label="Address Lane"
-                    id="lane"
-                    value={lane}
-                    size="small"
-                    disabled={disable}
-                    // onChange={(event)=>setLane(event.target.value)}
-                  />
-                  <CssTextField
-                    label="City"
-                    id="city"
-                    value={city}
-                    size="small"
-                    disabled={disable}
-                    // onChange={(event)=>setCity(event.target.value)}
-                  />
-                  <CssTextField
-                    label="State"
-                    id="state"
-                    value={state}
-                    size="small"
-                    disabled={disable}
-                    // onChange={(event)=>setState(event.target.value)}
-                  />
-                  <CssTextField
-                    label="Country"
-                    id="country"
-                    value={country}
-                    size="small"
-                    disabled={disable}
-                    // onChange={(event)=>setCountry(event.target.value)}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h5">Contact Details</Typography>
-                <Grid
-                  item
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"space-evenly"}
-                  marginTop="10px"
-                >
-                  <CssTextField
-                    label="Mobile Number"
-                    id="mnumber"
-                    value={mnumber}
-                    size="small"
-                    disabled={disable}
-                    // onChange={(event)=>setMnumber(event.target.value)}
-                  />
-                  <CssTextField
-                    label="E-mail"
-                    id="email"
-                    value={email}
-                    size="small"
-                    disabled={disable}
-                    onChange={(event)=>setEmail(event.target.value)}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        ))}
-
-        <Button
-          variant="contained"
-          color={disable ? "secondary" : "primary"}
-          type="button"
-          onClick={handleClick}
-        >
-          {disable ? "Edit" : "Update"}
-        </Button>
-      </form> */}
     </Paper>
   );
 };
