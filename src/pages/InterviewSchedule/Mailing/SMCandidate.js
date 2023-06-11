@@ -98,7 +98,9 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import Checkbox from "@mui/material/Checkbox";
-
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
 const SMCandidate = () => {
   const [sData, setSData] = useState([]);
   const [selectedCandidates, setSelectedCandidates] = useState([]);
@@ -205,9 +207,22 @@ const SMCandidate = () => {
               </TableContainer>
             </div>
           </Grid>
-          <Grid item xs={12}>
-            <button onClick={handleSendEmail}>Send Email</button>
+          <Grid>
+            
           </Grid>
+          <Grid item xs={12}>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            style={{ backgroundColor: "#1e0342" }}
+            onClick={handleSendEmail}>Send Email
+            
+           
+          </Button>
+        </Stack>
+      </Grid>
+    
         </Grid>
       </Grid>
     );
