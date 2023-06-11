@@ -201,8 +201,8 @@ const Allocation = () => {
   // const [member, setMember] = React.useState([]);
   const [cData, setCData] = useState([]);
   const [pData, setPData] = useState([]);
-  const [selectedPanelMember, setSelectedPanelMember] = useState(null);
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [selectedPanelMember, setSelectedPanelMember] = useState("");
+  const [selectedCandidate, setSelectedCandidate] = useState("");
 
 
   // const handleChange = (event) => {
@@ -218,26 +218,30 @@ const Allocation = () => {
 
   const handleAllocateInterview = async () => {
     if (selectedPanelMember && selectedCandidate) {
-      const body = {
+      const bodydata = {
         panelMemberName: selectedPanelMember.firstName,
         panelMemberEmail: selectedPanelMember.email,
         candidateName: selectedCandidate.name,
         candidateEmail: selectedCandidate.email,
       };
+      console.log(bodydata);
       try {
         const response = await fetch("https://llucuxl5cc.execute-api.us-east-1.amazonaws.com/stage2/allocation", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
+          headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"POST","Content-Type":"application/json"},  
+          body: JSON.stringify( bodydata),
+          mode:"no-cors"
         });
 
-        if (response.ok) {
-          console.log("Allocation saved successfully");
-        } else {
-          console.error("Error saving allocation");
-        }
+        // const dat=
+        // {
+        //   panelMemberName: "John Doe",
+        //   panelMemberEmail: "john@example.com",
+        //   candidateName: "Jane Smith",
+        //   candidateEmail: "jane@example.com"
+        // }
+        console.log(response);
+        return response;
       } catch (error) {
         console.error(error);
       }
@@ -279,31 +283,7 @@ const Allocation = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6}>
-        <FormControl
-          fullWidth
-          sx={{
-            "& label": {
-              color: "#1e0342", // change text color
-              fontWeight: "bold",
-            },
-          }}
-        >
-          {/* <InputLabel id="demo-simple-select-label">Panel member</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={member}
-            label="Panel member"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>One</MenuItem>
-            
-          </Select> */}
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} spacing={2}>
-      <Grid item xs={6} spacing={2}>
+       <Grid item xs={6} spacing={2}>
         <FormControl fullWidth>
           <InputLabel id="panel-member-label">Panel Member</InputLabel>
           <Select
@@ -321,11 +301,26 @@ const Allocation = () => {
           </Select>
         </FormControl>
       </Grid>
+      <Grid item xs={6}>
+        <FormControl
+          fullWidth
+          sx={{
+            "& label": {
+              color: "#1e0342", // change text color
+              fontWeight: "bold",
+            },
+          }}
+        >
+         
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} spacing={2}>
+     
       <Grid>
         
       </Grid>
         <div className="Table">
-          {/* <h3>Panel Member List</h3> */}
+          
           <TableContainer
             component={Paper}
             style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -336,7 +331,7 @@ const Allocation = () => {
                   <TableCell />
                   <TableCell>PanelMemberName</TableCell>
                   <TableCell align="left">JobTitle</TableCell>
-                  <TableCell align="left">P.email</TableCell>
+                  <TableCell align="left">PanelMemberemail</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody style={{ color: "Bluet" }}>
@@ -374,21 +369,11 @@ const Allocation = () => {
             },
           }}
         >
-          {/* <InputLabel id="demo-simple-select-label">Candidate</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={member}
-            label="Candidate"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>One</MenuItem>
-           
-          </Select> */}
+          
         </FormControl>
       </Grid>
       <Grid item xs={12} spacing={2}>
-      <Grid item xs={6} spacing={2}>
+     
       <FormControl fullWidth>
         <InputLabel id="candidate-label">Candidate</InputLabel>
         <Select
@@ -406,9 +391,7 @@ const Allocation = () => {
         </Select>
       </FormControl>
     </Grid>
-    <Grid>
-
-    </Grid>
+    <Grid item xs={6} spacing={2}>
         <div className="Table">
           {/* <h3>Candidate list</h3> */}
           <TableContainer
@@ -421,7 +404,7 @@ const Allocation = () => {
                   <TableCell />
                   <TableCell>CandidateName</TableCell>
                   <TableCell align="left">Position</TableCell>
-                  <TableCell align="left">C.email</TableCell>
+                  <TableCell align="left">CandidateEmail</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody style={{ color: "Blue" }}>
