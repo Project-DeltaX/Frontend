@@ -35,10 +35,10 @@ import AWS from "aws-sdk";
 
 
 const MarkingSheet = () => {
-  const [candidateName, setCandidateName] = useState('');
+  const [email, setemail] = useState('');
 
   const handleChange = (event) => {
-    setCandidateName(event.target.value);
+    setemail(event.target.value);
   };
 
   const [rowData, setRowData] = useState([]);
@@ -80,24 +80,24 @@ const MarkingSheet = () => {
 
   const handleFormSubmit = () => {
     console.log('Form Submitted');
-    console.log('Candidate Name:', candidateName);
+    console.log('email:', email);
     console.log('Selected Options:', rowData.map((row) => row.selectedOption));
   };
 
   return (
     <Box m={10} sx={{ minWidth: 10 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Candidate Name</InputLabel>
+        <InputLabel id="demo-simple-select-label">Email</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={candidateName}
-          label="CandidateId"
+          value={email}
+          label="Email"
           onChange={handleChange}
         >
           {rowData.map((data, index) => (
             <MenuItem key={index} value={index}>
-              {data.Candidate_name}
+              {data.email}
             </MenuItem>
           ))}
         </Select>

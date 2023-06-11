@@ -43,16 +43,16 @@ const CandidateExam = () => {
     setRowData(data);
     
   };
-  const handleGotoInterview = async (event, email, totalMarks) => {
+  const handleGotoInterview = async (event, email, Total) => {
     try {
       // This function handles the action you want to perform when the button is clicked
       console.log("Submit button clicked!");
       
       const response = await fetch(
-        "https://your-lambda-function-endpoint",
+        "https://wxnahc193j.execute-api.us-east-1.amazonaws.com/new10/scoresheet",
         {
           method: "POST",
-          body: JSON.stringify({ email, totalMarks }),
+          body: JSON.stringify({ email, Total }),
         }
       );
   
