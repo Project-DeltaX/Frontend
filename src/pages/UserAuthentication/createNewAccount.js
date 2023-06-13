@@ -124,16 +124,16 @@ const Register = () => {
       const attributeList = [];
       // Creating an object containing the user's email and adding it to the attributeList array
 
-      // try {
-      //   const response = await axios.post("https://w0ugg68pi6.execute-api.us-east-1.amazonaws.com/dev/registration", formData);
-      //   console.log(response.data); // Logging the response data
+      try {
+        const response = await axios.post("https://w0ugg68pi6.execute-api.us-east-1.amazonaws.com/dev/registration", formData);
+        console.log(response.data); // Logging the response data
         
-      //   // ... handle the response as needed ...
-      // } catch (error) {
-      //   console.log(error); // Logging any errors
+        // ... handle the response as needed ...
+      } catch (error) {
+        console.log(error); // Logging any errors
         
-      //   // ... handle the error as needed ...
-      // }
+        // ... handle the error as needed ...
+      }
 
 
 
@@ -216,7 +216,7 @@ const Register = () => {
   
   if(success){
     
-    navigate ("/emailConfirmation");
+    navigate ("/emailconfirmation");
   }
 
   return (

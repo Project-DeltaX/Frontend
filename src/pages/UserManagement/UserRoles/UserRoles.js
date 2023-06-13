@@ -30,6 +30,7 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
 import SimpleDialogDemo from "../../../components/ChangeRoles";
+import jwtDecode from "jwt-decode";
 
 
 export default function UserRole() {
@@ -48,24 +49,38 @@ export default function UserRole() {
   //   const updatedData = data.filter((user) => user.email !== selectedEmail);
   //   setData(updatedData);
   // };
-  const handleDeleteClick = () => {
-    axios
-      .delete("https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser", {
-        data: { email: selectedEmail },
-      })
-      .then((response) => {
-        // Handle successful deletion, such as updating the UI or refreshing the data
-        const updatedData = data.filter((user) => user.email !== selectedEmail);
-        setData(updatedData);
-        console.log(updatedData);
-      })
-      .catch((error) => {
-        // Handle error, such as displaying an error message
-        console.error(error);
-        
-      });
-      
-  };
+
+
+
+  const authorizationToken = localStorage.getItem('idtoken');
+const decodedToken = jwtDecode(authorizationToken);
+
+const requestData = {
+  body: {
+    U_email: selectedEmail,
+    A_role: decodedToken["custom:guestRole"],
+  },
+};
+
+console.log(JSON.stringify(requestData));
+
+const handleDeleteClick = () => {
+  axios
+    .delete("https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser", {
+      data: requestData,
+    })
+    .then((response) => {
+      // Handle successful deletion, such as updating the UI or refreshing the data
+      const updatedData = data.filter((user) => user.email !== selectedEmail);
+      setData(updatedData);
+      // console.log(updatedData);
+    })
+    .catch((error) => {
+      // Handle error, such as displaying an error message
+      console.error(error);
+    });
+};
+
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
