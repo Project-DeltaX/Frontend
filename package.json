@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/poppins": "^4.5.10",
     "@mui/icons-material": "^5.11.11",
+    "@mui/lab": "^5.0.0-alpha.133",
     "@mui/material": "^5.11.14",
     "@mui/styled-engine-sc": "^5.11.11",
     "@mui/x-data-grid": "^6.0.2",
