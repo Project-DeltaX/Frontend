@@ -39,7 +39,16 @@ const EmailConfirmation = () => {
 
           <Grid container direction="column" alignContent={"center"}>
             <Grid>
-              <Typography
+            <Typography
+                color="#E8E1FA"
+                variant="h4"
+                padding={4}
+                textAlign="center"
+                fontFamily="Abril Fatface"
+              >
+               SignUp successfully!!
+              </Typography>
+              {/* <Typography
                 color="#E8E1FA"
                 variant="h5"
                 padding={4}
@@ -47,7 +56,7 @@ const EmailConfirmation = () => {
                 fontFamily="Abril Fatface"
               >
                 E-mail Confirmation
-              </Typography>
+              </Typography> */}
             </Grid>
             <Typography
               color="#E8E1FA"
