@@ -5,10 +5,16 @@ import { useTheme } from "@mui/material/styles";
 import { Grid, Container, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import AppWidgetSummary from "./AppWidgetSummary";
-import InternEmployees from "./InternEmployees";
-import BarChartComponent from "../../../../components/Barchart/BarChart";
+import DailyInterviewChart from "./Charts/LineChart";
+import LeaderBoard from "./LeaderBoard/LeaderBoard";
+
+
 import WorkIcon from '@mui/icons-material/Work';
 import WorkOffIcon from '@mui/icons-material/WorkOff';
+import { Leaderboard } from "@mui/icons-material";
+
+
+
 
 const Overview = () => {
   const theme = useTheme();
@@ -41,10 +47,14 @@ const Overview = () => {
               />
             </Stack>
           </Grid>
-          <Grid item md={9} lg={9} xl={9} width="100%" >
-         
-            <BarChartComponent/>
-
+          <Grid item md={9} lg={9} xl={9} width="100%" container spacing={10} direction={'row'}>
+            <Grid sx={{alignSelf:'center', paddingX:"10px"}} item md={6} lg={6} xl={6}>
+              <DailyInterviewChart/>
+            </Grid>
+            <Grid sx={{paddingX:"10px",}} item md={6} lg={6} xl={6}>
+              <LeaderBoard sx={{marginLeft:"5px"}}/>
+            </Grid>
+            
           </Grid>
         </Grid>
       </Container>

@@ -19,6 +19,7 @@ import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswo
 import Profile from "./pages/AccountSettings/components/Profile";
 import ForceChangePasswordPage from "./pages/UserAuthentication/ForceChangePassword";
 
+
 //"#e8e1fa"
 const theme = createTheme({
   overrides: {
@@ -75,10 +76,10 @@ function App() {
         <Auth>
           <RouterComponent />
         </Auth>
+        {/* <EmailConfirmation/> */}
         {/* <ForceChangePasswordPage/> */}
         {/* <Profile/> */}
         {/* <AdminHomePage/> */}
-        <CommitteeMemberHomePage/>
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}

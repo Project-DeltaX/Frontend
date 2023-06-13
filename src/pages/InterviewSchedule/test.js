@@ -1,9 +1,4 @@
 // import React, { useState, useEffect } from "react";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
-// import Grid from "@mui/material/Grid";
 // import Table from "@mui/material/Table";
 // import TableBody from "@mui/material/TableBody";
 // import TableCell from "@mui/material/TableCell";
@@ -11,335 +6,201 @@
 // import TableHead from "@mui/material/TableHead";
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
-// import Button from "@mui/material/Button";
+// import Grid from "@mui/material/Grid";
+// import FormControl from "@mui/material/FormControl";
 // import Checkbox from "@mui/material/Checkbox";
+// import Button from "@mui/material/Button";
+// import SendIcon from "@mui/icons-material/Send";
+// import Stack from "@mui/material/Stack";
+// import axios from "axios";
 
-// const Allocation = () => {
-//   const [cData, setCData] = useState([]);
-//   const [pData, setPData] = useState([]);
-//   const [selectedPanelMember, setSelectedPanelMember] = useState(null);
-//   const [selectedCandidate, setSelectedCandidate] = useState(null);
+// const SMCandidate = () => {
+//   const [sData, setSData] = useState([]);
+//   const [selectedCandidates, setSelectedCandidates] = useState([]);
 
-//   const handlePanelMemberSelection = (panelMember) => {
-//     setSelectedPanelMember(panelMember);
-//   };
-
-//   const handleCandidateSelection = (candidate) => {
-//     setSelectedCandidate(candidate);
-//   };
-
-//   const handleAllocateInterview = async () => {
-//     if (selectedPanelMember && selectedCandidate) {
-//       const body = {
-//         panelMemberName: selectedPanelMember.firstName,
-//         panelMemberEmail: selectedPanelMember.email,
-//         candidateName: selectedCandidate.name,
-//         candidateEmail: selectedCandidate.email,
-//       };
+//   useEffect(() => {
+//     const fetchData = async () => {
 //       try {
 //         const response = await fetch(
-//           "https://your-api-endpoint.com/allocate-interview", // Replace with your API endpoint
-//           {
-//             method: "POST",
-//             headers: {
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(body),
-//           }
+//           "https://71sozhk0d6.execute-api.us-east-1.amazonaws.com/st1/internlist"
 //         );
-
-//         if (response.ok) {
-//           console.log("Allocation saved successfully");
-//         } else {
-//           console.error("Error saving allocation");
-//         }
+//         const jsonData = await response.json();
+//         setSData(jsonData);
+//         console.log(sData);
 //       } catch (error) {
 //         console.error(error);
 //       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handleCheckboxChange = (event, candidate) => {
+//     if (event.target.checked) {
+//       setSelectedCandidates([...selectedCandidates, candidate]);
+//     } else {
+//       setSelectedCandidates(
+//         selectedCandidates.filter((c) => c.candidateEmail !== candidate.candidateEmail)
+//       );
 //     }
 //   };
 
-//   useEffect(() => {
-//     const fetchCandidateData = async () => {
-//       try {
-//         const response = await fetch(
-//           "https://bgn8o86ukl.execute-api.us-east-1.amazonaws.com/New/candidatedata"
-//         );
-//         const jsonData = await response.json();
-//         setCData(jsonData);
-//         console.log(jsonData);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
-//     fetchCandidateData();
-//   }, []);
+//   const handleSendEmail = async () => {
+//     try {
+//       const recipients = selectedCandidates.map((candidate) => candidate.candidateEmail);
 
-//   useEffect(() => {
-//     const fetchPanelMemberData = async () => {
-//       try {
-//         const response = await fetch(
-//           "https://szhbcgr633.execute-api.us-east-1.amazonaws.com/new1/pmemberdata"
-//         );
-//         const jsonData = await response.json();
-//         setPData(jsonData);
-//         console.log(jsonData);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
-//     fetchPanelMemberData();
-//   }, []);
+//       const response = await axios.post(
+//         "https://9ippym1vkf.execute-api.us-east-1.amazonaws.com/new1/internmail", // Replace with your Lambda function endpoint
+//         { recipients }
+//       );
+
+//       console.log(response.data);
+//     } catch (error) {
+//       console.error("Error:", error);
+//     }
+//   };
 
 //   return (
 //     <Grid container spacing={2}>
-//       <Grid item xs={6}>
-//         <FormControl fullWidth>
-//           <InputLabel id="panel-member-label">Panel Member</InputLabel>
-//           <Select
-//             labelId="panel-member-label"
-//             id="panel-member-select"
-//             value={selectedPanelMember}
-//             label="Panel Member"
-//             onChange={(e) => handlePanelMemberSelection(e.target.value)}
-//           >
-//             {pData.map((panelMember) => (
-//               <MenuItem key={panelMember.email} value={panelMember}>
-//                 {panelMember.firstName}
-//               </MenuItem>
-//             ))}
-//           </Select>
-//         </FormControl>
-//       </Grid>
 //       <Grid item xs={12}>
-//         <div className
-//         <div className="Table">
-//         <h3>Panel Member List</h3>
-//         <TableContainer
-//           component={Paper}
-//           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-//         >
-//           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//             <TableHead sx={{ backgroundColor: "#9485a8" }}>
-//               <TableRow>
-//                 <TableCell />
-//                 <TableCell>PanelMemberName</TableCell>
-//                 <TableCell align="left">JobTitle</TableCell>
-//                 <TableCell align="left">P.email</TableCell>
-//               </TableRow>
-//             </TableHead>
-//             <TableBody style={{ color: "Bluet" }}>
-//               {pData.map((row, index) => (
-//                 <TableRow
-//                   style={{ backgroundColor: "#b8a9cc" }}
-//                   key={row.email}
-//                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//                 >
-//                   <TableCell padding="checkbox">
-//                     <Checkbox
-//                       checked={selectedPanelMember === row}
-//                       onChange={() => handlePanelMemberSelection(row)}
-//                     />
-//                   </TableCell>
-//                   <TableCell component="th" scope="row">
-//                     {row.firstName}
-//                   </TableCell>
-//                   <TableCell align="left">{row.guestRole}</TableCell>
-//                   <TableCell align="left">{row.email}</TableCell>
-//                 </TableRow>
-//               ))}
-//             </TableBody>
-//           </Table>
-//         </TableContainer>
-//       </div>
-//     </Grid>
-//     <Grid item xs={6}>
-//       <FormControl fullWidth>
-//         <InputLabel id="candidate-label">Candidate</InputLabel>
-//         <Select
-//           labelId="candidate-label"
-//           id="candidate-select"
-//           value={selectedCandidate}
-//           label="Candidate"
-//           onChange={(e) => handleCandidateSelection(e.target.value)}
-//         >
-//           {cData.map((candidate) => (
-//             <MenuItem key={candidate.email} value={candidate}>
-//               {candidate.name}
-//             </MenuItem>
-//           ))}
-//         </Select>
-//       </FormControl>
-//     </Grid>
-//     <Grid item xs={12}>
-//       <div className="Table">
-//         <h3>Candidate list</h3>
-//         <TableContainer
-//           component={Paper}
-//           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-//         >
-//           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//             <TableHead sx={{ backgroundColor: "#9485a8" }}>
-//               <TableRow>
-//                 <TableCell />
-//                 <TableCell>CandidateName</TableCell>
-//                 <TableCell align="left">Position</TableCell>
-//                 <TableCell align="left">C.email</TableCell>
-//               </TableRow>
-//             </TableHead>
-//             <TableBody style={{ color: "Blue" }}>
-//               {cData.map((row) => (
-//                 <TableRow
-//                   style={{ backgroundColor: "#b8a9cc" }}
-//                   key={row.name}
-//                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//                 >
-//                   <TableCell padding="checkbox">
-//                     <Checkbox
-//                       checked={selectedCandidate === row}
-//                       onChange={() => handleCandidateSelection(row)}
-//                     />
-//                   </TableCell>
-//                   <TableCell component="th" scope="row">
-//                     {row.name}
-//                   </TableCell>
-//                   <TableCell align="left">{row.jobRole}</TableCell>
-//                   <TableCell align="left">{row.email}</TableCell>
-//                 </TableRow>
-//               ))}
-//             </TableBody>
-//           </Table>
-//         </TableContainer>
-//       </div>
-//     </Grid>
-//     <Grid item xs={12}>
-//       <Button
+//         <FormControl
+//           fullWidth
+//           sx={{
+//             "& label": {
+//               color: "#1e0342", // change text color
+//               fontWeight: "bold",
+//             },
+//           }}
+//         ></FormControl>
+
+//         <Grid item xs={12}>
+//           <div className="Table">
+//             <TableContainer
+//               component={Paper}
+//               style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+//             >
+//               <Table sx={{ minWidth: 650 }} aria-label="simple table">
+//                 <TableHead sx={{ backgroundColor: "#9485a8" }}>
+//                   <TableRow>
+//                     <TableCell />
+//                     <TableCell>CandidateName</TableCell>
+//                     <TableCell align="left">JobRole</TableCell>
+//                     <TableCell align="left">CandidateEmail</TableCell>
+//                     <TableCell align="left">Status</TableCell>
+//                   </TableRow>
+//                 </TableHead>
+//                 <TableBody style={{ color: "Bluet" }}>
+//                   {sData.map((row) => (
+//                     <TableRow
+//                       style={{ backgroundColor: "#b8a9cc" }}
+//                       key={row.name}
+//                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+//                     >
+//                       <TableCell padding="checkbox">
+//                         <Checkbox
+//                           checked={selectedCandidates.includes(row)}
+//                           onChange={(event) => handleCheckboxChange(event, row)}
+//                         />
+//                       </TableCell>
+//                       <TableCell component="th"
+// scope="row">
+// {row.candidateName}
+// </TableCell>
+// <TableCell align="left">{row.jobRole}</TableCell>
+// <TableCell align="left">{row.candidateEmail}</TableCell>
+// <TableCell align="left">{row.status}</TableCell>
+// </TableRow>
+// ))}
+// </TableBody>
+// </Table>
+// </TableContainer>
+// </div>
+// </Grid>
+// <Grid item xs={12}>
+// <Stack direction="row" spacing={2}>
 // <Button
 // variant="contained"
-// style={{ backgroundColor: "#1e0342", color: "white" }}
-// onClick={handleAllocateInterview}
-// disabled={!selectedPanelMember || !selectedCandidate}
+// endIcon={<SendIcon />}
+// style={{ backgroundColor: "#1e0342" }}
+// onClick={handleSendEmail}
+// disabled={selectedCandidates.length === 0}
 // >
-// Allocate for interview
+// Send Email
 // </Button>
+// </Stack>
+// </Grid>
 // </Grid>
 // </Grid>
 // );
 // };
 
-// export default Allocation;
+// export default SMCandidate;
 
+const [recipientEmail, setRecipientEmail] = useState("");
+const [emailSubject, setEmailSubject] = useState("");
+const [emailBody, setEmailBody] = useState("");
 
+const handleSendEmail = async (event) => {
+  event.preventDefault();
 
-// ...imports
+  
 
-const SMCandidate = () => {
-    const [sData, setSData] = useState([]);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            'https://api-gateway-url/endpoint', // Replace with your API Gateway URL
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          const jsonData = await response.json();
-          setSData(jsonData);
-          console.log(sData);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }, []);
-  
-    const handleEmailSend = async () => {
-      const selectedCandidates = sData.filter((row) => row.selected);
-  
-      const promises = selectedCandidates.map((candidate) => {
-        const requestBody = { candidateEmail: candidate.candidateEmail };
-  
-        return fetch('https://api-gateway-url/endpoint', { // Replace with your API Gateway URL
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
-      });
-  
-      try {
-        await Promise.all(promises);
-        console.log('Emails sent successfully');
-      } catch (error) {
-        console.error('Error sending emails:', error);
-      }
-    };
-  
-    const handleCheckboxChange = (event, index) => {
-      const newData = [...sData];
-      newData[index].selected = event.target.checked;
-      setSData(newData);
-    };
-  
-    return (
-      <Grid container spacing={2}>
-        {/* ... */}
-        <Grid item xs={12}>
-          <div className="Table">
-            <TableContainer
-              component={Paper}
-              style={{ boxShadow: '0px 13px 20px 0px #80808029' }}
-            >
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead sx={{ backgroundColor: '#9485a8' }}>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell>CandidateName</TableCell>
-                    <TableCell align="left">JobRole</TableCell>
-                    <TableCell align="left">CandidateEmail</TableCell>
-                    <TableCell align="left">Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody style={{ color: 'Bluet' }}>
-                  {sData.map((row, index) => (
-                    <TableRow
-                      style={{ backgroundColor: '#b8a9cc' }}
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={row.selected || false}
-                          onChange={(event) => handleCheckboxChange(event, index)}
-                        />
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.candidateName}
-                      </TableCell>
-                      <TableCell align="left">{row.jobRole}</TableCell>
-                      <TableCell align="left">{row.candidateEmail}</TableCell>
-                      <TableCell align="left">{row.status}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" onClick={handleEmailSend}>
-            Send Email
-          </Button>
-        </Grid>
-      </Grid>
-    );
+  const ses = new AWS.SES({ apiVersion: "2010-12-01" });
+
+  const emailParams = {
+    Source: "perinparasat.20@uom.lk", // Update with your SES verified email address
+    Destination: {
+      ToAddresses: [recipientEmail],
+    },
+    Message: {
+      Subject: {
+        Data: emailSubject,
+      },
+      Body: {
+        Text: {
+          Data: emailBody,
+        },
+      },
+    },
   };
-  
-  export default SMCandidate;
-  
+
+  try {
+    const data = await ses.sendEmail(emailParams).promise();
+    console.log("Email sent successfully", data);
+    // Add any success message or further actions here
+  } catch (error) {
+    console.error("Error sending email", error);
+    // Add error handling or display error message here
+  }
+};
+
+return (
+  <form onSubmit={handleSendEmail}>
+    <label>
+      Recipient Email:
+      <input
+        type="email"
+        value={recipientEmail}
+        onChange={(e) => setRecipientEmail(e.target.value)}
+        required
+      />
+    </label>
+    <label>
+      Subject:
+      <input
+        type="text"
+        value={emailSubject}
+        onChange={(e) => setEmailSubject(e.target.value)}
+        required
+      />
+    </label>
+    <label>
+      Body:
+      <textarea
+        value={emailBody}
+        onChange={(e) => setEmailBody(e.target.value)}
+        required
+      />
+    </label>
+    <button type="submit">Send Email</button>
+  </form>
+);

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,6 +12,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
 const SMCandidate = () => {
   const [sData, setSData] = useState([]);
   const [selectedCandidates, setSelectedCandidates] = useState([]);
@@ -33,37 +33,34 @@ const SMCandidate = () => {
     fetchData();
   }, []);
 
-  const handleCandidateSelection = (candidateEmail) => {
-    const isSelected = selectedCandidates.includes(candidateEmail);
-    if (isSelected) {
-      setSelectedCandidates((prevSelections) =>
-        prevSelections.filter((email) => email !== candidateEmail)
-      );
+
+  const handleCheckboxChange = (event, candidate) => {
+    if (event.target.checked) {
+      setSelectedCandidates([...selectedCandidates, candidate]);
     } else {
-      setSelectedCandidates((prevSelections) => [
-        ...prevSelections,
-        candidateEmail,
-      ]);
+      setSelectedCandidates(
+        selectedCandidates.filter((c) => c.candidateEmail !== candidate.candidateEmail)
+      );
     }
   };
 
   const handleSendEmail = async () => {
+
+
+    const recipt = selectedCandidates.map((candidate) => candidate.candidateEmail);
+    const recipients = {body : recipt};
+    // console.log(recipients)
+    console.log(recipients)
     try {
-      console.log(selectedCandidates);
-      const response = await fetch(
+
+      const response = await axios.post(
         "https://9ippym1vkf.execute-api.us-east-1.amazonaws.com/new1/internmail", // Replace with your Lambda function endpoint
-        {
-          method: "POST",
-          headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"POST","Content-Type":"application/json"},
-          body: JSON.stringify(["thanusiyans.20@uom.lk"]),
-          mode:"no-cors"
-        }
+        recipients 
       );
-      const result = await response.json();
-      // setSelectedCandidates(result);
-      console.log(result);
+      // console.log(recipients)
+      console.log(response);
     } catch (error) {
-      console.error("error :"+error);
+      console.error("Error:", error);
     }
   };
 
@@ -104,9 +101,10 @@ const SMCandidate = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell padding="checkbox">
+                       
                         <Checkbox
-                          checked={selectedCandidates.includes(row.candidateEmail)}
-                          onChange={() => handleCandidateSelection(row.candidateEmail)}
+                          checked={selectedCandidates.includes(row)}
+                          onChange={(event) => handleCheckboxChange(event, row)}
                         />
                       </TableCell>
                       <TableCell component="th" scope="row">
@@ -133,9 +131,9 @@ const SMCandidate = () => {
             variant="contained"
             endIcon={<SendIcon />}
             style={{ backgroundColor: "#1e0342" }}
-            onClick={handleSendEmail}>Send Email
-            
-           
+            onClick={handleSendEmail}
+            disabled={selectedCandidates.length === 0}
+            >Send Email
           </Button>
         </Stack>
       </Grid>

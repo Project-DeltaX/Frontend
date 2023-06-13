@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 
 import "./Interview.css";
 import AWS from "aws-sdk";
+import { Box } from "@mui/system";
 
 
 
@@ -50,41 +51,45 @@ const AllocatedCandidates = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch('https://bgn8o86ukl.execute-api.us-east-1.amazonaws.com/New/candidatedata');
+    const response = await fetch("https://mjhi541fog.execute-api.us-east-1.amazonaws.com/new6/allocatedcandidates");
     const data = await response.json();
     setData(data);
   
   };
+
+
   return (
-    <box rowspacing={3} m={10}>
-      <div className="Table">
-        <TableContainer
+   <Box m={10}>
+    <TableContainer
           component={Paper}
           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
         >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650,background:
+              '#E8E1FA' }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>FirstName ID</TableCell>
-                <TableCell align="left">CandidateID</TableCell>
-                <TableCell align="left">Email </TableCell>
-                <TableCell align="left">Last Name</TableCell>
+                {/* <TableCell>Candidate_Id</TableCell> */}
+                <TableCell align="left">email</TableCell>
+                <TableCell align="left">First_name </TableCell>
+                <TableCell align="left">Last_name</TableCell>
+                <TableCell align="left">Resume</TableCell>
+                
                 
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "white" }}>
-              {data.map((data) => (
+              {data.map((data,index) => (
                 <TableRow
-                  key={data.CandidateID}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="data">
-                    {data.FirstName}
-                  </TableCell>
-                  <TableCell align="left">{data.FirstName}</TableCell>
-                  <TableCell align="left">{data.CandidateID}</TableCell>
-                  <TableCell align="left">{data.Email}</TableCell>
-                  <TableCell align="left">{data.LastName}</TableCell>
+                  {/* <TableCell component="th" scope="data">
+                    {data.Candidate_Id}
+                  </TableCell> */}
+                  <TableCell align="left">{data.email}</TableCell>
+                  <TableCell align="left">{data.First_name}</TableCell>
+                  <TableCell align="left">{data.Last_name}</TableCell>
+                  {/* <TableCell align="left">{data.LastName}</TableCell> */}
                   
                  
                 </TableRow>
@@ -92,8 +97,13 @@ const AllocatedCandidates = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-    </box>
+      
+
+   </Box>
+     
+        
+
+   
   );
 }
 
