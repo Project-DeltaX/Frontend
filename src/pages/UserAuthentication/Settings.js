@@ -1,6 +1,14 @@
+<<<<<<< HEAD
+//need to delete this file
+
+import React, { useEffect, useContext, useState } from "react";
+import { AccountContext } from "./Account";
+import ChangePassword from "./ChangePassword";
+=======
 // import React, { useEffect, useContext, useState } from "react";
 // import { AccountContext } from "./Account";
 // import ChangePassword from "./ChangePassword";
+>>>>>>> d1f07cdcf914bf22c210e5abb0ffeb84ffc3f496
 
 // // This component renders the settings page
 

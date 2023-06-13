@@ -17,6 +17,8 @@ import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Profile from "./pages/AccountSettings/components/Profile";
+import ForceChangePasswordPage from "./pages/UserAuthentication/ForceChangePassword";
+
 import NotificationPopup from "./pages/AccountSettings/components/NotificationPopup.js";
 import CvView from "./pages/CvManagement/CvUpload/CvView";
 import Review from "./pages/Interview&evaluation/FinalizeIntern";
@@ -77,9 +79,10 @@ function App() {
         <Auth>
           <RouterComponent />
         </Auth>
+        {/* <EmailConfirmation/> */}
+        {/* <ForceChangePasswordPage/> */}
         {/* <Profile/> */}
         {/* <AdminHomePage/> */}
-        {/* <CommitteeMemberHomePage/> */}
         {/* <ForgotPassword /> */}
         {/* <EmailConfirmation /> */}
         {/* <SuccessfulPasswordReset /> */}

@@ -113,7 +113,9 @@ const Evaluation = () => {
               <Typography
                 variant="h2"
                 align="center"
-                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
+                width={400}
+                fontWeight='bold'
+                sx={{ backgroundColor: "#F772D4", fontSize: "24px" }}
               >
                 Marking ScoreSheet
               </Typography>
@@ -123,7 +125,9 @@ const Evaluation = () => {
               <Typography
                 variant="h2"
                 align="center"
-                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
+                width={400}
+                fontWeight='bold'
+                sx={{ backgroundColor: "#F772D4", fontSize: "24px"  }}
               >
                 Scoresheet
               </Typography>

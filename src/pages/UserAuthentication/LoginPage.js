@@ -1,14 +1,22 @@
 //import { Gradient } from "@mui/icons-material";
 
 //Danuraha@123-pw
-import { TextField, Box, Button, Typography, Grid } from "@mui/material";
+import {
+  TextField,
+  Box,
+  Button,
+  Typography,
+  IconButton,
+  Grid,
+} from "@mui/material";
 import React, { useContext, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import LoginImg from "../../Images/Login.svg";
 import "../UserAuthentication/Authentication.css";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 //Routing
-import { Link, useLocation, useNavigate,Navigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -16,21 +24,32 @@ const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const { authenticate, getjwtToken, getShowAlert,getLoginStatus } = useAuth();
+  const { authenticate, getjwtToken, getShowAlert, getLoginStatus } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    authenticate(email, password);
 
+    if (email === "" || password === "") {
+      // setEmptyFieldError(true);
+      setErrorMessage("All the fields are required");
+      return;
+    }
+      if (getShowAlert()) {
+      setErrorMessage(
+        "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
+      );
+    }
+
+   authenticate(email, password);
   };
-  
-  if(getLoginStatus()){
+   
 
-    return <Navigate to={'/homepage'}/>
+  if (getLoginStatus()) {
+    return <Navigate to={"/homepage"} />;
   }
-  
-
 
   // Return statement containing the JSX for the login page
 
@@ -90,57 +109,89 @@ const LoginPage = () => {
               >
                 <b>LOGIN</b>
               </Typography>
-              {/* Render email input */}
 
-              <TextField
-                size="small"
-                sx={{
-                  "& fieldset": { border: "none" },
+              <div>
+                {/* <Typography align="justify" sx={{ color: "#C5A2F1" ,fontSize:"15px",margin:'5px'}}>
+                  Enter email as the username
+                </Typography> */}
+                
 
-                  input: {
-                    color: "#8C8B8B",
-                    bgcolor: "#fff",
-                    borderRadius: "20px",
-                    width: "300px",
-                  },
-                }}
-                margin="normal"
-                type={"email"}
-                variant="outlined"
-                placeholder="username"
-                name="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              {/* Render password input */}
+                <TextField
+                  size="small"
+                  sx={{
+                    "& fieldset": { border: "none" },
 
-              <TextField
-                sx={{
-                  "& fieldset": { border: "none" },
-                  input: {
-                    color: "#8C8B8B",
-                    bgcolor: "#fff",
-                    borderRadius: "20px",
-                    width: "300px",
-                  },
-                }}
-                margin="normal"
-                type={"password"}
-                variant="outlined"
-                placeholder="Password"
-                size="small"
-                // onKeyDown={handleKeyDown}
-                name="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            
-              {getShowAlert() && (
+                    input: {
+                      color: "#8C8B8B",
+                      bgcolor: "#fff",
+                      borderRadius: "20px",
+                      width: "300px",
+                      marginBottom: 4,
+                    },
+                  }}
+                  type={"email"}
+                  variant="outlined"
+                  placeholder="username"
+                  name="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+                {/* Render password input */}
+              </div>
+
+              <div>
+                <TextField
+                  sx={{
+                    "& fieldset": { border: "none" },
+                    input: {
+                      color: "#8C8B8B",
+                      bgcolor: "#fff",
+                      borderRadius: "20px",
+                      width: "300px",
+                      marginLeft: "30px",
+                    },
+                  }}
+                  // margin="normal"
+                  // type={"password"}
+                  variant="outlined"
+                  placeholder="Password"
+                  size="small"
+                  // onKeyDown={handleKeyDown}
+                  name="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  type={passwordVisible ? "text" : "password"}
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton
+                        edge="end"
+                        sx={{ color: "white" }}
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    ),
+                  }}
+                />
+
+                {/* {getShowAlert() && (
                 <div className="alert">Incorrect username or password</div>
-              )}
+              )} */}
+
+                {errorMessage && (
+                  <Typography align="center" sx={{ color: "red" }}>
+                    {errorMessage.split("\n").map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </Typography>
+                )}
+              </div>
 
               <Typography
-                color="blue"
+                color="#4153EE"
                 variant="body2"
                 alignSelf="flex-end"
                 component={Link}
@@ -173,7 +224,9 @@ const LoginPage = () => {
               >
                 New to 99x IMS? <br />
                 <Link to={"/createNewAccount"}>
-                  <i color="#ffffff"> Create New Account</i>
+                  <i color="#4153EE">
+                    <b>Create New Account</b>{" "}
+                  </i>
                 </Link>
               </Typography>
             </Box>
@@ -185,5 +238,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-

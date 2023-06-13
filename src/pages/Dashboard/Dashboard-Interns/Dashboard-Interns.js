@@ -1,14 +1,19 @@
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import "../../../App.css";
+
+
 import React, { useState } from "react";
+
+
+import "../../../App.css";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import { navigationActiveStyle } from "../../../styles";
 import styled from "styled-components";
 
 //import defined Components
 import Overview from "./components/Overview";
+import CandidateDetails from "./components/Candidate Details/CandidateDetails";
 
 //,#2C165D,#27144B,#e8e1fa
 
@@ -88,9 +93,8 @@ const DashboardInterns = () => {
                   aria-label="basic tabs example"
                 >
                   <Tab label="Overview" {...a11yProps(0)} />
-                  <Tab label="Performance" {...a11yProps(1)} />
-                  <Tab label="Activity" {...a11yProps(2)} />
-                  <Tab label="Intern Details" {...a11yProps(3)} />
+                  <Tab label="Candidate Details" {...a11yProps(1)} />
+                  <Tab label="Interview Results" {...a11yProps(2)} />
                 </Tabs>
               </Box>
             </Grid>
@@ -100,13 +104,10 @@ const DashboardInterns = () => {
               <Overview />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Performance
+              <CandidateDetails/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Activity
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              Intern Details
+              Interview Results
             </TabPanel>
           </Grid>
         </Grid>

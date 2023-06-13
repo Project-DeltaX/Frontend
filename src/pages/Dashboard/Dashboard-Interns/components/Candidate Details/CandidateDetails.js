@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -29,47 +31,45 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const CandidateAvailability = () => {
-  const [cdata, setCdata] = useState([]);
+const CandidateDetails = () => {
+  const [candidateData, setCandidateData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://bgn8o86ukl.execute-api.us-east-1.amazonaws.com/New/candidatedata"
-        );
-        const jsonCdata = await response.json();
-        setCdata(jsonCdata);
-      } catch (error) {
-        console.error(error);
-      }
+        try {
+            const response = await axios.get(
+              "https://v6pjqonit0.execute-api.us-east-1.amazonaws.com/dev/allcandidatedetail"
+            );
+            
+            const jsonData = response.data;
+            setCandidateData(jsonData);
+          } catch (error) {
+            console.log(error);
+          }
     };
     fetchData();
   }, []);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h3> Candidate</h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell align="right">JobRole</StyledTableCell>
-                <StyledTableCell align="right">Email</StyledTableCell>
-                <StyledTableCell align="right">CandidateId</StyledTableCell>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell align="right">Name</StyledTableCell>
+                <StyledTableCell align="right">Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {cdata.map((row) => (
-                <StyledTableRow key={row.name}>
+              {candidateData.map((row) => (
+                <StyledTableRow key={row.email}>
                   <StyledTableCell component="th" scope="row">
-                    {row.name}
+                    {row.email}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.jobRole}
+                    {row.firstName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.email}</StyledTableCell>
-                  <StyledTableCell align="right">{row.CandidateID}</StyledTableCell>
+                  <StyledTableCell align="right">{row.status}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -79,4 +79,4 @@ const CandidateAvailability = () => {
     </Grid>
   );
 };
-export default CandidateAvailability;
+export default CandidateDetails;
