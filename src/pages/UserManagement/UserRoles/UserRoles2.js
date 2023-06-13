@@ -29,6 +29,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
+import SimpleDialogDemo from "../../../components/ChangeRoles";
 
 
 // function createData(firstName, mail, Country, jobTitle, Status,Role,Edit) {
@@ -278,6 +279,7 @@ export default function UserRole2() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedEmail, setSelectedEmail] = useState("");
 
   const [data, setData] = useState([]);
 
@@ -308,18 +310,26 @@ export default function UserRole2() {
   const handleClick = (event, email) => {
     const selectedIndex = selected.indexOf(email);
     let newSelected = [];
-
+  
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, email);
+      setSelectedEmail(email);
+     
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
+      setSelectedEmail("");
+      
     }
 
     setSelected(newSelected);
@@ -411,7 +421,7 @@ export default function UserRole2() {
                       
                       
                       <TableCell align="left"  >{row.mobileNumber}</TableCell>
-                      <SimpleDialog />
+                      <SimpleDialogDemo getEmail={selectedEmail}  />
                       <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );

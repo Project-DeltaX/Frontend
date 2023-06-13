@@ -1,7 +1,7 @@
 
 //User_Roles
 import React from "react";
-
+import axios from 'axios';
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -29,38 +29,59 @@ import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
+import SimpleDialogDemo from "../../../components/ChangeRoles";
 
 
+export default function UserRole() {
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("email");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
+  const [data, setData] = useState([]);
+  const [selectedEmail, setSelectedEmail] = useState("");
 
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
+  // const handleDeleteClick = () => {
+  //   const updatedData = data.filter((user) => user.email !== selectedEmail);
+  //   setData(updatedData);
+  // };
+  const handleDeleteClick = () => {
+    axios
+      .delete("https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser", {
+        data: { email: selectedEmail },
+      })
+      .then((response) => {
+        // Handle successful deletion, such as updating the UI or refreshing the data
+        const updatedData = data.filter((user) => user.email !== selectedEmail);
+        setData(updatedData);
+        console.log(updatedData);
+      })
+      .catch((error) => {
+        // Handle error, such as displaying an error message
+        console.error(error);
+        
+      });
+      
+  };
 
-const headCells = [
+EnhancedTableToolbar.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+};
+
+
+  EnhancedTableHead.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+  onRequestSort: PropTypes.func.isRequired,
+  onSelectAllClick: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
+  orderBy: PropTypes.string.isRequired,
+  rowCount: PropTypes.number.isRequired,
+};
+
+  const headCells = [
  
   {
     id: "email",
@@ -126,6 +147,34 @@ const headCells = [
   },
 ] ;
 
+  function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function getComparator(order, orderBy) {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
 function EnhancedTableHead(props) {
   const {
     onSelectAllClick,
@@ -180,14 +229,6 @@ function EnhancedTableHead(props) {
   );
 }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
 function EnhancedTableToolbar(props) {
   const { numSelected } = props;
@@ -229,7 +270,7 @@ function EnhancedTableToolbar(props) {
 
 {numSelected > 0 ? (
   <Tooltip title="Delete">
-    <IconButton>
+    <IconButton onClick={handleDeleteClick}> 
       <DeleteIcon />
     </IconButton>
   </Tooltip>
@@ -239,19 +280,9 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
 
-export default function UserRole() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("email");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const [data, setData] = useState([]);
+
 
   useEffect(() => {
     fetch(
@@ -277,25 +308,34 @@ export default function UserRole() {
     setSelected([]);
   };
 
-  const handleClick = (event,email) => {
+  const handleClick = (event, email) => {
     const selectedIndex = selected.indexOf(email);
     let newSelected = [];
-
+  
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected,email);
+      newSelected = newSelected.concat(selected, email);
+      setSelectedEmail(email);
+     
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
+      setSelectedEmail("");
+      
     }
-
+  
     setSelected(newSelected);
   };
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -313,6 +353,9 @@ export default function UserRole() {
   const isSelected = (email) => selected.indexOf(email) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+
+    
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -349,7 +392,7 @@ export default function UserRole() {
                       key={row.email}
                       selected={isItemSelected}
                       display={"flex"}
-                      justifyContent={"center"}
+                      justifycontent={"center"}
                       
                     >
                       <TableCell padding="checkbox">
@@ -383,7 +426,7 @@ export default function UserRole() {
                      
                       
                       <TableCell align="left"  >{row.mobileNumber}</TableCell>
-                       <SimpleDialog />
+                       <SimpleDialogDemo  getEmail={selectedEmail} />
                       <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );

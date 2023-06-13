@@ -13,6 +13,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import Typography from "@mui/material/Typography";
 import { blue, purple } from "@mui/material/colors";
 import EditIcon from "@mui/icons-material/Edit";
+import jwtDecode from "jwt-decode";
+import axios from 'axios';
 
 // An array containing different roles
 const values = ["committee member", "Panel member", "Intern"];
@@ -65,7 +67,11 @@ SimpleDialog.propTypes = {
 };
 
 // The main component that renders the button and the dialog box
-export default function SimpleDialogDemo() {
+export default function SimpleDialogDemo({ getEmail }) {
+
+ 
+
+
   // State variables for controlling the dialog box and the selected role
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(values[1]);
@@ -82,29 +88,55 @@ export default function SimpleDialogDemo() {
 
 
     // Retrieve the authorization token from the local storage
-  const authorizationToken = localStorage.getItem('authorizationToken');
+  const authorizationToken = localStorage.getItem('idtoken');
+  const decodedToken=jwtDecode(authorizationToken)
 
-    fetch('https://hxbbw4n3pd.execute-api.us-east-1.amazonaws.com/dev/changeuserrole', {
-    method: 'POST',
-    // mode:'no-cors',
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: 'Bearer ${authorizationToken}'
-    },
-    body: JSON.stringify({ role: value })
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Role updated successfully:', data);
-    })
-    .catch((error) => {
-      console.error('Error updating role:', error);
-    });
+
+  // const email = getEmail(); // Replace getEmail() with the function to retrieve the email
+  // const guestRole = getGuestRole();
+
+
+   const requestData = {
+      body: {
+        U_email: getEmail,
+        attributeValue: value,
+        A_role: decodedToken["custom:guestRole"],
+      },
+    };
+console.log(requestData);
+//     fetch('https://pwdetptz7k.execute-api.us-east-1.amazonaws.com/dev/changerole', {
+//     method: 'POST',
+//      mode:'no-cors',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       // Authorization: 'Bearer ${authorizationToken}'
+//     },
+//     body: JSON.stringify({ requestData })
+//   })
+//     .then((response) => response.json())
+//     .then((responseData) => {
+//       console.log('Role updated successfully:', responseData);
+//     })
+//     .catch((error) => {
+//       console.error('Error updating role:', error);
+//     });
+
+
+const sendDataToBackend = async () => {
+  try {
+    const response = await axios.post('https://pwdetptz7k.execute-api.us-east-1.amazonaws.com/dev/changerole', requestData);
+    console.log(response.data); // Process the response data as needed
+  } catch (error) {
+    console.error(error);
+    // Handle error
+  }
+};
+
+sendDataToBackend();
   };
 
 
 
-  
 
   // Rendering the main component
   return (
