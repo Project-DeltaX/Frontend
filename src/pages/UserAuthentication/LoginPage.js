@@ -36,14 +36,16 @@ const LoginPage = () => {
       // setEmptyFieldError(true);
       setErrorMessage("All the fields are required");
       return;
-    } else if (getShowAlert()) {
+    }
+      if (getShowAlert()) {
       setErrorMessage(
         "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
       );
     }
 
-    authenticate(email, password);
+   authenticate(email, password);
   };
+   
 
   if (getLoginStatus()) {
     return <Navigate to={"/homepage"} />;

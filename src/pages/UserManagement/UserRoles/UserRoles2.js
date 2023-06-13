@@ -29,6 +29,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
+import SimpleDialogDemo from "../../../components/ChangeRoles";
 
 
 // function createData(firstName, mail, Country, jobTitle, Status,Role,Edit) {
@@ -89,18 +90,18 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  {
-    id: "firstName",
-    numeric: false,
-    disablePadding: true,
-    label: "firstName",
   
-  },
   {
     id: "email",
     numeric: false,
     disablePadding: false,
     label: "email",
+  },{
+    id: "firstName",
+    numeric: false,
+    disablePadding: true,
+    label: "firstName",
+  
   },
   {
     id: "Nationality",
@@ -278,6 +279,7 @@ export default function UserRole2() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedEmail, setSelectedEmail] = useState("");
 
   const [data, setData] = useState([]);
 
@@ -298,28 +300,36 @@ export default function UserRole2() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.firstName);
+      const newSelected = data.map((n) => n.email);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, firstName) => {
-    const selectedIndex = selected.indexOf(firstName);
+  const handleClick = (event, email) => {
+    const selectedIndex = selected.indexOf(email);
     let newSelected = [];
-
+  
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, firstName);
+      newSelected = newSelected.concat(selected, email);
+      setSelectedEmail(email);
+     
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      setSelectedEmail("");
+     
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
+      setSelectedEmail("");
+      
     }
 
     setSelected(newSelected);
@@ -338,7 +348,7 @@ export default function UserRole2() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (firstName) => selected.indexOf(firstName) !== -1;
+  const isSelected = (email) => selected.indexOf(email) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -364,17 +374,17 @@ export default function UserRole2() {
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.firstName);
+                  const isItemSelected = isSelected(row.email);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.firstName)}
+                      onClick={(event) => handleClick(event, row.email)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.firstName}
+                      key={row.email}
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
@@ -397,9 +407,9 @@ export default function UserRole2() {
                         padding="none"
                         
                       >
-                        {row.firstName}
+                        {row.email}
                       </TableCell>
-                      <TableCell align="left">{row.email}</TableCell>       
+                      <TableCell align="left">{row.firstName}</TableCell>       
                        {/* sx={{ border: '1px solid red'}}  */}
                       {/* <TableCell align="left" >{row.Country}</TableCell> */}
                       <TableCell align="left" >{row.Nationality}</TableCell>
@@ -411,7 +421,7 @@ export default function UserRole2() {
                       
                       
                       <TableCell align="left"  >{row.mobileNumber}</TableCell>
-                      <SimpleDialog />
+                      <SimpleDialogDemo getEmail={selectedEmail}  />
                       <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );

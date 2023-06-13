@@ -18,6 +18,8 @@ const AuthContext = createContext();
 const Auth = (props) => {
   // Alert message
   const [showAlert, setShowAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   // Define state variables for JWT token and login status
 
@@ -96,6 +98,11 @@ const Auth = (props) => {
 
           console.error("onFailure:", err);
           setShowAlert(true);
+          if (getShowAlert()) {
+              setErrorMessage(
+                "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
+              );
+            }
           reject(err);
         },
         newPasswordRequired: (data) => {
