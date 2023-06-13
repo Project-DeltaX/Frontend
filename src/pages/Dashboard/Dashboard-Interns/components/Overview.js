@@ -1,6 +1,8 @@
 import React,{useEffect, useState} from "react";
-// import { Helmet } from "react-helmet-async";
-// @mui
+import axios from "axios";
+
+
+
 import { useTheme } from "@mui/material/styles";
 import { Grid, Container, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
@@ -28,17 +30,12 @@ const Overview = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from the Lambda function API
-        const response = await fetch(
-          "https://guxgo6me31.execute-api.us-east-1.amazonaws.com/dev",
-          {
-            method: "GET",
-          }
+        const response = await axios.get(
+          "https://guxgo6me31.execute-api.us-east-1.amazonaws.com/dev"
         );
-        const jsonData = await response.json();
-        setScoreData(jsonData)
-
         
+        const jsonData = response.data;
+        setScoreData(jsonData);
       } catch (error) {
         console.log(error);
       }
@@ -46,48 +43,44 @@ const Overview = () => {
     fetchData();
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from the Lambda function API
-        const response = await fetch(
-          "https://4c2lf57zlk.execute-api.us-east-1.amazonaws.com/dev",
-          {
-            method: "GET",
-          }
+        const response = await axios.get(
+          "https://4c2lf57zlk.execute-api.us-east-1.amazonaws.com/dev"
         );
-        const jsonData = await response.json();
-        setLineChartData(jsonData)
-
-        
+  
+        const jsonData = response.data;
+        setLineChartData(jsonData);
       } catch (error) {
         console.log(error);
       }
     };
+  
     fetchData();
   }, []);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from the Lambda function API
-        const response = await fetch(
-          "https://v6pjqonit0.execute-api.us-east-1.amazonaws.com/dev/statuscount",
-          {
-            method: "GET",
-          }
+        const response = await axios.get(
+          "https://v6pjqonit0.execute-api.us-east-1.amazonaws.com/dev/statuscount"
         );
-        const jsonData = await response.json();
-        setWaitingCandidates(jsonData[0].count)
+  
+        const jsonData = response.data;
+        setWaitingCandidates(jsonData[0].count);
         setSelectedCandidates(jsonData[1].count);
         setTotalCandidates(jsonData[2].count);
       } catch (error) {
         console.log(error);
       }
     };
+  
     fetchData();
   }, []);
-
+  
 
 
   return (

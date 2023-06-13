@@ -36,6 +36,13 @@ const ForgotPassword = () => {
     }
     // Call the forgotPassword function on the CognitoUser object
 
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Invalid email format");
+      return;
+    }
+  
     getUser().forgotPassword({
       onSuccess: (data) => {
         console.log("onSuccess", data);

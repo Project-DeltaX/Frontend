@@ -17,9 +17,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import EmailConfirmation from "./EmailConfirmation";
-
+import axios from "axios";
 //CSS import
 import "../UserAuthentication/Authentication.css";
+import { useNavigate } from "react-router-dom";
 
 // import Pool from "../UserPool.js";
 import {
@@ -52,9 +53,11 @@ const userPool = new CognitoUserPool(poolData);
 // functional component for user registration
 
 const Register = () => {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   // const [showAlert, setShowAlert] = useState(false);
   // create a state to store form data
@@ -77,7 +80,6 @@ const Register = () => {
     });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault(); // Preventing the default form submission behaviour
     // Creating an empty array to store user attributes
@@ -92,78 +94,108 @@ const Register = () => {
     ) {
       // setShowAlert(true);
       setErrorMessage("All fields are required");
+      setShowAlert(true);
       return;
     }
-    //
-    else {
-      const attributeList = [];
-      // Creating an object containing the user's email and adding it to the attributeList array
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage("Please enter a valid email address");
+      setShowAlert(true);
+      return;
+    }
 
-      const dataEmail = {
-        Name: "email",
-        Value: formData.email,
-      };
-      // Creating an object containing the user's first name and adding it to the attributeList array
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setErrorMessage(
+        "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+      );
+      setShowAlert(true);
+      return;
+    }
 
-      const dataFirstName = {
-        Name: "given_name",
-        Value: formData.firstName,
-      };
-      // Creating an object containing the user's last name and adding it to the attributeList array
+    setErrorMessage(""); // Reset error message if no errors occur
+    setShowAlert(false);
+    const attributeList = [];
+    // Creating an object containing the user's email and adding it to the attributeList array
 
-      const dataLastName = {
-        Name: "family_name",
-        Value: formData.lastName,
-      };
-      // Creating an object containing the user's guest role and adding it to the attributeList array
+    try {
+      const response = await axios.post(
+        "https://w0ugg68pi6.execute-api.us-east-1.amazonaws.com/dev/registration",
+        formData
+      );
+      console.log(response.data); // Logging the response data
 
-      const dataGuestRole = {
-        Name: "custom:guestRole",
-        Value: formData.guestRole,
-      };
-      const attributeEmail = new CognitoUserAttribute(dataEmail);
-      const attributeFirstName = new CognitoUserAttribute(dataFirstName);
-      const attributeLastName = new CognitoUserAttribute(dataLastName);
-      const attributeGuestRole = new CognitoUserAttribute(dataGuestRole);
-      attributeList.push(attributeEmail);
-      attributeList.push(attributeFirstName);
-      attributeList.push(attributeLastName);
-      attributeList.push(attributeGuestRole);
+      // ... handle the response as needed ...
+    } catch (error) {
+      console.log(error); // Logging any errors
 
-      // Calling the signUp method on the userPool object to sign up the user with the provided details
+      // ... handle the error as needed ...
+    }
 
-      userPool.signUp(
-        formData.email, // User email
-        formData.password, // User password
-        attributeList, // Array of user attributes
-        null, // Validation data (optional)
-        (err, result) => {
-          // Callback function
-          if (err) {
-            // If an error occurs
-            console.log(err); // Logging the error to the console
+    const dataEmail = {
+      Name: "email",
+      Value: formData.email,
+    };
+    // Creating an object containing the user's first name and adding it to the attributeList array
 
-            //adding new
-            setErrorMessage(err.message); // Display the error message in an alert
-            //
+    const dataFirstName = {
+      Name: "given_name",
+      Value: formData.firstName,
+    };
+    // Creating an object containing the user's last name and adding it to the attributeList array
 
-            return; // Exiting the function
-          }
-          
-          const cognitoUser = result.user; // If successful, creating a new CognitoUser object with the returned user object from the result parameter
-          console.log("successful "); // Logging a success message to the console
+    const dataLastName = {
+      Name: "family_name",
+      Value: formData.lastName,
+    };
+    // Creating an object containing the user's guest role and adding it to the attributeList array
+
+    const dataGuestRole = {
+      Name: "custom:guestRole",
+      Value: formData.guestRole,
+    };
+    const attributeEmail = new CognitoUserAttribute(dataEmail);
+    const attributeFirstName = new CognitoUserAttribute(dataFirstName);
+    const attributeLastName = new CognitoUserAttribute(dataLastName);
+    const attributeGuestRole = new CognitoUserAttribute(dataGuestRole);
+    attributeList.push(attributeEmail);
+    attributeList.push(attributeFirstName);
+    attributeList.push(attributeLastName);
+    attributeList.push(attributeGuestRole);
+
+    // Calling the signUp method on the userPool object to sign up the user with the provided details
+
+    userPool.signUp(
+      formData.email, // User email
+      formData.password, // User password
+      attributeList, // Array of user attributes
+      null, // Validation data (optional)
+      (err, result) => {
+        // Callback function
+        if (err) {
+          // If an error occurs
+          console.log(err); // Logging the error to the console
 
           //adding new
-          alert("Sign up successful!."); // Display a success message in an alert
-         
+          setErrorMessage(err.message); // Display the error message in an alert
+          //
+          setShowAlert(true);
+          return; // Exiting the function
+        }
+
+        // const cognitoUser = result.user;
+        else {
+          console.log("successful "); // Logging a success message to the console
+
           setSuccess(true);
         }
-      );
-    }
+      }
+    );
   };
-  
-  if(success){
-    return <EmailConfirmation/>
+
+  if (success) {
+    navigate("/emailconfirmation");
   }
 
   return (
@@ -181,7 +213,6 @@ const Register = () => {
           marginBottom={22}
           padding={5}
           borderRadius={10}
-         
         >
           <Grid container direction="column">
             <Grid container direction="column">
@@ -202,7 +233,7 @@ const Register = () => {
                 fontFamily="Abril Fatface"
               >
                 Already have an Account?
-                <Link sx={{ color: "#3E51F5" }} to={"/"}>
+                <Link sx={{ color: "#3E51F5", variant: "h5" }} to={"/"}>
                   <b>Login</b>
                 </Link>
               </Typography>
@@ -353,7 +384,7 @@ const Register = () => {
                 <div className="alert">All fields are required</div>
               )} */}
 
-          {errorMessage && (
+          {showAlert && (
             <Typography color="#FF0000" variant="subtitle1">
               {errorMessage}
             </Typography>
@@ -376,7 +407,6 @@ const Register = () => {
           </Button>
         </Box>
       </form>
-     
     </div>
   );
 };

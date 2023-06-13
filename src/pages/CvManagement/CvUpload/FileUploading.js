@@ -1,16 +1,49 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 // material ui components
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, styled, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Stack from "@mui/material/Stack";
+import InputBase from "@mui/material/InputBase";
+
+const CssInput = styled(InputBase)({
+  padding: "2px",
+  backgroundColor: "white",
+  borderRadius: "5px",
+  height: "40%",
+  "& .MuiInputBase-input": {
+    fontFamily: "Poppins",
+    fontSize: "14px",
+  },
+});
 
 const FileUploading = () => {
   const [file, setFile] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [position, setPosition] = useState("");
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
 
   // Delete the file
   const handleDelete = (event) => {
@@ -27,35 +60,52 @@ const FileUploading = () => {
   const handleUpload = async () => {
     try {
       // fetch data from s3 bucket API
-      const signedUrlResponse = await fetch(
-        "https://pdlyrpr7wi.execute-api.us-east-1.amazonaws.com/dev/file-upload-intern",
+      const signedUrlResponse = await axios.post(
+        " https://pdlyrpr7wi.execute-api.us-east-1.amazonaws.com/dev/{bucket}/{fileupload}",
         {
-          method: "POST",
+          fileName: file.name,
+          fileType: file.type,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Method": "POST",
-            'Access-Control-Allow-Origin': "*",
-
+            "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({
-            fileName: file.name,
-            fileType: file.type,
-          }),
+          responseType: "json",
         }
       );
-
+    
       // create signed url response for file upload
-      const { signedUrl, key } = await signedUrlResponse.json();
-      await fetch(signedUrl, {
-        method: "PUT",
+      const { signedUrl, key } = signedUrlResponse.data;
+      await axios.put(signedUrl, file, {
         headers: {
           "Content-Type": file.type,
         },
-        body: file,
       });
       console.log(`File uploaded successfully to S3 bucket with key: ${key}`);
     } catch (error) {
       console.error(`Error uploading file to S3: ${error}`);
+    }
+    
+
+    try {
+      const formData = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        position: position,
+      };
+      console.log(FormData);
+
+      const response = await axios.post(
+        "https://6dhojaavvf.execute-api.us-east-1.amazonaws.com/dev/applicantdetail",
+        formData
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error("Error uploading data:", error);
     }
   };
 
@@ -64,56 +114,77 @@ const FileUploading = () => {
       <Box
         sx={{
           width: 800,
-          height: 300,
+          height: "fit-content",
           backgroundColor: "#bdb2ff",
           padding: "1px",
           margin: "1px",
         }}
       >
         <Grid container direction="column">
-          <Grid item md={8} direction="column" container>
+          <Grid item container direction="column" md={6} paddingRight={25}>
             <Grid item md={2} pl={2}>
               <p>Upload the CV Document as PDF</p>
             </Grid>
 
-            <Grid item md={6} pl={2} pt={2} container>
+            <Grid item container pl={6} pt={1}>
               <Grid
                 item
                 md={6}
-                display={"flex"}
-                justifyContent="left"
-                container
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
               >
-                <Grid item md={4}>
-                  <h6>Full Name of the Candidate</h6>
-                </Grid>
-
-                <Grid item md={8}>
-                  <input placeholder="Full Name"></input>
-                </Grid>
+                <Typography margin={2} onChange={handleFirstNameChange}>
+                  First Name
+                </Typography>
+                <CssInput placeholder="First Name" />
               </Grid>
 
               <Grid
                 item
                 md={6}
-                display={"flex"}
-                justifyContent={"right"}
-                container
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
               >
-                <Grid item md={4}>
-                  <h6>E-mail of the Candidate</h6>
-                </Grid>
-
-                <Grid item md={8}>
-                  <input alignItems="center" placeholder="E-mail"></input>
-                </Grid>
+                <Typography margin={2} onChange={handleLastNameChange}>
+                  Last Name
+                </Typography>
+                <CssInput placeholder="Last Name" />
+              </Grid>
+              <Grid
+                item
+                md={6}
+                pt={2}
+                display="flex"
+                justifyContent="flex-star"
+                alignItems="center"
+              >
+                <Typography margin={2} onChange={handleEmailChange}>
+                  E-mail
+                </Typography>
+                <CssInput placeholder="E-mail" />
+              </Grid>
+              <Grid
+                item
+                md={6}
+                pt={2}
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
+                <Typography margin={2} onChange={handlePositionChange}>
+                  Job Position
+                </Typography>
+                <CssInput placeholder="Job Position" />
               </Grid>
             </Grid>
 
-            <Grid item md={4} display={"flex"} justifyContent={"center"} pt={1}>
-              <Stack direction="row" alignItems="center" spacing={2}>
+            <Grid item md={4} display="flex" justifyContent="center" pt={3}>
+              <Stack direction="row" alignItems="center" spacing={2} pl={4}>
                 <input type="file" onChange={handleFileChange} />
                 <IconButton
+                  pr={4}
                   color="primary"
                   aria-label="upload pdf"
                   component="label"
@@ -125,8 +196,8 @@ const FileUploading = () => {
             </Grid>
           </Grid>
 
-          <Grid item md={4} direction="column" pt={4} pr={4} container>
-            <Grid item display={"flex"} justifyContent={"end"}>
+          <Grid item container direction="column" md={4} pt={2} pb={2} pr={4}>
+            <Grid item display="flex" justifyContent="flex-end">
               <Stack direction="row" spacing={2}>
                 <Button
                   onClick={handleDelete}

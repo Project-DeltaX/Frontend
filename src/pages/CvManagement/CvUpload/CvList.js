@@ -64,15 +64,22 @@ const CvList = () => {
           </Grid>
 
           <Grid item md={8} pl={1} pt={1} pb={1} pr={1}>
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <Paper
+              sx={{
+                width: "100%",
+                overflow: "hidden",
+                backgroundColor: "#876596",
+              }}
+            >
               <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
+                  <TableHead sx={{ backgroundColor: "#191424" }}>
                     <TableRow>
                       <TableCell>First Name</TableCell>
                       <TableCell>Last Name</TableCell>
                       <TableCell>E-mail</TableCell>
                       <TableCell>Position</TableCell>
+                      <TableCell>Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -83,10 +90,11 @@ const CvList = () => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>{row.first_name}</TableCell>
-                        <TableCell>{row.last_name}</TableCell>
+                        <TableCell>{row.firstName}</TableCell>
+                        <TableCell>{row.lastName}</TableCell>
                         <TableCell>{row.email}</TableCell>
                         <TableCell>{row.position}</TableCell>
+                        <TableCell>{row.status}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

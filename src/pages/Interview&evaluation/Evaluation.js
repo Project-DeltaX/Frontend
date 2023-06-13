@@ -93,6 +93,7 @@ const Evaluation = () => {
                   <Tab label="CandidateExam" {...a11yProps(0)} />
                   <Tab label="MarkingSheet" {...a11yProps(1)} />
                   <Tab label="ScoreSheet" {...a11yProps(2)} />
+                  <Tab label="Finalize Intern" {...a11yProps(3)} />
                 </Tabs>
               </Box>
             </Grid>
@@ -102,9 +103,7 @@ const Evaluation = () => {
               <Typography
                 variant="h2"
                 align="center"
-                width={400}
-                fontWeight='bold'
-                sx={{ backgroundColor: "#F772D4", fontSize: "24px" }}
+                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
               >
                 Candidate Exam
               </Typography>
@@ -133,6 +132,15 @@ const Evaluation = () => {
                 Scoresheet
               </Typography>
               <Scoresheet />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Typography
+                variant="h2"
+                align="center"
+                sx={{ backgroundColor: "#805ba6", fontSize: "24px" }}
+              >
+                FinalizeIntern
+              </Typography>
             </TabPanel>
           </Grid>
         </Grid>

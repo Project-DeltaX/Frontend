@@ -32,6 +32,8 @@ import AccessDenied from "./pages/ErrorPages/AccessDenied";
 //auth
 import { AccountContext } from "./pages/UserAuthentication/Auth";
 import jwtDecode from "jwt-decode";
+import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
+import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 
 function RouterComponent() {
   const { getLoginStatus } = useAuth();
@@ -42,6 +44,8 @@ function RouterComponent() {
         <Route path="/" element={<LoginPage />} />
         <Route path="createnewaccount" element={<Register />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
+        <Route path="/emailconfirmation" element={<EmailConfirmation />} />
+        <Route path="/successfulPasswordReset" element={<SuccessfulPasswordReset />} />
         <Route
           path="homepage"
           element={
