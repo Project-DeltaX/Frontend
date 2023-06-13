@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { blue, purple } from "@mui/material/colors";
 import EditIcon from "@mui/icons-material/Edit";
 import jwtDecode from "jwt-decode";
-import axios from 'axios';
+import axios from "axios";
 
 // An array containing different roles
 const values = ["CommitteeMember", "PanelMember", "Intern"];
@@ -36,8 +36,8 @@ function SimpleDialog(props) {
 
   // Rendering the dialog box with a list of roles
   return (
-    <Dialog onClose={handleClose} open={open} >
-      <DialogTitle sx={{ color:'#27144B' }}>Change Role</DialogTitle>
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle sx={{ color: "#27144B" }}>Change Role</DialogTitle>
       <ListItem sx={{ pt: 0 }}>
         {values.map((role) => (
           <ListItem disableGutters>
@@ -46,7 +46,7 @@ function SimpleDialog(props) {
               key={role}
             >
               <ListItemAvatar>
-                <Avatar sx={{ bgcolor: '#E8E1FA', color: '#27144B' }}>
+                <Avatar sx={{ bgcolor: "#E8E1FA", color: "#27144B" }}>
                   <PersonIcon />
                 </Avatar>
               </ListItemAvatar>
@@ -68,10 +68,6 @@ SimpleDialog.propTypes = {
 
 // The main component that renders the button and the dialog box
 export default function SimpleDialogDemo({ getEmail }) {
-
- 
-
-
   // State variables for controlling the dialog box and the selected role
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(values[1]);
@@ -86,39 +82,35 @@ export default function SimpleDialogDemo({ getEmail }) {
     setOpen(false);
     setSelectedValue(value);
 
-
     // Retrieve the authorization token from the local storage
-  const authorizationToken = localStorage.getItem('idtoken');
-  const decodedToken=jwtDecode(authorizationToken)
+    const authorizationToken = localStorage.getItem("idtoken");
+    const decodedToken = jwtDecode(authorizationToken);
 
-
-
-   const requestData = {
+    const requestData = {
       body: {
         U_email: getEmail,
         attributeValue: value,
         A_role: decodedToken["custom:guestRole"],
       },
     };
-console.log(requestData);
+    console.log(requestData);
+    alert("Role changed successfully");
 
+    const sendDataToBackend = async () => {
+      try {
+        const response = await axios.post(
+          "https://pwdetptz7k.execute-api.us-east-1.amazonaws.com/dev/changerole",
+          requestData
+        );
+        console.log(response.data); // Process the response data as needed
+      } catch (error) {
+        console.error(error);
+        // Handle error
+      }
+    };
 
-
-const sendDataToBackend = async () => {
-  try {
-    const response = await axios.post('https://pwdetptz7k.execute-api.us-east-1.amazonaws.com/dev/changerole', requestData);
-    console.log(response.data); // Process the response data as needed
-  } catch (error) {
-    console.error(error);
-    // Handle error
-  }
-};
-
-sendDataToBackend();
+    sendDataToBackend();
   };
-
-
-
 
   // Rendering the main component
   return (
@@ -130,7 +122,10 @@ sendDataToBackend();
       {/* <Button variant="outlined" onClick={handleClickOpen}  sx={{ backgroundColor: '#27144B',color:"#E8E1FA" }}>
         Change Role
       </Button> */}
-      <EditIcon  onClick={handleClickOpen} sx={{cursor:'pointer',marginLeft:'45px'}}/>
+      <EditIcon
+        onClick={handleClickOpen}
+        sx={{ cursor: "pointer", marginLeft: "45px" }}
+      />
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

@@ -22,7 +22,7 @@ import CheckboxesTags from "./SelectPermission";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import AllUsers from "././UserRoles/AllUsers"
+import AllUsers from "././UserRoles/AllUsers";
 
 // Define a new component for the select permission button
 
@@ -91,7 +91,7 @@ const CommonRoles = () => {
               {rows.map((row) => (
                 <TableRow
                   key={row.Roles}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}  //bottom border
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }} //bottom border
                 >
                   <TableCell component="th" scope="row" sx={{ color: "black" }}>
                     {/* table elements */}
@@ -123,8 +123,9 @@ const CommonRoles = () => {
           ADD
         </Button> */}
       </Grid>
-      <div><AllUsers/></div>
-
+      <div>
+        <AllUsers />
+      </div>
     </Grid>
   );
 };
