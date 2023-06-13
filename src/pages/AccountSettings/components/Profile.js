@@ -5,6 +5,7 @@ import ProfilePic from "../../../Images/ProfilePic01.svg";
 import TextField from "@mui/material/TextField";
 import "../../AccountSettings/OAccount.css";
 import "../../../App.css";
+import axios from "axios";
 
 import jwtDecode from "jwt-decode";
 
@@ -47,7 +48,6 @@ const CssTextField = styled(TextField)({
 
 const Profile = () => {
   const [disable, setDisable] = useState(true);
-  const [userdata, setUserData] = useState([]);
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [role, setRole] = useState("");
@@ -57,11 +57,19 @@ const Profile = () => {
   const [jobtitle, setJobTitle] = useState("");
   const [mnumber, setMnumber] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState(null);
   const [lane, setLane] = useState("");
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [country, setCountry] = useState("");
+
+  const [genderError,setGenderError] = useState(false);
+  const [mnumberError,setMnumberError] = useState(false);
+  const [nationalityError, setNationalityError] = useState(false);
+  const [jobTitleError,setJobTitleError] = useState(false);
+  const [laneError, setLaneError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [provinceError, setProvinceError] = useState(false);
+  const [countryError, setCountryError] = useState(false);
 
   const idToken = localStorage.getItem("idtoken");
   const decodedToken = jwtDecode(idToken);
@@ -91,7 +99,6 @@ const Profile = () => {
         setDob(jsonData[0].dob);
         setNationality(jsonData[0].Nationality);
         setJobTitle(jsonData[0].jobTitle);
-        setAddress(jsonData[0].Address);
         setMnumber(jsonData[0].mobileNumber);
 
         if (jsonData[0].Address) {
@@ -108,121 +115,94 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  // setFname(userdata.firstName);
-  // setLname(userdata.lastName);
-  // setRole(userdata.guestRole);
-  // setGender(userdata.Gender);
-  // setEmail(userdata.email);
-  // setDob(userdata.doB);
-  // setNationality(userdata.Nationality);
-  // setJobTitle(userdata.jobTitle);
-  // setAddress(userdata.Address);
-  // setMnumber(userdata.mobileNumber);
-
-  // if (jsonData[0].Address) {
-  //   const [lane, city, province, country] = jsonData[0].Address;
-  //   setLane(lane);
-  //   setCity(city);
-  //   setProvince(province);
-  //   setCountry(country);
-  // }
-
   const updateUserProfile = async (dataArrays) => {
+    const data ={body : dataArrays}
+    console.log(JSON.stringify(dataArrays));
     try {
-      console.log(dataArrays);
-      // console.log(dataArrays);
-      const response = await fetch(
-        
+      const response = await axios.post(
         "https://sg5z9g2df4.execute-api.us-east-1.amazonaws.com/new/userdata",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer eyJraWQiOiJIc0hadzZGK3pyWWF4aGdIalVqak9cL25SM1J2MVNBR1wvTkVlRnQ0dmFGanM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI3ZjdhYzYwYi03MTRkLTQxYzEtYTZkYS0yNjM0ZWU5YTIyYjEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfSmVHSjVkcDdHIiwiY29nbml0bzp1c2VybmFtZSI6IjdmN2FjNjBiLTcxNGQtNDFjMS1hNmRhLTI2MzRlZTlhMjJiMSIsImN1c3RvbTpndWVzdFJvbGUiOiJDb21taXR0ZWVNZW1iZXIiLCJnaXZlbl9uYW1lIjoiVGhhbnUiLCJvcmlnaW5fanRpIjoiOTc5MDkzZDktMjc1YS00NzI3LWI2NWMtZDZkOTZkZDViZDM4IiwiYXVkIjoiNGI5OGY2YnNhc2FqM2U5YmY4bXZhM2VpNmsiLCJldmVudF9pZCI6ImQ0Njk4NmQ4LTFkMDYtNGEyNi1hYThlLTE0MjlmZGVmMTM2NSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjg2NDU0NTMyLCJleHAiOjE2ODY0NTgxMzIsImlhdCI6MTY4NjQ1NDUzMiwiZmFtaWx5X25hbWUiOiJUaGFudXNpeWFuIiwianRpIjoiZDlkNWViNGQtZTIwZC00ZDFjLWI5ZjYtZjM2M2NjNTUyZGQ0IiwiZW1haWwiOiJ0aGFudXNpeWFudDIwMDBAZ21haWwuY29tIn0.scEscrKQzWpEL2vzP7PdcPM0329ZmJRxZYSMVHy-bodpJDvZriZgrwCS3lfq3qaoNgKhSZS0GJNn9eP_pJ8_9UdGJI2OXYwJjfcRez5ulUmduUDo-CyAGPL_oqy9oB_7SNVc9EwmUPuJWCpE0ZNr3p8xvAmXKrlMzkceC_CYwCa7vr5ip5jtXxDxC1O0RPoXBjEc0Txmosw_TPoGpfkFg5FlGF0oXXII2d-Dnl2fgKJVlCHS4PQD4NR0ENHirdv6cMSaHTlbm9C6jqofsWqaKqEpSlOOIgSzxu1vtivd3PxECQ6cGC_bo_98SB1tTUogPtLOBjQphJ9o5PXB5bXcZw`,
-            "Access-Control-Allow-Headers": "Authorization,Content-Type",
-            "Content-Type": "application/json",
-          },
-          mode: "no-cors",
-          body: JSON.stringify({
-            "dataArrays": [
-              [
-                "25 A, School Rd",
-                "Batticaloa",
-                "Eastern",
-                "Sri Lanka"
-              ],
-              "Male",
-              "thanusiyant2000@gmail.com",
-              "2000-02-25",
-              "Software Developer",
-              "1122334455",
-              "Sri Lankan"
-            ]
-          }),
-        }
+        data
       );
-      const result = await response.json();
-      // console.log(result.body);
-      return result.body;
-    } catch (err) {
-      console.log(err);
-      console.error(err);
+      console.log(dataArrays);
+      console.log(response.data); // Handle successful response
+    } catch (error) {
+      console.log(error.response.data); // Handle error response
     }
   };
 
-  const dataArrays = [
-    [
-      lane,
-      city,
-      province,
-      country
-    ],
-    gender,
-    email,
-    dob,
-    jobtitle,
-    mnumber,
-    nationality
-  ];
-  
-
-//   const dataArrays = [
-//     [],
-//     gender,
-//    email,
-//    dob,
-//     jobtitle,
-//   mnumber,
-// nationality,
-//   ]
-//   ;
+  const dataArrays = {
+    Address: [lane, city, province, country],
+    gender: gender,
+    email: email,
+    dob: dob,
+    jobTitle: jobtitle,
+    mobileNumber: mnumber,
+    nationality: nationality,
+  };
 
   const handleClick = (event) => {
     event.preventDefault();
     if (disable) {
       setDisable((prev) => !prev);
     } else {
-      setDisable((prev) => !prev);
-      updateUserProfile(dataArrays);
+      if (validateFields()) {
+        setDisable((prev) => !prev);
+        updateUserProfile(dataArrays);
+      }
     }
   };
-  // function setDataA(index, key, value) {
-  //   if (key === "Address") {
-  //     // If the key is "Address", set the value of the corresponding index in the Address array
-  //     const address = data[index]["Address"];
-  //     const addressIndex = parseInt(value[0]);
-  //     address[addressIndex] = value[1];
-  //     data[index]["Address"] = address;
-  //   } else {
-  //     // Otherwise, set the value of the regular property
-  //     data[index][key] = value;
-  //   }
-  // }
-
-  // const handleChange = (event) => {
-  //   // setData();
-  //   let { id, value } = event.target;
-  //   setDataA(0, id, value);
-  // };
+  const validateFields = () => {
+    let isValid = true;
+    if (!disable) {
+      if (isNaN(Number(lane))) {
+        setLaneError(false);
+      } else {
+        setLaneError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(city))) {
+        setCityError(false);
+      } else {
+        setCityError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(province))) {
+        setProvinceError(false);
+      } else {
+        setProvinceError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(country))) {
+        setCountryError(false);
+      } else {
+        setCountryError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(gender))) {
+        setGenderError(false);
+      } else {
+        setGenderError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(nationality))) {
+        setNationalityError(false);
+      } else {
+        setNationalityError(true);
+        isValid = false;
+      }
+      if (isNaN(Number(jobtitle))) {
+        setJobTitleError(false);
+      } else {
+        setJobTitleError(true);
+        isValid = false;
+      }
+      if (mnumber ==="") {
+        setMnumberError(true);
+        isValid = false; 
+      }
+    }
+    return isValid;
+  };
 
   return (
     <Paper
@@ -264,8 +244,6 @@ const Profile = () => {
                 value={fname + " " + lname}
                 size="small"
                 disabled
-
-                // onChange={handleChange}
               />
               <CssTextField
                 label="Gender"
@@ -274,6 +252,7 @@ const Profile = () => {
                 size="small"
                 disabled={disable}
                 onChange={(event) => setGender(event.target.value)}
+                error={genderError}
               />
               <CssTextField
                 label="Date Of Birth"
@@ -292,6 +271,7 @@ const Profile = () => {
                 size="small"
                 disabled={disable}
                 onChange={(event) => setNationality(event.target.value)}
+                error={nationalityError}
               />
               <CssTextField
                 label="Job Title"
@@ -300,6 +280,7 @@ const Profile = () => {
                 size="small"
                 disabled={disable}
                 onChange={(event) => setJobTitle(event.target.value)}
+                error={jobTitleError}
               />
               <CssTextField
                 label="Role"
@@ -327,6 +308,7 @@ const Profile = () => {
                   size="small"
                   disabled={disable}
                   onChange={(event) => setLane(event.target.value)}
+                  error={laneError}
                 />
                 <CssTextField
                   label="City"
@@ -335,6 +317,7 @@ const Profile = () => {
                   size="small"
                   disabled={disable}
                   onChange={(event) => setCity(event.target.value)}
+                  error={cityError}
                 />
                 <CssTextField
                   label="State"
@@ -343,6 +326,7 @@ const Profile = () => {
                   size="small"
                   disabled={disable}
                   onChange={(event) => setProvince(event.target.value)}
+                  error={provinceError}
                 />
                 <CssTextField
                   label="Country"
@@ -351,6 +335,7 @@ const Profile = () => {
                   size="small"
                   disabled={disable}
                   onChange={(event) => setCountry(event.target.value)}
+                  error={countryError}
                 />
               </Grid>
             </Grid>
@@ -370,6 +355,7 @@ const Profile = () => {
                   size="small"
                   disabled={disable}
                   onChange={(event) => setMnumber(event.target.value)}
+                  error={mnumberError}
                 />
                 <CssTextField
                   label="E-mail"

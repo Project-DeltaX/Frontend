@@ -70,7 +70,7 @@ const EmailConfirmation = () => {
     </Grid> */}
 
           <Grid padding={2}>
-            <hr width="500px" color="white" alignItems="center"></hr>
+            <hr width="500px" color="white" alignitems="center"></hr>
           </Grid>
 
           {/* <Grid>
