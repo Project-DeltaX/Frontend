@@ -45,7 +45,7 @@ function RouterComponent() {
         <Route path="createnewaccount" element={<Register />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="/emailconfirmation" element={<EmailConfirmation />} />
-        <Route path="successfulPasswordReset" element={<SuccessfulPasswordReset />} />
+        <Route path="/successfulPasswordReset" element={<SuccessfulPasswordReset />} />
         <Route
           path="homepage"
           element={

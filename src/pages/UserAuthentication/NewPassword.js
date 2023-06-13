@@ -43,10 +43,12 @@ const NewPassword = (props) => {
   const [success, setSuccess] = useState(false); // Track success state
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const navigate=useNavigate();
 
   // Define a function to get the current user
 
   const getUser = () => {
+    
     return new CognitoUser({
       Username: props.Username,
       Pool,
@@ -56,6 +58,8 @@ const NewPassword = (props) => {
   // Define a function to handle the form submission
 
   const resetPassword = (event) => {
+
+  
     event.preventDefault();
 
     // Check if the new passwords match
@@ -92,7 +96,7 @@ const NewPassword = (props) => {
     getUser().confirmPassword(code, password, {
       onSuccess: (data) => {
         console.log("onSuccess:", data);
-        alert("Sucessfully submitted");
+        // alert("Sucessfully submitted");
         setSuccess(true);
       },
       onFailure: (err) => {
@@ -104,6 +108,7 @@ const NewPassword = (props) => {
     });
   };
   const resendVerificationCode = () => {
+   
     getUser().forgotPassword((err, result) => {
       if (err) {
         console.error("Error resending verification code:", err);
@@ -115,7 +120,7 @@ const NewPassword = (props) => {
     });
   };
   if (success) {
-    Navigate ("/successfulPasswordReset");
+    navigate ("/successfulPasswordReset");
     
     
   }
