@@ -19,6 +19,9 @@ import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswo
 import Profile from "./pages/AccountSettings/components/Profile";
 import ForceChangePasswordPage from "./pages/UserAuthentication/ForceChangePassword";
 
+import NotificationPopup from "./pages/AccountSettings/components/NotificationPopup.js";
+import CvView from "./pages/CvManagement/CvUpload/CvView";
+import Review from "./pages/Interview&evaluation/FinalizeIntern";
 
 //"#e8e1fa"
 const theme = createTheme({
