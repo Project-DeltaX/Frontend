@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import axios from "axios";
 
 
+
 import { useTheme } from "@mui/material/styles";
 import { Grid, Container, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
@@ -42,21 +43,24 @@ const Overview = () => {
     fetchData();
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://4c2lf57zlk.execute-api.us-east-1.amazonaws.com/dev"
         );
-        
+  
         const jsonData = response.data;
         setLineChartData(jsonData);
       } catch (error) {
         console.log(error);
       }
     };
+  
     fetchData();
   }, []);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +68,7 @@ const Overview = () => {
         const response = await axios.get(
           "https://v6pjqonit0.execute-api.us-east-1.amazonaws.com/dev/statuscount"
         );
-      
+  
         const jsonData = response.data;
         setWaitingCandidates(jsonData[0].count);
         setSelectedCandidates(jsonData[1].count);
@@ -73,9 +77,10 @@ const Overview = () => {
         console.log(error);
       }
     };
+  
     fetchData();
   }, []);
-
+  
 
 
   return (
