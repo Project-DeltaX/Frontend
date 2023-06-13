@@ -32,8 +32,8 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
- authenticate(email, password);
-     if (getShowAlert()) {
+    authenticate(email, password);
+    if (getShowAlert()) {
       setErrorMessage(
         "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
       );
@@ -43,18 +43,9 @@ const LoginPage = () => {
       setErrorMessage("All the fields are required");
       return;
     }
-     
- 
- 
-  
   };
-   
 
   if (getLoginStatus()) {
-    
-  
-    
-
     return <Navigate to={"/homepage"} />;
   }
 
@@ -121,7 +112,6 @@ const LoginPage = () => {
                 {/* <Typography align="justify" sx={{ color: "#C5A2F1" ,fontSize:"15px",margin:'5px'}}>
                   Enter email as the username
                 </Typography> */}
-                
 
                 <TextField
                   size="small"
