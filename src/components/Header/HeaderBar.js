@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import jwtDecode from "jwt-decode";
@@ -19,6 +19,8 @@ import MessageIcon from "@mui/icons-material/Message";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import EditIcon from "@mui/icons-material/Edit";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import { test } from "../../styles";
 
 //style for badge
@@ -92,7 +94,7 @@ const DropDownMenu = styled((props) => (
 
 const HeaderBar = () => {
   const navigate = useNavigate();
-  const [profileDrop, setProfileDrop] = React.useState(null);
+  const [profileDrop, setProfileDrop] = useState(null);
   const open = Boolean(profileDrop);
   const token = localStorage.getItem("idtoken");
   let name = null;
@@ -122,6 +124,20 @@ const HeaderBar = () => {
     navigate("/");
   };
 
+  const [NOpen, setNOpen] = useState(false);
+
+  const handleNotificationOpen = () => {
+    setNOpen(true);
+  };
+
+  const handleNotificationClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setNOpen(false);
+  };
+
   return (
     <Toolbar sx={{ display: "flex", justifyContent: "flex-end" }}>
       <Stack
@@ -130,7 +146,12 @@ const HeaderBar = () => {
         spacing={3}
         alignItems="center"
       >
-        <NotificationsIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />
+        <NotificationsIcon onClick={handleNotificationOpen} width="24" height="24" sx={{ color: "#e8e1fa" }} />
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleNotificationClose}>
+        <MuiAlert onClose={handleNotificationClose} severity="success" sx={{ width: '100%' }}>
+          This is a sample notification message.
+        </MuiAlert>
+      </Snackbar>
         <MessageIcon width="24" height="24" sx={{ color: "#e8e1fa" }} />
         <StyledBadge
           overlap="circular"
