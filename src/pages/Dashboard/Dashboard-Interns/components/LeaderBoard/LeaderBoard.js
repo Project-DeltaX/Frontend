@@ -1,6 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import { useEffect ,useState} from "react";
 
 const columns = [
   { field: "id", headerName: "ID", width: 50 },
@@ -24,6 +25,19 @@ const rows = [
 ];
 
 export default function LeaderBoard() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(
+      "https://guxgo6me31.execute-api.us-east-1.amazonaws.com/dev"
+    )
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, []);
+  console.log(data);
+
+  
+
   return (
     <Box
       sx={{
