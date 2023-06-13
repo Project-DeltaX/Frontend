@@ -117,19 +117,19 @@ const Auth = (props) => {
 
 
   const idtoken = localStorage.getItem('idtoken');
-  if(!idtoken){
-    navigate('/');
-  }else{
-    setInterval(() => {
-      checkJwtExpiration();
-    }, 5000);
-  }
+  // if(!idtoken){
+  //   navigate('/');
+  // }else{
+  //   setInterval(() => {
+  //     checkJwtExpiration();
+  //   }, 5000);
+  // }
 
   function checkJwtExpiration() {
     const isExpired = isJwtExpired();
     if (isExpired) {
-      alert('Session Expired');
-      navigate('/')
+      // alert('Session Expired');
+      // navigate('/')
       // console.log("Expired");
     }
   }

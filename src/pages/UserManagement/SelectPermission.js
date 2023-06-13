@@ -12,7 +12,6 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 // This component renders an Autocomplete input field that allows the user to select multiple options from a list of permissions
 
 export default function CheckboxesTags(props) {
-  
   return (
     <Autocomplete
       // The Autocomplete component is set to allow multiple selections and disables the option to close the menu on selection
@@ -31,7 +30,7 @@ export default function CheckboxesTags(props) {
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
-            style={{ marginRight: 10, position:'flex' }}
+            style={{ marginRight: 10, position: "flex" }}
             // The Checkbox component's 'checked' prop is set to reflect whether the current option is selected or not
 
             checked={selected}
@@ -41,7 +40,7 @@ export default function CheckboxesTags(props) {
       )}
       // The Autocomplete component's style is set to define its width and background color
 
-      style={{ width: 180, backgroundColor: "white"  }}
+      style={{ width: 180, backgroundColor: "white" }}
       // The renderInput prop is set to render a TextField with a label and placeholder
 
       renderInput={(params) => (
@@ -60,5 +59,5 @@ const Permissions = [
   { number: "send emails" },
   { number: "Score sheet Access" },
   { number: "Progress Report Access" },
-  {number: "Individual Progress Access"},
+  { number: "Individual Progress Access" },
 ];
