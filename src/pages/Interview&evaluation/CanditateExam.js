@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -14,19 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import AWS from "aws-sdk";
 
-// function createData(candidatename,candidateid,email,writtenexam,practicaltest,total)
-  
-// {
-//   return {candidatename,candidateid,email,writtenexam,practicaltest,total};
-// }
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
 const CandidateExam = () => {
   const [rowData, setRowData] = useState([]);
@@ -43,28 +34,35 @@ const CandidateExam = () => {
     setRowData(data);
     
   };
-  const handleGotoInterview = async (event, email, Total) => {
-    try {
-      // This function handles the action you want to perform when the button is clicked
-      console.log("Submit button clicked!");
+  const handleGotoInterview = (index) => {
+    const data ={dataArray: [rowData[index].email, rowData[index].Total]} ;
+    console.log(data);
+
+    const updateData = async () =>{
+      try {
+        // This function handles the action you want to perform when the button is clicked
+        console.log("Submit button clicked!");
       
-      const response = await fetch(
-        "https://wxnahc193j.execute-api.us-east-1.amazonaws.com/new10/scoresheet",
-        {
-          method: "POST",
-          body: JSON.stringify({ email, Total }),
+        const response = await axios.post(
+          "https://wxnahc193j.execute-api.us-east-1.amazonaws.com/new10/scoresheet",
+          data
+        );
+      
+        if (response.status === 200) {
+          // alert("Scores submitted successfully!");
+        } else {
+          // alert("Failed to submit scores.");
         }
-      );
-  
-      if (response.ok) {
-        alert("Scores submitted successfully!");
-      } else {
-        alert("Failed to submit scores.");
+      } catch (error) {
+        console.log("Error submitting scores.");
       }
-    } catch (error) {
-      alert("Error submitting scores.");
+      
     }
+
+    updateData();
+    
   };
+  
   
 
   return (
@@ -79,11 +77,11 @@ const CandidateExam = () => {
       >
         <TableHead>
           <TableRow>
-          <TableCell align="right">Candidate_Id</TableCell>
-          <TableCell align="right">Candidate_name</TableCell>
+          {/* <TableCell align="right">Candidate_Id</TableCell> */}
+          <TableCell align="right">Candidate Name</TableCell>
           <TableCell align="center">email</TableCell>
-            <TableCell align="right">Written_exam</TableCell>
-            <TableCell align="right">Practical_test</TableCell>
+            <TableCell align="right">Written Exam</TableCell>
+            <TableCell align="right">Practical Test</TableCell>
             <TableCell align="right">Total</TableCell>
             <TableCell align="right">Status</TableCell>
 
@@ -100,14 +98,14 @@ const CandidateExam = () => {
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="right">{data.Candidate_Id}</TableCell>
+              {/* <TableCell align="right">{data.Candidate_Id}</TableCell> */}
               <TableCell align="right">{data.Candidate_name}</TableCell>
               <TableCell align="right" >{data.email}</TableCell>
               <TableCell align="right">{data.Written_exam}</TableCell>
               <TableCell align="right">{data.Practical_test}</TableCell>
               <TableCell align="right">{data.Total}</TableCell>
               <TableCell align="right">
-              <Button variant="contained" color="primary" onClick={handleGotoInterview} >
+              <Button variant="contained" color="primary" onClick={(e)=>handleGotoInterview(index)} >
                 Submit
                   </Button>
               </TableCell>

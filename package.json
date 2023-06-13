@@ -19,6 +19,7 @@
     "amazon-cognito-identity-js": "^6.1.2",
     "aws-amplify": "^5.0.16",
     "aws-sdk": "^2.1387.0",
+    "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "js-sha256": "^0.9.0",
     "jsonwebtoken": "^9.0.0",

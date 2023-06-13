@@ -100,8 +100,8 @@ const InterviewPanel = () => {
                 <TableCell >Candidate_name </TableCell>
                 <TableCell align="left" >Candidate_ID</TableCell>
                 <TableCell align="left" >Age</TableCell>
-                <TableCell align="left">email</TableCell>
-                <TableCell align="left"> <span>Status</span>
+                <TableCell align="left">candidate Email</TableCell>
+                <TableCell align="left"> <span>Interview</span>
   </TableCell>
               </TableRow>
             </TableHead>

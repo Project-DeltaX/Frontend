@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import "./Interview.css";
 import AWS from "aws-sdk";
 import { Box } from "@mui/system";
+import jwtDecode from "jwt-decode";
 
 
 
@@ -22,36 +23,20 @@ import { Box } from "@mui/system";
 //   createData(4, "Mahilan", "Shanmuganathan", 23, "vk123@gmail.com", "CV"),
 // ];
 
-const makeStyle = (status) => {
 
-  if (status === "Approved") {
-    return {
-      background: "rgb(145 254 159 / 47%)",
-      color: "green",
-    };
-  } else if (status === "Pending") {
-    return {
-      background: "#ffadad8f",
-      color: "red",
-    };
-  } else {
-    return {
-      background: "#59bfff",
-      color: "white",
-    };
-  }
-  
-}
 
 const AllocatedCandidates = () => {
   const [data, setData] = useState([]);
+  const idToken = localStorage.getItem("idtoken");
+  const decodedToken = jwtDecode(idToken);
+  const Email = decodedToken["email"];
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("https://mjhi541fog.execute-api.us-east-1.amazonaws.com/new6/allocatedcandidates");
+    const response = await fetch("https://mjhi541fog.execute-api.us-east-1.amazonaws.com/new6/allocatedcandidates?email="+Email,);
     const data = await response.json();
     setData(data);
   
@@ -69,9 +54,9 @@ const AllocatedCandidates = () => {
             <TableHead>
               <TableRow>
                 {/* <TableCell>Candidate_Id</TableCell> */}
-                <TableCell align="left">email</TableCell>
-                <TableCell align="left">First_name </TableCell>
-                <TableCell align="left">Last_name</TableCell>
+                <TableCell align="left">Candidate Email</TableCell>
+                <TableCell align="left">Candidate Name </TableCell>
+                {/* <TableCell align="left">Last_name</TableCell> */}
                 <TableCell align="left">Resume</TableCell>
                 
                 
@@ -86,9 +71,9 @@ const AllocatedCandidates = () => {
                   {/* <TableCell component="th" scope="data">
                     {data.Candidate_Id}
                   </TableCell> */}
-                  <TableCell align="left">{data.email}</TableCell>
-                  <TableCell align="left">{data.First_name}</TableCell>
-                  <TableCell align="left">{data.Last_name}</TableCell>
+                  <TableCell align="left">{data.candidateEmail}</TableCell>
+                  <TableCell align="left">{data.candidateName}</TableCell>
+                  {/* <TableCell align="left">{data.Last_name}</TableCell> */}
                   {/* <TableCell align="left">{data.LastName}</TableCell> */}
                   
                  
