@@ -32,22 +32,29 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+ authenticate(email, password);
+     if (getShowAlert()) {
+      setErrorMessage(
+        "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
+      );
+    }
     if (email === "" || password === "") {
       // setEmptyFieldError(true);
       setErrorMessage("All the fields are required");
       return;
     }
-      if (getShowAlert()) {
-      setErrorMessage(
-        "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
-      );
-    }
-
-   authenticate(email, password);
+     
+ 
+ 
+  
   };
    
 
   if (getLoginStatus()) {
+    
+  
+    
+
     return <Navigate to={"/homepage"} />;
   }
 

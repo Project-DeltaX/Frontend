@@ -1,4 +1,5 @@
-import { Box, Button, Typography, Grid, Link, Icon } from "@mui/material";
+import { Box, Button, Typography, Grid,  Icon } from "@mui/material";
+import { Link } from "react-router-dom";
 import pass from "../../Images/messenger.svg";
 
 
@@ -82,17 +83,17 @@ const EmailConfirmation = () => {
             <hr width="500px" color="white" alignitems="center"></hr>
           </Grid>
 
-          {/* <Grid>
+          <Grid>
             <Typography
               variant="h8"
               align="center"
               color="#E8E1FA"
               fontFamily="Abril Fatface"
             >
-              If you not got any E-mail?{" "}
-              <Link href="#">Resend Confirmation mail</Link>
+              If you Verified the E-mail?{" "}
+              <Link sx={{ color: "#3E51F5",variant:"h5",cursor:"pointer" }} to={"/"}>Go to LoginPage</Link>
             </Typography>
-          </Grid> */}
+          </Grid>
         </Box>
       </form>
     </div>

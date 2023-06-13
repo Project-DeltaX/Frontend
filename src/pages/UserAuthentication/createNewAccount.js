@@ -20,6 +20,7 @@ import EmailConfirmation from "./EmailConfirmation";
 import axios from 'axios';
 //CSS import
 import "../UserAuthentication/Authentication.css";
+import { useNavigate } from "react-router-dom";
 
 // import Pool from "../UserPool.js";
 import {
@@ -52,6 +53,8 @@ const userPool = new CognitoUserPool(poolData);
 // functional component for user registration
 
 const Register = () => {
+
+  const navigate=useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -114,8 +117,10 @@ const Register = () => {
       return;
     }
 
-    //
-    else {
+
+
+    setErrorMessage(""); // Reset error message if no errors occur
+  setShowAlert(false); 
       const attributeList = [];
       // Creating an object containing the user's email and adding it to the attributeList array
 
@@ -194,7 +199,7 @@ const Register = () => {
          
 
           setSuccess(true);
-          setShowAlert(false);
+          
           // alert("Sign up successful!.");
           }
         
@@ -202,7 +207,7 @@ const Register = () => {
           
         }
       );
-    }
+    
   };
 
 
@@ -211,7 +216,7 @@ const Register = () => {
   
   if(success){
     
-    return <EmailConfirmation/>
+    navigate ("/emailConfirmation");
   }
 
   return (
@@ -250,7 +255,7 @@ const Register = () => {
                 fontFamily="Abril Fatface"
               >
                 Already have an Account?
-                <Link sx={{ color: "#3E51F5" }} to={"/"}>
+                <Link sx={{ color: "#3E51F5",variant:"h5" }} to={"/"}>
                   <b>Login</b>
                 </Link>
               </Typography>

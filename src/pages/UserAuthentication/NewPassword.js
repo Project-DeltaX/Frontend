@@ -15,6 +15,8 @@ import Pool from "../../UserPool";
 import SuccessfulPasswordReset from "./SuccessfulPasswordReset";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CssInput = styled(InputBase)({
   padding: "6px",
@@ -75,6 +77,14 @@ const NewPassword = (props) => {
       return;
     }
 
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  if (!passwordRegex.test(password)) {
+    setErrorMessage(
+      "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+    );
+    return;
+  }
+
     setErrorMessage("");
 
     // Call the confirmPassword method of the CognitoUser object to reset the user's password
@@ -88,7 +98,7 @@ const NewPassword = (props) => {
       onFailure: (err) => {
         console.error("onFailure:", err);
         setErrorMessage(
-          "failed to submit!.click the Resend Verification Code button"
+          "Invalid code submitted"
         );
       },
     });
@@ -105,7 +115,9 @@ const NewPassword = (props) => {
     });
   };
   if (success) {
-    return <SuccessfulPasswordReset />;
+    Navigate ("/successfulPasswordReset");
+    
+    
   }
   // Return the JSX for the component
 
@@ -281,7 +293,7 @@ const NewPassword = (props) => {
                 sx={{
                   marginTop: 0.5,
                   // marginBottom: 5,
-                  marginLeft: 16,
+                  marginLeft: 20,
                   borderRadius: 4,
                   bgcolor: "#EB5E57",
                   color: "black",
@@ -296,9 +308,9 @@ const NewPassword = (props) => {
               <Button
                 sx={{
                   marginTop: 1,
-                  marginLeft: 8,
+                  marginLeft: 12,
                   borderRadius: 4,
-                  bgcolor: "#EB5E57",
+                  bgcolor: "#11EDB4",
                   color: "black",
                   fontFamily: "Abril Fatface",
                 }}
