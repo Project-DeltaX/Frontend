@@ -3,7 +3,6 @@ import "../../App.css";
 
 import React, { useState } from "react";
 
-
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,9 +11,6 @@ import styled from "styled-components";
 import CandidateExam from "./CanditateExam";
 import MarkingSheet from "./MarkingSheet";
 import Scoresheet from "./Scoresheet";
-
-
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,7 +23,7 @@ function TabPanel(props) {
       aria-labelledby={`${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3, mx:"40px"}}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, mx: "40px" }}>{children}</Box>}
     </div>
   );
 }
@@ -97,31 +93,50 @@ const Evaluation = () => {
                   <Tab label="CandidateExam" {...a11yProps(0)} />
                   <Tab label="MarkingSheet" {...a11yProps(1)} />
                   <Tab label="ScoreSheet" {...a11yProps(2)} />
+                  <Tab label="Finalize Intern" {...a11yProps(3)} />
                 </Tabs>
               </Box>
             </Grid>
           </Grid>
           <Grid item md={8} lg={4} marginTop={13}>
             <TabPanel value={value} index={0}>
-            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
-        Candidate Exam
-      </Typography>
-            <CandidateExam />
-             
+              <Typography
+                variant="h2"
+                align="center"
+                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
+              >
+                Candidate Exam
+              </Typography>
+              <CandidateExam />
             </TabPanel>
             <TabPanel value={value} index={1}>
-            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
-            
-              Marking ScoreSheet
+              <Typography
+                variant="h2"
+                align="center"
+                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
+              >
+                Marking ScoreSheet
               </Typography>
-              <MarkingSheet/>
+              <MarkingSheet />
             </TabPanel>
             <TabPanel value={value} index={2}>
-            <Typography variant="h2" align="center" sx={{ backgroundColor: "blue", fontSize: "24px" }}>
-              Scoresheet
+              <Typography
+                variant="h2"
+                align="center"
+                sx={{ backgroundColor: "#714b96", fontSize: "24px" }}
+              >
+                Scoresheet
               </Typography>
               <Scoresheet />
-              
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Typography
+                variant="h2"
+                align="center"
+                sx={{ backgroundColor: "#805ba6", fontSize: "24px" }}
+              >
+                FinalizeIntern
+              </Typography>
             </TabPanel>
           </Grid>
         </Grid>

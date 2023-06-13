@@ -17,6 +17,9 @@ import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import EmailConfirmation from "./pages/UserAuthentication/EmailConfirmation";
 import SuccessfulPasswordReset from "./pages/UserAuthentication/SuccessfulPasswordReset";
 import Profile from "./pages/AccountSettings/components/Profile";
+import NotificationPopup from "./pages/AccountSettings/components/NotificationPopup.js";
+import CvView from "./pages/CvManagement/CvUpload/CvView";
+import Review from "./pages/Interview&evaluation/FinalizeIntern";
 
 //"#e8e1fa"
 const theme = createTheme({
