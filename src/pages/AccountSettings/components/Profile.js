@@ -137,7 +137,7 @@ const Profile = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer eyJraWQiOiJIc0hadzZGK3pyWWF4aGdIalVqak9cL25SM1J2MVNBR1wvTkVlRnQ0dmFGanM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI3ZjdhYzYwYi03MTRkLTQxYzEtYTZkYS0yNjM0ZWU5YTIyYjEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfSmVHSjVkcDdHIiwiY29nbml0bzp1c2VybmFtZSI6IjdmN2FjNjBiLTcxNGQtNDFjMS1hNmRhLTI2MzRlZTlhMjJiMSIsImN1c3RvbTpndWVzdFJvbGUiOiJDb21taXR0ZWVNZW1iZXIiLCJnaXZlbl9uYW1lIjoiVGhhbnUiLCJvcmlnaW5fanRpIjoiOTc5MDkzZDktMjc1YS00NzI3LWI2NWMtZDZkOTZkZDViZDM4IiwiYXVkIjoiNGI5OGY2YnNhc2FqM2U5YmY4bXZhM2VpNmsiLCJldmVudF9pZCI6ImQ0Njk4NmQ4LTFkMDYtNGEyNi1hYThlLTE0MjlmZGVmMTM2NSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjg2NDU0NTMyLCJleHAiOjE2ODY0NTgxMzIsImlhdCI6MTY4NjQ1NDUzMiwiZmFtaWx5X25hbWUiOiJUaGFudXNpeWFuIiwianRpIjoiZDlkNWViNGQtZTIwZC00ZDFjLWI5ZjYtZjM2M2NjNTUyZGQ0IiwiZW1haWwiOiJ0aGFudXNpeWFudDIwMDBAZ21haWwuY29tIn0.scEscrKQzWpEL2vzP7PdcPM0329ZmJRxZYSMVHy-bodpJDvZriZgrwCS3lfq3qaoNgKhSZS0GJNn9eP_pJ8_9UdGJI2OXYwJjfcRez5ulUmduUDo-CyAGPL_oqy9oB_7SNVc9EwmUPuJWCpE0ZNr3p8xvAmXKrlMzkceC_CYwCa7vr5ip5jtXxDxC1O0RPoXBjEc0Txmosw_TPoGpfkFg5FlGF0oXXII2d-Dnl2fgKJVlCHS4PQD4NR0ENHirdv6cMSaHTlbm9C6jqofsWqaKqEpSlOOIgSzxu1vtivd3PxECQ6cGC_bo_98SB1tTUogPtLOBjQphJ9o5PXB5bXcZw`,
+            // Authorization: `Bearer `,
             "Access-Control-Allow-Headers": "Authorization,Content-Type",
             "Content-Type": "application/json",
           },
