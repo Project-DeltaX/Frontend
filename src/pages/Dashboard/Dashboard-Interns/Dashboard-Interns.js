@@ -14,6 +14,7 @@ import styled from "styled-components";
 //import defined Components
 import Overview from "./components/Overview";
 import CandidateDetails from "./components/Candidate Details/CandidateDetails";
+import InterviewResults from "./components/Interview Results/InterviewResults";
 
 //,#2C165D,#27144B,#e8e1fa
 
@@ -107,7 +108,7 @@ const DashboardInterns = () => {
               <CandidateDetails/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Interview Results
+              <InterviewResults/>
             </TabPanel>
           </Grid>
         </Grid>
