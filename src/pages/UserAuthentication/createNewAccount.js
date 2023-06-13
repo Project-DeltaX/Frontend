@@ -17,7 +17,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import EmailConfirmation from "./EmailConfirmation";
-
+import axios from 'axios';
 //CSS import
 import "../UserAuthentication/Authentication.css";
 
@@ -55,6 +55,9 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+
 
   // const [showAlert, setShowAlert] = useState(false);
   // create a state to store form data
@@ -92,12 +95,42 @@ const Register = () => {
     ) {
       // setShowAlert(true);
       setErrorMessage("All fields are required");
+      setShowAlert(true);
       return;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage("Please enter a valid email address");
+      setShowAlert(true);
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setErrorMessage(
+        "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+      );
+      setShowAlert(true);
+      return;
+    }
+
     //
     else {
       const attributeList = [];
       // Creating an object containing the user's email and adding it to the attributeList array
+
+      // try {
+      //   const response = await axios.post("https://w0ugg68pi6.execute-api.us-east-1.amazonaws.com/dev/registration", formData);
+      //   console.log(response.data); // Logging the response data
+        
+      //   // ... handle the response as needed ...
+      // } catch (error) {
+      //   console.log(error); // Logging any errors
+        
+      //   // ... handle the error as needed ...
+      // }
+
+
 
       const dataEmail = {
         Name: "email",
@@ -146,23 +179,38 @@ const Register = () => {
             //adding new
             setErrorMessage(err.message); // Display the error message in an alert
             //
-
+            setShowAlert(true);
             return; // Exiting the function
           }
           
-          const cognitoUser = result.user; // If successful, creating a new CognitoUser object with the returned user object from the result parameter
-          console.log("successful "); // Logging a success message to the console
+          // const cognitoUser = result.user; 
+          else{
+            console.log("successful "); // Logging a success message to the console
 
+
+          
           //adding new
-          alert("Sign up successful!."); // Display a success message in an alert
+          // Display a success message in an alert
          
+
           setSuccess(true);
+          setShowAlert(false);
+          // alert("Sign up successful!.");
+          }
+        
+           // If successful, creating a new CognitoUser object with the returned user object from the result parameter
+          
         }
       );
     }
   };
+
+
+
+  
   
   if(success){
+    
     return <EmailConfirmation/>
   }
 
@@ -227,6 +275,7 @@ const Register = () => {
                   name="firstName"
                   value={formData.firstname}
                   onChange={handleInputChange}
+                  
                 />
               </Grid>
               <Grid item sm={6}>
@@ -353,7 +402,7 @@ const Register = () => {
                 <div className="alert">All fields are required</div>
               )} */}
 
-          {errorMessage && (
+          {showAlert && (
             <Typography color="#FF0000" variant="subtitle1">
               {errorMessage}
             </Typography>
