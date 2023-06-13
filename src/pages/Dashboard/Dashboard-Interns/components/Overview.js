@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 // import { Helmet } from "react-helmet-async";
 // @mui
 import { useTheme } from "@mui/material/styles";
@@ -18,6 +18,77 @@ import { Leaderboard } from "@mui/icons-material";
 
 const Overview = () => {
   const theme = useTheme();
+  const [scoreData,setScoreData] = useState([]);
+  const [lineChartData,setLineChartData] = useState([]);
+  const [totalCandidates,setTotalCandidates] = useState(null);
+  const [waitingCandidates,setWaitingCandidates] = useState(null);
+  const [selectedCandidates,setSelectedCandidates] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the Lambda function API
+        const response = await fetch(
+          "https://guxgo6me31.execute-api.us-east-1.amazonaws.com/dev",
+          {
+            method: "GET",
+          }
+        );
+        const jsonData = await response.json();
+        setScoreData(jsonData)
+
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the Lambda function API
+        const response = await fetch(
+          "https://4c2lf57zlk.execute-api.us-east-1.amazonaws.com/dev",
+          {
+            method: "GET",
+          }
+        );
+        const jsonData = await response.json();
+        setLineChartData(jsonData)
+
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the Lambda function API
+        const response = await fetch(
+          "https://v6pjqonit0.execute-api.us-east-1.amazonaws.com/dev/statuscount",
+          {
+            method: "GET",
+          }
+        );
+        const jsonData = await response.json();
+        setWaitingCandidates(jsonData[0].count)
+        setSelectedCandidates(jsonData[1].count);
+        setTotalCandidates(jsonData[2].count);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
 
   return (
     <div>
@@ -30,29 +101,29 @@ const Overview = () => {
             <Stack direction={"row"} spacing={15}>
               <AppWidgetSummary
                 title="Total"
-                total={30}
+                total={totalCandidates}
               />
               <AppWidgetSummary
                 title="Selected"
-                total={15}
+                total={selectedCandidates}
                 sx={{color:"#27144B"}}
                 color="#27144B"
-                icon={<WorkIcon/>}
               />
               <AppWidgetSummary
                 title="Waiting"
-                total={10}
+                total={waitingCandidates}
                 color="warning"
-                icon={<WorkOffIcon/>}
               />
             </Stack>
           </Grid>
           <Grid item md={9} lg={9} xl={9} width="100%" container spacing={10} direction={'row'}>
-            <Grid sx={{alignSelf:'center', paddingX:"10px"}} item md={6} lg={6} xl={6}>
-              <DailyInterviewChart/>
+            <Grid sx={{alignSelf:'center', paddingX:"10px"}} item md={6} lg={6} xl={6} display={'flex'} flexDirection={'column'} alignItems={'center'} >
+            <h5>Interview Schedules</h5>
+              <DailyInterviewChart data={lineChartData}/>
             </Grid>
-            <Grid sx={{paddingX:"10px",}} item md={6} lg={6} xl={6}>
-              <LeaderBoard sx={{marginLeft:"5px"}}/>
+            <Grid sx={{paddingX:"10px"}} item md={6} lg={6} xl={6} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+              <h5>LeaderBoard</h5>
+              <LeaderBoard sx={{marginLeft:"5px"}} Data={scoreData}/>
             </Grid>
             
           </Grid>

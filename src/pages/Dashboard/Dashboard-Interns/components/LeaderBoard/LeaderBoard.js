@@ -3,17 +3,16 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 50 },
   {
-    field: "firstName",
-    headerName: "First name",
-    width: 100,
+    field: "Name",
+    headerName: "Name",
+    width: 150,
   },
   {
-    field: "score",
+    field: "Total",
     headerName: "Score",
-    width: 20,
-  },
+    width: 10,
+  }
 ];
 
 const rows = [
@@ -23,27 +22,46 @@ const rows = [
   { id: 4, firstName: "Arya", score: 16 },
 ];
 
-export default function LeaderBoard() {
+export default function LeaderBoard(props) {
+  const data = props.Data;
+
+  const updatedRows = data.map((row, index) => {
+    return { id: index + 1, ...row };
+  });
+
   return (
     <Box
       sx={{
-        height: 400,
-        width: "80%",
+        height: 300,
+        width: "90%",
         "& .super-app-theme--header": {
           backgroundColor: "rgba(255, 7, 0, 0.55)",
         },
-        alignItems:'center',
-        marginLeft:"100px"
+        alignItems: "center",
+        marginLeft: "100px",
       }}
     >
       <DataGrid
-        rows={rows}
+        rows={updatedRows}
         columns={columns}
+        sx={{
+          paddingX: "20px",
+          marginLeft: "20px",
+          boxShadow: 4,
+          border: 1,
+          borderColor: "primary.light",
+          "& .MuiDataGrid-cell:hover": {
+            color: "primary.main",
+          }
+        }}
         initialState={{
           pagination: {
             paginationModel: {
               pageSize: 5,
             },
+          },
+          sorting: {
+            sortModel: [{ field: "Total", sort: "desc" }],
           },
         }}
         pageSizeOptions={[5]}
