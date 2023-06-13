@@ -10,50 +10,13 @@ import {
   Legend
 } from "recharts";
 
-const data = [
-  {
-    name: "2023-06-11",
-    candidates: 11,
-    
-  },
-  {
-    name: "2023-06-12",
-    candidates: 12,
-    
-  },
-  {
-    name: "2023-06-13",
-    candidates: 8,
-    
-  },
-  {
-    name: "2023-06-16",
-    candidates: 10,
-    
-  },
-  {
-    name: "2023-06-17",
-    candidates: 7,
-    
-  },
-  {
-    name: "2023-06-18",
-    candidates: 13,
-   
-  },
-  {
-    name: "2023-06-11",
-    candidates: 11,
-   
-  }
-];
 
-export default function DailyInterviewChart() {
+export default function DailyInterviewChart(props) {
   return (
     <LineChart
       width={500}
       height={300}
-      data={data}
+      data={props.data}
       margin={{
         top: 5,
         right: 30,
@@ -62,11 +25,11 @@ export default function DailyInterviewChart() {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
+      <XAxis dataKey="date" />
+      <YAxis label={{ value: 'No of Candidates', angle: -90, position: 'insideLeft', textAnchor: 'middle' }} />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="candidates" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="candidates" stroke="#27144B" />
     </LineChart>
   );
 }

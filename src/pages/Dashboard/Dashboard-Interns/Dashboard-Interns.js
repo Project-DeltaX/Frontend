@@ -89,8 +89,6 @@ const DashboardInterns = () => {
                 >
                   <Tab label="Overview" {...a11yProps(0)} />
                   <Tab label="Performance" {...a11yProps(1)} />
-                  <Tab label="Activity" {...a11yProps(2)} />
-                  <Tab label="Intern Details" {...a11yProps(3)} />
                 </Tabs>
               </Box>
             </Grid>
@@ -101,12 +99,6 @@ const DashboardInterns = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
               Performance
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              Activity
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              Intern Details
             </TabPanel>
           </Grid>
         </Grid>
