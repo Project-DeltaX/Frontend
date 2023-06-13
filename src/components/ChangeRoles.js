@@ -17,7 +17,7 @@ import jwtDecode from "jwt-decode";
 import axios from 'axios';
 
 // An array containing different roles
-const values = ["committee member", "Panel member", "Intern"];
+const values = ["CommitteeMember", "PanelMember", "Intern"];
 
 // A function to display a dialog box containing the list of roles
 function SimpleDialog(props) {
