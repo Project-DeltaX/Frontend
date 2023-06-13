@@ -1,4 +1,3 @@
-
 //User_Roles
 import React from "react";
 
@@ -30,9 +29,6 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 // import SimpleDialog from "../../../components/ChangeRoles";
 
-
-
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -62,18 +58,17 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-
   {
     id: "email",
     numeric: false,
     disablePadding: false,
     label: "email",
-  },  {
+  },
+  {
     id: "firstName",
     numeric: false,
     disablePadding: true,
     label: "firstName",
-  
   },
   {
     id: "Nationality",
@@ -93,7 +88,7 @@ const headCells = [
     disablePadding: false,
     label: "dob",
   },
-  
+
   {
     id: "jobTitle",
     numeric: false,
@@ -123,9 +118,9 @@ const headCells = [
   //   numeric: false,
   //   disablePadding: false,
   //   label: "changeRole",
-   
+
   // },
-] ;
+];
 
 function EnhancedTableHead(props) {
   const {
@@ -141,7 +136,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead >
+    <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -156,7 +151,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-          style={{ color: "#27144B" }}
+            style={{ color: "#27144B" }}
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -228,14 +223,13 @@ function EnhancedTableToolbar(props) {
         </Typography>
       )}
 
-{numSelected > 0 ? (
-  <Tooltip title="Delete">
-    <IconButton>
-      <DeleteIcon />
-    </IconButton>
-  </Tooltip>
-) : null}
-
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : null}
     </Toolbar>
   );
 }
@@ -245,7 +239,6 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function AllUsers() {
-
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("email");
   const [selected, setSelected] = React.useState([]);
@@ -254,7 +247,6 @@ export default function AllUsers() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const [data, setData] = useState([]);
-  
 
   useEffect(() => {
     fetch(
@@ -281,12 +273,12 @@ export default function AllUsers() {
     setSelected([]);
   };
 
-  const handleClick = (event,email) => {
+  const handleClick = (event, email) => {
     const selectedIndex = selected.indexOf(email);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected,email);
+      newSelected = newSelected.concat(selected, email);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -324,7 +316,7 @@ export default function AllUsers() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750}}               // border: '1px solid black'
+            sx={{ minWidth: 750 }} // border: '1px solid black'
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -354,7 +346,6 @@ export default function AllUsers() {
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
-                      
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -362,7 +353,6 @@ export default function AllUsers() {
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
-                            
                           }}
                         />
                       </TableCell>
@@ -371,21 +361,20 @@ export default function AllUsers() {
                         id={labelId}
                         scope="row"
                         padding="none"
-                        
                       >
                         {row.email}
                       </TableCell>
-                      <TableCell align="left">{row.firstName}</TableCell>       
-                       {/* sx={{ border: '1px solid red'}}  */}
-                      <TableCell align="left" >{row.Nationality}</TableCell>
-                      <TableCell align="left" >{row.gender}</TableCell>
-                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.firstName}</TableCell>
+                      {/* sx={{ border: '1px solid red'}}  */}
+                      <TableCell align="left">{row.Nationality}</TableCell>
+                      <TableCell align="left">{row.gender}</TableCell>
+                      <TableCell align="left">{row.dob}</TableCell>
                       <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
-                      <TableCell align="left"  >{row.guestRole}</TableCell>
+                      <TableCell align="left">{row.guestRole}</TableCell>
                       {/* <SimpleDialog /> */}
                       {/* <TableCell align="left">{row.changeRole}</TableCell> */}
-                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
+                      <TableCell align="left">{row.mobileNumber}</TableCell>
                     </TableRow>
                   );
                 })}

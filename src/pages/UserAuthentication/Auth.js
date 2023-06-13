@@ -7,18 +7,20 @@ import {
   CognitoUser,
 } from "amazon-cognito-identity-js";
 import Pool, { poolData } from "../../UserPool.js";
+import jwtDecode from "jwt-decode";
 
 
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Create a new context object
 const AuthContext = createContext();
 // Define the Auth component that will use the context
 
 const Auth = (props) => {
+  const navigate = useNavigate();
   // Alert message
   const [showAlert, setShowAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
 
   // Define state variables for JWT token and login status
@@ -98,11 +100,7 @@ const Auth = (props) => {
 
           console.error("onFailure:", err);
           setShowAlert(true);
-          if (getShowAlert()) {
-              setErrorMessage(
-                "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
-              );
-            }
+          
           reject(err);
         },
         newPasswordRequired: (data) => {
@@ -115,54 +113,41 @@ const Auth = (props) => {
     });
   };
 
+  //session out
+
+
+  const idtoken = localStorage.getItem('idtoken');
+  if(!idtoken){
+    navigate('/');
+  }else{
+    setInterval(() => {
+      checkJwtExpiration();
+    }, 5000);
+  }
+
+  function checkJwtExpiration() {
+    const isExpired = isJwtExpired();
+    if (isExpired) {
+      alert('Session Expired');
+      navigate('/')
+      // console.log("Expired");
+    }
+  }
+
+  function isJwtExpired() {
+    
+    try {
+      const decoded = jwtDecode(idtoken);
+      const expirationTime = decoded.exp; // Get the expiration timestamp from the decoded JWT
+      const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current timestamp in seconds
+      return currentTimestamp >= expirationTime; // Compare the timestamps
+    } catch (error) {
+      return false; // Invalid JWT (could not be decoded)
+    }
+  }
+
   
-
-  // function isJwtExpired(jwtToken) {
-  //   try {
-  //     const decoded = jwt.verify(jwtToken, 'your_secret_key_here');
-  //     const expirationTime = decoded.exp; // Get the expiration timestamp from the decoded JWT
-  //     const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current timestamp in seconds
-  //     return currentTimestamp >= expirationTime; // Compare the timestamps
-  //   } catch (error) {
-  //     if (error.name === 'TokenExpiredError') {
-  //       return true; // JWT has already expired
-  //     } else {
-  //       return false; // Invalid JWT (could not be verified)
-  //     }
-  //   }
-  // }
-
-  // const jwksUrl =
-  //   "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_JeGJ5dp7G/.well-known/jwks.json";
-
-  //   const verifyToken = async () => {
-  //     try {
-  //       const response = await fetch(jwksUrl);
-  //       if (response.ok) {
-  //         const jwks = await response.json();
-  //         const token = iDToken["idToken"]["jwtToken"]
-  //         // // const publicKey = jwks.keys.find(key => key.kid === jwtDecode(token).header.kid);
-  //         // // Verify the JWT signature using the public key
-  //         // const decodedToken = jwtDecode(token);
-  //         // const isTokenValid = verifySignature(token, publicKey);
-  //         // if (isTokenValid) {
-  //         //   // Token verification succeeded
-  //         //   console.log('Token verified:', decodedToken);
-  //         //   // Proceed with using the token for authentication and authorization
-  //         //   // ...
-  //         // } else {
-  //         //   // Token verification failed
-  //         //   console.error('Token verification failed');
-  //         // }
-  //       } else {
-  //         throw new Error('Error retrieving JWKS');
-  //       }
-  //     } catch (error) {
-  //       // Handle any errors that occur during the request
-  //       console.error('Error retrieving JWKS:', error);
-  //     }
-  //   };
-
+  
 
 
   // This function returns the current JWT token

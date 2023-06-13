@@ -92,9 +92,6 @@ export default function SimpleDialogDemo({ getEmail }) {
   const decodedToken=jwtDecode(authorizationToken)
 
 
-  // const email = getEmail(); // Replace getEmail() with the function to retrieve the email
-  // const guestRole = getGuestRole();
-
 
    const requestData = {
       body: {
@@ -104,22 +101,7 @@ export default function SimpleDialogDemo({ getEmail }) {
       },
     };
 console.log(requestData);
-//     fetch('https://pwdetptz7k.execute-api.us-east-1.amazonaws.com/dev/changerole', {
-//     method: 'POST',
-//      mode:'no-cors',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       // Authorization: 'Bearer ${authorizationToken}'
-//     },
-//     body: JSON.stringify({ requestData })
-//   })
-//     .then((response) => response.json())
-//     .then((responseData) => {
-//       console.log('Role updated successfully:', responseData);
-//     })
-//     .catch((error) => {
-//       console.error('Error updating role:', error);
-//     });
+
 
 
 const sendDataToBackend = async () => {
