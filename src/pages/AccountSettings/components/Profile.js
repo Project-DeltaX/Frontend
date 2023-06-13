@@ -64,6 +64,7 @@ const Profile = () => {
 
   const [genderError,setGenderError] = useState(false);
   const [mnumberError,setMnumberError] = useState(false);
+  const [mnErHelper,setMnErHelper] = useState(null);
   const [nationalityError, setNationalityError] = useState(false);
   const [jobTitleError,setJobTitleError] = useState(false);
   const [laneError, setLaneError] = useState(false);
@@ -78,18 +79,16 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the Lambda function API
-        const response = await fetch(
-          "https://sg5z9g2df4.execute-api.us-east-1.amazonaws.com/new/userdata?email=" +
-            Email,
+        const response = await axios.get(
+          `https://58u6bkd13k.execute-api.us-east-1.amazonaws.com/New/userdata?email=${Email}`,
           {
-            method: "GET",
             headers: {
               Authorization: `Bearer ${idToken}`,
               "Content-Type": "application/json",
             },
           }
         );
-        const jsonData = await response.json();
+        const jsonData = await response.data;
 
         setFname(jsonData[0].firstName);
         setLname(jsonData[0].lastName);
@@ -109,19 +108,24 @@ const Profile = () => {
           setCountry(country);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     fetchData();
   }, []);
 
   const updateUserProfile = async (dataArrays) => {
-    const data ={body : dataArrays}
-    console.log(JSON.stringify(dataArrays));
+    // const data ={body : dataArrays}
+    // console.log(JSON.stringify(dataArrays));
     try {
       const response = await axios.post(
-        "https://sg5z9g2df4.execute-api.us-east-1.amazonaws.com/new/userdata",
-        data
+        "https://58u6bkd13k.execute-api.us-east-1.amazonaws.com/New/userdata",
+        dataArrays,{
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log(dataArrays);
       console.log(response.data); // Handle successful response
@@ -148,9 +152,23 @@ const Profile = () => {
       if (validateFields()) {
         setDisable((prev) => !prev);
         updateUserProfile(dataArrays);
+        reversError();
       }
     }
   };
+
+  function reversError() {
+    setMnumberError(false);
+    setMnErHelper(null);
+    setGenderError(false);
+    setNationalityError(false);
+    setJobTitleError(false);
+    setLaneError(false);
+    setCityError(false);
+    setProvinceError(false);
+    setCountryError(false);
+    
+  }
   const validateFields = () => {
     let isValid = true;
     if (!disable) {
@@ -196,9 +214,10 @@ const Profile = () => {
         setJobTitleError(true);
         isValid = false;
       }
-      if (mnumber ==="") {
+      if (mnumber.length !== 10 || isNaN(mnumber)) {
         setMnumberError(true);
-        isValid = false; 
+        setMnErHelper('Number should be contain 10 digits')
+        return false;
       }
     }
     return isValid;
@@ -281,6 +300,7 @@ const Profile = () => {
                 disabled={disable}
                 onChange={(event) => setJobTitle(event.target.value)}
                 error={jobTitleError}
+                
               />
               <CssTextField
                 label="Role"
@@ -356,6 +376,7 @@ const Profile = () => {
                   disabled={disable}
                   onChange={(event) => setMnumber(event.target.value)}
                   error={mnumberError}
+                  helperText={mnErHelper}
                 />
                 <CssTextField
                   label="E-mail"

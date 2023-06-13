@@ -122,7 +122,7 @@ const Navbar = (props) => {
         {(role === "Admin" ||
           role === "PanelMember" ||
           role === "CommitteeMember") && (
-          <SideBar title="Dashboard" path="dashboard" />
+          <SideBar title="Dashboard" path="dashboard"/>
         )}
         {role === "Admin" && (
           <SideBar title="User Management" path="usermanagement" />
