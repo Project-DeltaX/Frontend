@@ -20,10 +20,10 @@ const StyledIcon = styled("div")(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const MyGrid = styled(Grid)({
-  '& .MuiGrid-root':{
+  "& .MuiGrid-root": {
     paddingTop: "16px",
     paddingBottom: "0px",
-  }
+  },
 });
 
 AppWidgetSummary.propTypes = {
@@ -40,46 +40,30 @@ export default function AppWidgetSummary({ title, total, icon, sx, ...other }) {
       <Card
         sx={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           width: "200px",
           height: "120px",
-          padding:"10px",
+          padding: "10px",
           boxShadow: 0,
           textAlign: "center",
           bgcolor: "#27144B",
         }}
         {...other}
       >
-        <MyGrid container spacing={2} direction={'row'}>
-          <MyGrid item md={6} container spacing={2}>
-            <MyGrid item>
-              <Typography
-                variant="h5"
-                align="left"
-                ml={3}
-                marginBottom={0}
-                sx={{ color:"#e4e0ff"}}
-              >
-                {title}
-              </Typography>
-            </MyGrid>
-            <MyGrid item sx={{padding:0}}>
-              <StyledIcon
-                sx={{
-                  position:'initial',
-                  marginTop:"-10px",
-                  marginLeft:"30px",
-                  color: "#e4e0ff",
-                  width: "fit-content",
-                  height: "fit-content",
-                }}
-              >
-                {icon}
-              </StyledIcon>
-            </MyGrid>
+        <MyGrid container spacing={2} direction={'column'}>
+          <MyGrid item>
+            <Typography
+              variant="h5"
+              align="left"
+              ml={3}
+              marginBottom={0}
+              sx={{ color: "#e4e0ff" }}
+            >
+              {title}
+            </Typography>
           </MyGrid>
-          <MyGrid item md={6}>
-            <Typography variant="h4" align="left" ml={3}color={"#e4e0ff"}>
+          <MyGrid item >
+            <Typography variant="h4" align="center" ml={3} color={"#e4e0ff"}>
               {total}
             </Typography>
           </MyGrid>

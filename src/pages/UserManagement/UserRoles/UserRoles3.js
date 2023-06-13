@@ -1,4 +1,3 @@
-
 //User_Roles
 import React from "react";
 
@@ -29,247 +28,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
-
-
-// function createData(firstName, email, Country, jobTitle, Status,Role,Edit) {
-//   return {
-//     firstName,
-//     email,
-//     Country,
-//     jobTitle,
-//     Status,
-//     Role,
-//     Edit,
-//
-//     };
-// }
-
-// const rows = [
-//   createData('Danuraha', 'danuraha@gmail.com', 'Sri Lanka', 'CM','', 'Committee Member',''),
-//   createData('Mahilan', 'mahilan@gmail.com', 'India', 'pm', '','Committee Member',''),
-//   createData('Thanusiyan', 'thanusiyan@gmail.com', 'France','th', '','Committee Member',''),
-//   createData('Tharanika', 'tharanika@gmail.com', 'Sri Lanka','fg', '', 'Committee Member',''),
-//   createData('Baakisan', 'bakkisan@gmail.com', 'India', 'bd', '','Committee Member',''),
-//   createData('Thanosan', 'thanosan@gmail.com', 'Canada', 'gf', '','Committee Member',''),
-//   createData('Jathiswarya', 'jathiswarya@gmail.com', 'Sri Lanka','hn', '', 'Committee Member',''),
-//   createData('Vinuja', 'vinuja@gmail.com', 'Sri Lanka', 'er','' ,'Committee Member',''),
-//   createData('Kaanuja', 'kaanuja@gmail.com', 'India', 'jh', '','Committee Member',''),
-//   createData('Varaki', 'varaki@gmail.com', 'Sri Lanka', 'rt','', 'Committee Member',''),
-//   createData('Liyonisha', 'liyonisha@gmail.com', 'Sri Lanka', 'ty','', 'Committee Member',''),
-//   createData('Krishikan', 'krishikan@gmail.com', 'USA', 'sa','', 'Committee Member',''),
-//   createData('Nishoban', 'nishoban@gmail.com', 'Sri Lanka', 'kj','', 'Committee Member',''),
-// ];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: "firstName",
-    numeric: false,
-    disablePadding: true,
-    label: "firstName",
-  
-  },
-  {
-    id: "email",
-    numeric: false,
-    disablePadding: false,
-    label: "email",
-  },
-  {
-    id: "Nationality",
-    numeric: false,
-    disablePadding: false,
-    label: "Nationality ",
-  },
-  {
-    id: "gender",
-    numeric: false,
-    disablePadding: false,
-    label: "gender",
-  },
-  {
-    id: "dob",
-    numeric: false,
-    disablePadding: false,
-    label: "dob",
-  },
-  {
-    id: "jobTitle",
-    numeric: false,
-    disablePadding: false,
-    label: "jobTitle ",
-  },
-  // {
-  //   id: "Status",
-  //   numeric: false,
-  //   disablePadding: false,
-  //   label: "Status ",
-  // },
-  {
-    id: "guestRole",
-    numeric: false,
-    disablePadding: false,
-    label: "guestRole",
-  },
-  
-  {
-    id: "mobileNumber",
-    numeric: false,
-    disablePadding: false,
-    label: "mobileNumber",
-  },
-  {
-    id: "changeRole",
-    numeric: false,
-    disablePadding: false,
-    label: "changeRole",
-   
-  },
-] ;
-
-function EnhancedTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead >
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-          style={{ color: "#27144B" }}
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-          style={{ color: "#27144B" }}
-        >
-          <b>Interns</b>
-        </Typography>
-      )}
-
-{numSelected > 0 ? (
-  <Tooltip title="Delete">
-    <IconButton>
-      <DeleteIcon />
-    </IconButton>
-  </Tooltip>
-) : null}
-
-    </Toolbar>
-  );
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
+import SimpleDialogDemo from "../../../components/ChangeRoles";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 export default function UserRoles3() {
   const [order, setOrder] = React.useState("asc");
@@ -278,13 +39,255 @@ export default function UserRoles3() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedEmail, setSelectedEmail] = useState("");
 
   const [data, setData] = useState([]);
 
+  const authorizationToken = localStorage.getItem("idtoken");
+  const decodedToken = jwtDecode(authorizationToken);
+
+  const requestData = {
+    body: {
+      U_email: selectedEmail,
+      A_role: decodedToken["custom:guestRole"],
+    },
+  };
+
+  // console.log(JSON.stringify(requestData));
+
+  const handleDeleteClick = () => {
+    axios
+      .delete(
+        "https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser",
+        {
+          data: requestData,
+        }
+      )
+      .then((response) => {
+        // Handle successful deletion, such as updating the UI or refreshing the data
+        const updatedData = data.filter((user) => user.email !== selectedEmail);
+        setData(updatedData);
+        alert("User deleted successfully");
+        // console.log(updatedData);
+      })
+      .catch((error) => {
+        // Handle error, such as displaying an error message
+        console.error(error);
+      });
+  };
+
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator(order, orderBy) {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) {
+        return order;
+      }
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  }
+
+  const headCells = [
+    {
+      id: "email",
+      numeric: false,
+      disablePadding: false,
+      label: "email",
+    },
+    {
+      id: "firstName",
+      numeric: false,
+      disablePadding: true,
+      label: "firstName",
+    },
+    {
+      id: "Nationality",
+      numeric: false,
+      disablePadding: false,
+      label: "Nationality ",
+    },
+    {
+      id: "gender",
+      numeric: false,
+      disablePadding: false,
+      label: "gender",
+    },
+    {
+      id: "dob",
+      numeric: false,
+      disablePadding: false,
+      label: "dob",
+    },
+    {
+      id: "jobTitle",
+      numeric: false,
+      disablePadding: false,
+      label: "jobTitle ",
+    },
+    // {
+    //   id: "Status",
+    //   numeric: false,
+    //   disablePadding: false,
+    //   label: "Status ",
+    // },
+    {
+      id: "guestRole",
+      numeric: false,
+      disablePadding: false,
+      label: "guestRole",
+    },
+
+    {
+      id: "mobileNumber",
+      numeric: false,
+      disablePadding: false,
+      label: "mobileNumber",
+    },
+    {
+      id: "changeRole",
+      numeric: false,
+      disablePadding: false,
+      label: "changeRole",
+    },
+  ];
+
+  function EnhancedTableHead(props) {
+    const {
+      onSelectAllClick,
+      order,
+      orderBy,
+      numSelected,
+      rowCount,
+      onRequestSort,
+    } = props;
+    const createSortHandler = (property) => (event) => {
+      onRequestSort(event, property);
+    };
+
+    return (
+      <TableHead>
+        <TableRow>
+          <TableCell padding="checkbox">
+            <Checkbox
+              color="primary"
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+              inputProps={{
+                "aria-label": "select all desserts",
+              }}
+            />
+          </TableCell>
+          {headCells.map((headCell) => (
+            <TableCell
+              style={{ color: "#27144B" }}
+              key={headCell.id}
+              align={headCell.numeric ? "right" : "left"}
+              padding={headCell.disablePadding ? "none" : "normal"}
+              sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+    );
+  }
+
+  EnhancedTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.oneOf(["asc", "desc"]).isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
+  };
+
+  function EnhancedTableToolbar(props) {
+    const { numSelected } = props;
+
+    return (
+      <Toolbar
+        sx={{
+          pl: { sm: 2 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+            style={{ color: "#27144B" }}
+          >
+            <b>Interns</b>
+          </Typography>
+        )}
+
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton onClick={handleDeleteClick}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        ) : null}
+      </Toolbar>
+    );
+  }
+
+  EnhancedTableToolbar.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+  };
+
   useEffect(() => {
-    fetch(
-      "https://2bse7r109c.execute-api.us-east-1.amazonaws.com/dev/intern"
-    )
+    fetch("https://2bse7r109c.execute-api.us-east-1.amazonaws.com/dev/intern")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
@@ -298,28 +301,32 @@ export default function UserRoles3() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.firstName);
+      const newSelected = data.map((n) => n.email);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, firstName) => {
-    const selectedIndex = selected.indexOf(firstName);
+  const handleClick = (event, email) => {
+    const selectedIndex = selected.indexOf(email);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, firstName);
+      newSelected = newSelected.concat(selected, email);
+      setSelectedEmail(email);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      setSelectedEmail("");
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      setSelectedEmail("");
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
+      setSelectedEmail("");
     }
 
     setSelected(newSelected);
@@ -338,7 +345,7 @@ export default function UserRoles3() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (firstName) => selected.indexOf(firstName) !== -1;
+  const isSelected = (email) => selected.indexOf(email) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -348,7 +355,7 @@ export default function UserRoles3() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750}}               // border: '1px solid black'
+            sx={{ minWidth: 750 }} // border: '1px solid black'
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -364,21 +371,20 @@ export default function UserRoles3() {
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.firstName);
+                  const isItemSelected = isSelected(row.email);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.firstName)}
+                      onClick={(event) => handleClick(event, row.email)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.firstName}
+                      key={row.email}
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
-                      
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -386,7 +392,6 @@ export default function UserRoles3() {
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
-                            
                           }}
                         />
                       </TableCell>
@@ -395,25 +400,22 @@ export default function UserRoles3() {
                         id={labelId}
                         scope="row"
                         padding="none"
-                        
                       >
-                        {row.firstName}
+                        {row.email}
                       </TableCell>
-                      <TableCell align="left">{row.email}</TableCell>       
-                       {/* sx={{ border: '1px solid red'}}  */}
+                      <TableCell align="left">{row.firstName}</TableCell>
+                      {/* sx={{ border: '1px solid red'}}  */}
                       {/* <TableCell align="left" >{row.Country}</TableCell> */}
-                      <TableCell align="left" >{row.Nationality}</TableCell>
-                      <TableCell align="left" >{row.gender}</TableCell>
-                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.Nationality}</TableCell>
+                      <TableCell align="left">{row.gender}</TableCell>
+                      <TableCell align="left">{row.dob}</TableCell>
                       <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
-                      <TableCell align="left"  >{row.guestRole}</TableCell>
-                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
-                      <SimpleDialog />
-                     
-                      
-                       <TableCell align="left">{row.changeRole}</TableCell>
-                       
+                      <TableCell align="left">{row.guestRole}</TableCell>
+                      <TableCell align="left">{row.mobileNumber}</TableCell>
+                      <SimpleDialogDemo getEmail={selectedEmail} />
+
+                      <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );
                 })}

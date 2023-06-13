@@ -102,9 +102,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
-import Stack from "@mui/material/Stack";
+
 import IMCandidate from "./IMCandidate";
 import CMPanel from "./CMPanel";
 import IMPanel from "./IMpanel";
@@ -158,17 +156,7 @@ const Mailing = () => {
         </FormControl>
            
       </Grid>
-      <Grid item xs={12}>
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            endIcon={<SendIcon />}
-            style={{ backgroundColor: "#1e0342" }}
-          >
-            Send mail
-          </Button>
-        </Stack>
-      </Grid>
+      
     </Grid>
   );
 };

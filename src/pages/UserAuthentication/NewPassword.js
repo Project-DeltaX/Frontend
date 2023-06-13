@@ -15,6 +15,8 @@ import Pool from "../../UserPool";
 import SuccessfulPasswordReset from "./SuccessfulPasswordReset";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CssInput = styled(InputBase)({
   padding: "6px",
@@ -41,10 +43,12 @@ const NewPassword = (props) => {
   const [success, setSuccess] = useState(false); // Track success state
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const navigate=useNavigate();
 
   // Define a function to get the current user
 
   const getUser = () => {
+    
     return new CognitoUser({
       Username: props.Username,
       Pool,
@@ -54,6 +58,8 @@ const NewPassword = (props) => {
   // Define a function to handle the form submission
 
   const resetPassword = (event) => {
+
+  
     event.preventDefault();
 
     // Check if the new passwords match
@@ -75,6 +81,14 @@ const NewPassword = (props) => {
       return;
     }
 
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  if (!passwordRegex.test(password)) {
+    setErrorMessage(
+      "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+    );
+    return;
+  }
+
     setErrorMessage("");
 
     // Call the confirmPassword method of the CognitoUser object to reset the user's password
@@ -82,18 +96,19 @@ const NewPassword = (props) => {
     getUser().confirmPassword(code, password, {
       onSuccess: (data) => {
         console.log("onSuccess:", data);
-        alert("Sucessfully submitted");
+        // alert("Sucessfully submitted");
         setSuccess(true);
       },
       onFailure: (err) => {
         console.error("onFailure:", err);
         setErrorMessage(
-          "failed to submit!.click the Resend Verification Code button"
+          "Invalid code submitted"
         );
       },
     });
   };
   const resendVerificationCode = () => {
+   
     getUser().forgotPassword((err, result) => {
       if (err) {
         console.error("Error resending verification code:", err);
@@ -105,7 +120,9 @@ const NewPassword = (props) => {
     });
   };
   if (success) {
-    return <SuccessfulPasswordReset />;
+    navigate ("/successfulPasswordReset");
+    
+    
   }
   // Return the JSX for the component
 
@@ -281,7 +298,7 @@ const NewPassword = (props) => {
                 sx={{
                   marginTop: 0.5,
                   // marginBottom: 5,
-                  marginLeft: 16,
+                  marginLeft: 20,
                   borderRadius: 4,
                   bgcolor: "#EB5E57",
                   color: "black",
@@ -296,9 +313,9 @@ const NewPassword = (props) => {
               <Button
                 sx={{
                   marginTop: 1,
-                  marginLeft: 8,
+                  marginLeft: 12,
                   borderRadius: 4,
-                  bgcolor: "#EB5E57",
+                  bgcolor: "#11EDB4",
                   color: "black",
                   fontFamily: "Abril Fatface",
                 }}

@@ -1,4 +1,13 @@
-import { TextField, Box, Button, Typography, Grid,IconButton ,styled,InputBase} from "@mui/material";
+import {
+  TextField,
+  Box,
+  Button,
+  Typography,
+  Grid,
+  IconButton,
+  styled,
+  InputBase,
+} from "@mui/material";
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -6,10 +15,12 @@ import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Visibility,VisibilityOff } from "@mui/icons-material";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import EmailConfirmation from "./EmailConfirmation";
+import axios from "axios";
 //CSS import
 import "../UserAuthentication/Authentication.css";
+import { useNavigate } from "react-router-dom";
 
 // import Pool from "../UserPool.js";
 import {
@@ -20,19 +31,17 @@ import {
 } from "amazon-cognito-identity-js";
 // user pool data
 
-
 const CssInput = styled(InputBase)({
   padding: "5px",
   backgroundColor: "white",
   borderRadius: "20px",
   height: "80%",
-  width:"430px"
+  width: "465px",
   // "& .MuiInputBase-input": {
   //   fontFamily: "Poppins",
   //   fontSize: "14px",
   // },
 });
-
 
 const poolData = {
   UserPoolId: "us-east-1_JeGJ5dp7G",
@@ -44,9 +53,11 @@ const userPool = new CognitoUserPool(poolData);
 // functional component for user registration
 
 const Register = () => {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-
+  const [success, setSuccess] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   // const [showAlert, setShowAlert] = useState(false);
   // create a state to store form data
@@ -68,52 +79,8 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // This function is used to handle the form submission
 
-
-  
-
-
-
-
-
-
-
-  // const updateData=async () => {
-  //   try {
-  //     const response = await fetch("https://1dxqyteuva.execute-api.us-east-1.amazonaws.com/dev/registration", {
-  //       method: "POST",
-  //       body: JSON.stringify(formData),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       // body: JSON.stringify(formData), // Send the formData to the API Gateway endpoint
-  //     });
-
-  //     if (!response.ok) {
-  //       console.error("Failed to insert data into DynamoDB");
-  //       return;
-  //     }else{ 
-  //       console.log("Data inserted into DynamoDB");}
-
-     
-  //   } catch (error) {
-  //     console.error("An error occurred", error);
-  //   }
-    
-  // }
-
-
-
-
-
-
-
-
-
-
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Preventing the default form submission behaviour
     // Creating an empty array to store user attributes
 
@@ -127,13 +94,44 @@ const Register = () => {
     ) {
       // setShowAlert(true);
       setErrorMessage("All fields are required");
+      setShowAlert(true);
       return;
     }
-    //
-    else {
-      
-      const attributeList = [];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage("Please enter a valid email address");
+      setShowAlert(true);
+      return;
+    }
+
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setErrorMessage(
+        "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+      );
+      setShowAlert(true);
+      return;
+    }
+
+    setErrorMessage(""); // Reset error message if no errors occur
+    setShowAlert(false);
+    const attributeList = [];
     // Creating an object containing the user's email and adding it to the attributeList array
+
+    try {
+      const response = await axios.post(
+        "https://w0ugg68pi6.execute-api.us-east-1.amazonaws.com/dev/registration",
+        formData
+      );
+      console.log(response.data); // Logging the response data
+
+      // ... handle the response as needed ...
+    } catch (error) {
+      console.log(error); // Logging any errors
+
+      // ... handle the error as needed ...
+    }
 
     const dataEmail = {
       Name: "email",
@@ -169,45 +167,42 @@ const Register = () => {
     // Calling the signUp method on the userPool object to sign up the user with the provided details
 
     userPool.signUp(
-      formData.email,   // User email
-      formData.password,  // User password
-      attributeList,  // Array of user attributes
+      formData.email, // User email
+      formData.password, // User password
+      attributeList, // Array of user attributes
       null, // Validation data (optional)
-      (err, result) => {  // Callback function
-        if (err) {  // If an error occurs
-          console.log(err);  // Logging the error to the console
+      (err, result) => {
+        // Callback function
+        if (err) {
+          // If an error occurs
+          console.log(err); // Logging the error to the console
 
-//adding new
-setErrorMessage(err.message); // Display the error message in an alert
-//
-
-
-
-          return;  // Exiting the function
+          //adding new
+          setErrorMessage(err.message); // Display the error message in an alert
+          //
+          setShowAlert(true);
+          return; // Exiting the function
         }
-        const cognitoUser = result.user; // If successful, creating a new CognitoUser object with the returned user object from the result parameter
-        console.log("successful ");  // Logging a success message to the console
 
+        // const cognitoUser = result.user;
+        else {
+          console.log("successful "); // Logging a success message to the console
 
-        //adding new
-        setErrorMessage("Sign up successful!.Go to the mail to verify!"); // Display a success message in an alert
-        //
-    //  updateData();
-
-    }
+          setSuccess(true);
+        }
+      }
     );
-    }
-
-
-
-    
   };
+
+  if (success) {
+    navigate("/emailconfirmation");
+  }
 
   return (
     <div className="loginbackgorund">
       <form onSubmit={(e) => handleSubmit(e)}>
         <Box
-        className="logingrad"
+          className="logingrad"
           display="flex"
           flexDirection={"column"}
           maxWidth={500}
@@ -218,12 +213,6 @@ setErrorMessage(err.message); // Display the error message in an alert
           marginBottom={22}
           padding={5}
           borderRadius={10}
-          // boxShadow={"5px 5px 10px #ccc"}
-          // bgcolor="#27144B"
-          // sx={{
-          //   background:
-          //     " radial-gradient(circle,#3A1C92,#321873,#2C165D,#27144B)",
-          // }}
         >
           <Grid container direction="column">
             <Grid container direction="column">
@@ -243,8 +232,10 @@ setErrorMessage(err.message); // Display the error message in an alert
                 textAlign="center"
                 fontFamily="Abril Fatface"
               >
-                Already have an Account?<Link sx={{color:"#3E51F5"}}  to={"/"}><b>Login</b>
-                 </Link>
+                Already have an Account?
+                <Link sx={{ color: "#3E51F5", variant: "h5" }} to={"/"}>
+                  <b>Login</b>
+                </Link>
               </Typography>
             </Grid>
 
@@ -291,69 +282,63 @@ setErrorMessage(err.message); // Display the error message in an alert
               </Grid>
             </Grid>
 
-            <Grid container direction="column"  >
-              <Grid sx={{marginBottom:3,marginTop:2}} >
+            <Grid container direction="column">
+              <Grid sx={{ marginBottom: 3, marginTop: 2 }}>
                 <TextField
-                sx={{
-                  input: {
-                    color: "#8C8B8B",
-                    bgcolor: "#fff",
-                    borderRadius: "20px",
-                    height: "15px",
-                    width:"400px"
-                    // marginBottom:4,
-                    // marginTop:3
+                  sx={{
+                    input: {
+                      color: "#8C8B8B",
+                      bgcolor: "#fff",
+                      borderRadius: "20px",
+                      height: "15px",
+                      width: "440px",
+                      // marginBottom:4,
+                      // marginTop:3
+                    },
+                  }}
+                  // margin="normal"
 
-                  },
-                }}
-                // margin="normal"
-                
-                type={"email"}
-                variant="outlined"
-                placeholder="E-mail Address"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />{" "}
+                  type={"email"}
+                  variant="outlined"
+                  placeholder="E-mail Address"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />{" "}
               </Grid>
               <Grid>
-              <CssInput
-                sx={{
-                  input: {
-                    color: "#8C8B8B",
-                    bgcolor: "#fff",
-                    marginX:1
-                    // borderRadius: "20px",
-                    // height: "15px",
-                  },
-                }}
-                // margin="normal"
-                // type={"password"}
-                variant="outlined"
-                placeholder="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                type={passwordVisible ? "text" : "password"}
-                endAdornment={ <IconButton
-                sx={{marginX:1}}
-                  edge="end"
-                  // sx={{ color: "white" }}
-                  onClick={() =>
-                    setPasswordVisible(!passwordVisible)
+                <CssInput
+                  sx={{
+                    input: {
+                      color: "#8C8B8B",
+                      bgcolor: "#fff",
+                      marginX: 1,
+                      // borderRadius: "20px",
+                      // height: "15px",
+                    },
+                  }}
+                  // margin="normal"
+                  // type={"password"}
+                  variant="outlined"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  type={passwordVisible ? "text" : "password"}
+                  endAdornment={
+                    <IconButton
+                      sx={{ marginX: 1 }}
+                      edge="end"
+                      // sx={{ color: "white" }}
+                      onClick={() => setPasswordVisible(!passwordVisible)}
+                    >
+                      {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
                   }
-                >
-                  {passwordVisible ? (
-                    <Visibility />
-                  ) : (
-                    <VisibilityOff />
-                  )}
-                </IconButton>}
-              />
+                />
               </Grid>
-              
-              
-              <Grid container spacing={0.2} padding="5px" marginTop='30px'>
+
+              <Grid container spacing={0.2} padding="5px" marginTop="30px">
                 <Grid item>
                   <Typography
                     color="#E8E1FA"
@@ -399,11 +384,11 @@ setErrorMessage(err.message); // Display the error message in an alert
                 <div className="alert">All fields are required</div>
               )} */}
 
-{errorMessage && (
-    <Typography color="#FF0000" variant="subtitle1">
-      {errorMessage}
-    </Typography>
-  )}
+          {showAlert && (
+            <Typography color="#FF0000" variant="subtitle1">
+              {errorMessage}
+            </Typography>
+          )}
 
           <Button
             LinkComponent={Link}

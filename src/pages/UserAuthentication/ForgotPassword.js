@@ -4,7 +4,6 @@ import pass from "../../Images/ForgotPassword.svg";
 
 import { CognitoUser } from "amazon-cognito-identity-js";
 
-
 import { Link } from "react-router-dom";
 import Pool from "../../UserPool";
 import NewPassword from "./NewPassword";
@@ -35,6 +34,12 @@ const ForgotPassword = () => {
       return; // Stop further execution
     }
     // Call the forgotPassword function on the CognitoUser object
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Invalid email format");
+      return;
+    }
 
     getUser().forgotPassword({
       onSuccess: (data) => {
@@ -106,7 +111,7 @@ const ForgotPassword = () => {
                   textAlign="center"
                   fontFamily="Abril Fatface"
                 >
-                  Enter  Verified E-mail Address only
+                  Enter Verified E-mail Address only
                 </Typography>
                 {/* Text field to input email */}
 

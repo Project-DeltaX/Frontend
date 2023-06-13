@@ -32,17 +32,17 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email === "" || password === "") {
-      // setEmptyFieldError(true);
-      setErrorMessage("All the fields are required");
-      return;
-    } else if (getShowAlert()) {
+    authenticate(email, password);
+    if (getShowAlert()) {
       setErrorMessage(
         "Incorrect username or password!!! \n  Password should  Contains at least 1 number,1 special character,1 uppercase letter,1 lowercase letter"
       );
     }
-
-    authenticate(email, password);
+    if (email === "" || password === "") {
+      // setEmptyFieldError(true);
+      setErrorMessage("All the fields are required");
+      return;
+    }
   };
 
   if (getLoginStatus()) {
@@ -112,7 +112,6 @@ const LoginPage = () => {
                 {/* <Typography align="justify" sx={{ color: "#C5A2F1" ,fontSize:"15px",margin:'5px'}}>
                   Enter email as the username
                 </Typography> */}
-                
 
                 <TextField
                   size="small"
