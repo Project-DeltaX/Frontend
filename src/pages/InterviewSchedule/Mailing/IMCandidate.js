@@ -21,7 +21,8 @@ const IMCandidate = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://szlmh9vm5a.execute-api.us-east-1.amazonaws.com/stage1/candidateschedule"
+          // "https://szlmh9vm5a.execute-api.us-east-1.amazonaws.com/stage1/candidateschedule"
+          "https://nxhk699z3m.execute-api.us-east-1.amazonaws.com/stage1/schedule"
         );
         const jsonData = await response.json();
         setICData(jsonData);

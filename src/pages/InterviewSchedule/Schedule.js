@@ -379,7 +379,7 @@ const Schedule = () => {
       <Grid item xs={12} spacing={4}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
-            label="Basic exampless"
+            label="Select time"
             value={value}
             onChange={(newValue) => {
               //POST
@@ -433,7 +433,7 @@ const Schedule = () => {
                 <TableCell align="left">Venue</TableCell>
                 <TableCell align="left">Time</TableCell>
                 <TableCell align="left">Status</TableCell>
-                <TableCell align="left">Edit/Delete</TableCell>
+                
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "white" }}>
