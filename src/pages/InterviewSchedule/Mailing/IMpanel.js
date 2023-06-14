@@ -21,7 +21,7 @@ const IMpanel = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://53mxccqwpl.execute-api.us-east-1.amazonaws.com/stage123/panelschedule"
+            "https://nxhk699z3m.execute-api.us-east-1.amazonaws.com/stage1/schedule"
         );
         const jsonData = await response.json();
         setIPData(jsonData);
