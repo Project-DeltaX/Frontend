@@ -14,53 +14,57 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 import AWS from "aws-sdk";
 
 
 
+function createData(Criteria, Excellent, Good, Average, Poor, None) {
+  return { Criteria, Excellent, Good, Average, Poor, None };
+}
 
-
-
-// function createData(Criteria,Excellent, Good, Average, Poor,None) {
-//   return {Criteria,Excellent, Good, Average, Poor,None };
-// }
-
-// const rows = [
-//   createData('Self intro', '4mark', '3mark', '2mark', '1mark', '0mark'),
-//   createData('Technical Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-//   createData('Communication Skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-//   createData('Problem Solving skills',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-//   createData('Personality and teamwork',  '4mark', '3mark', '2mark', '1mark', '0mark'),
-// ];
-
+const rows = [
+  createData('Self intro', '4mark', '3mark', '2mark', '1mark', '0mark'),
+  createData('Technical Skills', '4mark', '3mark', '2mark', '1mark', '0mark'),
+  createData('Communication Skills', '4mark', '3mark', '2mark', '1mark', '0mark'),
+  createData('Problem Solving skills', '4mark', '3mark', '2mark', '1mark', '0mark'),
+  createData('Personality and teamwork', '4mark', '3mark', '2mark', '1mark', '0mark'),
+];
 
 const MarkingSheet = () => {
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState([]);
+  const [SelectedEmail, setSelectedEmail] = useState([]);
+  const idToken = localStorage.getItem("idtoken");
+  const decodedToken = jwtDecode(idToken);
+  const Email = decodedToken["email"];
 
-  const handleChange = (event) => {
-    setemail(event.target.value);
-  };
-
-  const [rowData, setRowData] = useState([]);
-  const [totalPoints, setTotalPoints] = useState([]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(
-      'https://8h66zb4an0.execute-api.us-east-1.amazonaws.com/new10/markingsheet'
-    );
-    const data = await response.json();
-    setRowData(
-      data.map((row) => ({
-        ...row,
-        selectedOption: null,
-      }))
-    );
-    setTotalPoints(data.map(() => 0));
+    try {
+      const response = await axios.get(
+        `https://8h66zb4an0.execute-api.us-east-1.amazonaws.com/new10/markingsheet?email=${Email}`
+      );
+      const data = response.data;
+      console.log(data);
+      // setEmail(data);
+      
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+    
   };
+// console.log(email[0].candidateName);
+  const handleChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const [rowData, setRowData] = useState(rows);
+  const [totalPoints, setTotalPoints] = useState(Array(rows.length).fill(0));
 
   const handleOptionSelect = (rowIndex, optionValue) => {
     setRowData((prevData) =>
@@ -83,21 +87,50 @@ const MarkingSheet = () => {
     console.log('email:', email);
     console.log('Selected Options:', rowData.map((row) => row.selectedOption));
   };
+  const handleGotoInterview = (index) => {
+    const data ={dataArray: [rowData[index].email, rowData[index].Total]} ;
+    console.log(data);
+    alert("Scores submitted successfully!");
+
+    const updateData = async () =>{
+      try {
+        // This function handles the action you want to perform when the button is clicked
+        console.log("Submit button clicked!");
+      
+        const response = await axios.post(
+          "https://wxnahc193j.execute-api.us-east-1.amazonaws.com/new10/scoresheet",
+          data
+        );
+      
+        if (response.status === 200) {
+          // alert("Scores submitted successfully!");
+        } else {
+          // alert("Failed to submit scores.");
+        }
+      } catch (error) {
+        console.log("Error submitting scores.");
+      }
+      
+    }
+
+    updateData();
+    
+  };
 
   return (
     <Box m={10} sx={{ minWidth: 10 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Email</InputLabel>
+        <InputLabel id="demo-simple-select-label">Candidate Name</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={email}
+          value={SelectedEmail}
           label="Email"
           onChange={handleChange}
         >
-          {rowData.map((data, index) => (
-            <MenuItem key={index} value={index}>
-              {data.email}
+          {email.map((data, index) => (
+            <MenuItem key={index} value={data.candidateName}>
+              {data.candidateName}
             </MenuItem>
           ))}
         </Select>
@@ -177,7 +210,7 @@ const MarkingSheet = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    {data.selectedOption !== null ? (
+                    {data.selectedOption !== undefined ? (
                       data.selectedOption
                     ) : (
                       <em>No selection</em>
@@ -199,18 +232,13 @@ const MarkingSheet = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        
-        {/* <Box mt={10} sx={{   alignItems: 'center',justifyContent: 'center', textAlign: 'center' }}> */}
-        <Stack direction="row" spacing={2} justifyContent="center" sx={{ marginTop: '50px' }}>
-        <Button variant="contained" color="success">
-        Submit
-      </Button>
 
+        <Stack direction="row" spacing={2} justifyContent="center" sx={{ marginTop: '50px' }}>
+          <Button variant="contained" color="success" onClick={handleFormSubmit}>
+            Submit
+          </Button>
         </Stack>
-        
-      {/* </Box> */}
       </Box>
-      
     </Box>
   );
 };

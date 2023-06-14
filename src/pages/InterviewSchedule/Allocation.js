@@ -47,8 +47,18 @@ const Allocation = () => {
         bodydata
       );
       console.log(response.data);
+      const updatedCData = cData.filter(
+        (candidate) => candidate.email !== selectedCandidate.email
+      );
+      setCData(updatedCData);
+
+      // Reset the selectedPanelMember and selectedCandidate
+      setSelectedPanelMember("");
+      setSelectedCandidate("");
     } catch (error) {
       console.error(error);
+
+      
     }
   }
 
