@@ -38,6 +38,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { hover } from "@testing-library/user-event/dist/hover";
 import { warning } from "@remix-run/router";
 
+import useAuth from "../../../hooks/useAuth";
+
 //Arrays
 const TermsConditions = [
   "Terms Conditions 01",
@@ -96,6 +98,7 @@ function a11yProps(index) {
 }
 
 const SecurityPrivacy = () => {
+  const {DeleteAccount} = useAuth();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -113,7 +116,6 @@ const SecurityPrivacy = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const decodedToken = jwtDecode(localStorage.getItem('idtoken'));
-    console.log(decodedToken['email']);
 
 
     const cognitoUser = new CognitoUser({
@@ -175,8 +177,8 @@ const SecurityPrivacy = () => {
             orientation="vertical"
           >
             <Tab label="Change Password" {...a11yProps(0)} />
-            <Tab label="Privacy instructions" {...a11yProps(2)} />
-            <Tab label="Delete Account" {...a11yProps(3)} />
+            <Tab label="Privacy instructions" {...a11yProps(1)} />
+            <Tab label="Delete Account" {...a11yProps(2)} />
           </Tabs>
         </Grid>
         <Grid item md={8} container width="100%" mr={0}>
@@ -307,42 +309,9 @@ const SecurityPrivacy = () => {
             </Grid>
           </TabPanel>
           {/* Reset Password */}
-          <TabPanel value={value} index={1}>
-            <Grid container spacing={5} direction={"column"}>
-              <Grid item md={6}>
-                <CssTypography variant="h6">Instructions</CssTypography>
-                <Typography variant={"body1"}>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words which don't look
-                  even slightly believable.
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                md={6}
-                container
-                spacing={0}
-                display={"flex"}
-                justifyContent={"space-between"}
-              >
-                <CssTypography>Request to send a reset link</CssTypography>
-                <Button
-                  alignSelf={"flex-end"}
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#EB5E57",
-                    ":hover": { backgroundColor: "#EB5E57" },
-                  }}
-                  endIcon={<ArrowCircleRightIcon />}
-                >
-                  Request Link
-                </Button>
-              </Grid>
-            </Grid>
-          </TabPanel>
+         
           {/* Privacy Instructions */}
-          <TabPanel value={value} index={2}>
+          <TabPanel value={value} index={1}>
             <Grid container display={"flex"}>
               <CssTypography variant="h6">Instructions</CssTypography>
               <Typography>
@@ -354,7 +323,7 @@ const SecurityPrivacy = () => {
             </Grid>
           </TabPanel>
           {/* Delete Account */}
-          <TabPanel value={value} index={3}>
+          <TabPanel value={value} index={2}>
             <Grid
               display={"flex"}
               flexDirection={"column"}
@@ -364,16 +333,9 @@ const SecurityPrivacy = () => {
                 Warning !
               </CssTypography>
               <Typography variant="body1">
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form, by
-                injected humour, or randomised words which don't look even
-                slightly believable.
+                Confirm that you are permanently Delete your Account!
               </Typography>
-              <FormGroup>
-                {TermsConditions.map((index) => (
-                  <FormControlLabel control={<Checkbox />} label={index} />
-                ))}
-              </FormGroup>
+              
               <Button
                 variant="contained"
                 sx={{
@@ -382,7 +344,9 @@ const SecurityPrivacy = () => {
                   ":hover": { backgroundColor: "#EB5E57" },
                 }}
                 startIcon={<DeleteIcon />}
-              >
+                onClick={(e)=>DeleteAccount()}
+                
+              >x
                 Delete Account
               </Button>
             </Grid>

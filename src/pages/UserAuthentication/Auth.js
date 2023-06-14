@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import AWS from "aws-sdk";
 // Import necessary modules
 import {
   CognitoUserPool,
@@ -8,68 +9,25 @@ import {
 } from "amazon-cognito-identity-js";
 import Pool, { poolData } from "../../UserPool.js";
 import jwtDecode from "jwt-decode";
-
-
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Auth } from "aws-amplify";
+import { env } from "process";
 
 // Create a new context object
 const AuthContext = createContext();
 // Define the Auth component that will use the context
 
-const Auth = (props) => {
+const Auths = (props) => {
   const navigate = useNavigate();
   // Alert message
   const [showAlert, setShowAlert] = useState(false);
   // const [errorMessage, setErrorMessage] = useState("");
 
-
   // Define state variables for JWT token and login status
 
-  const [jwtToken, setJWTToken] = useState('');
+  const [jwtToken, setJWTToken] = useState("");
 
-  // Define a function to get the session for a user
-
-  const getSession = async (Username, Password) => {
-    return await new Promise((resolve, reject) => {
-      const user = Pool.getCurrentUser();
-      if (user) {
-        user.getSession(async (err, session) => {
-          if (err) {
-            reject();
-          } else {
-            // Get the user attributes
-
-            const attributes = await new Promise((resolve, reject) => {
-              user.getUserAttributes((err, attributes) => {
-                if (err) {
-                  reject(err);
-                } else {
-                  const results = {};
-                  // Extract the attribute name and value pairs from the attributes array
-
-                  for (let attribute of attributes) {
-                    const { Name, Value } = attribute;
-                    results[Name] = Value;
-                  }
-                  // Resolve the promise with the results object
-
-                  resolve(results);
-                  console.log(results);
-                }
-              });
-            });
-            // Resolve the promise with the session, user, and attributes objects
-
-            resolve({ user, ...session, ...attributes });
-          }
-        });
-      } else {
-        // If no user is found, reject the promise
-
-        reject();
-      }
-    });
-  };
   // Define a function to authenticate a user
 
   const authenticate = async (Username, Password) => {
@@ -92,7 +50,7 @@ const Auth = (props) => {
           resolve(data);
           const token = data;
           setJWTToken(token["idToken"]["jwtToken"]);
-          localStorage.setItem('idtoken',token["idToken"]["jwtToken"]);
+          localStorage.setItem("idtoken", token["idToken"]["jwtToken"]);
           setShowAlert(false);
         },
         onFailure: (err) => {
@@ -100,7 +58,7 @@ const Auth = (props) => {
 
           console.error("onFailure:", err);
           setShowAlert(true);
-          
+
           reject(err);
         },
         newPasswordRequired: (data) => {
@@ -115,40 +73,96 @@ const Auth = (props) => {
 
   //session out
 
+  const idtoken = localStorage.getItem("idtoken");
 
-  const idtoken = localStorage.getItem('idtoken');
-  // if(!idtoken){
-  //   navigate('/');
-  // }else{
-  //   setInterval(() => {
-  //     checkJwtExpiration();
-  //   }, 5000);
-  // }
-
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkJwtExpiration();
+    }, 5000);
+  
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+  
   function checkJwtExpiration() {
     const isExpired = isJwtExpired();
     if (isExpired) {
-      alert('Session Expired');
-      navigate('/')
-      // console.log("Expired");
+      localStorage.removeItem('idtoken');
+      navigate("/");
+
     }
   }
-
+  
   function isJwtExpired() {
-    
     try {
-      const decoded = jwtDecode(idtoken);
-      const expirationTime = decoded.exp; // Get the expiration timestamp from the decoded JWT
-      const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current timestamp in seconds
-      return currentTimestamp >= expirationTime; // Compare the timestamps
+      if (!idtoken) {
+        return false;
+      } else {
+        const decoded = jwtDecode(idtoken);
+        const expirationTime = decoded.exp; // Get the expiration timestamp from the decoded JWT
+        const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current timestamp in seconds
+        return currentTimestamp >= expirationTime; // Compare the timestamps
+      }
     } catch (error) {
       return false; // Invalid JWT (could not be decoded)
     }
   }
-
-  
   
 
+  // Define a function to Delete Account
+
+  const DeleteAccount = async () => {
+    try {
+      // Delete user account from Cognito
+      const user = await Auth.currentAuthenticatedUser();
+      await Auth.deleteUser(user);
+
+      // Delete user data from DynamoDB via API Gateway
+      const apiEndpoint = "YOUR_API_GATEWAY_ENDPOINT";
+      const requestData = { userId: user.username };
+      await axios.delete(apiEndpoint, { data: requestData });
+
+      // Account deletion successful
+      console.log("Account deleted successfully");
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting account:", error);
+    }
+
+    // try {
+    //   const cognitoUser = Pool.getCurrentUser();
+    //   cognitoUser.;
+
+    //   if (cognitoUser) {
+    //     cognitoUser.deleteUser((error, result) => {
+    //       if (error) {
+    //         console.error('Error deleting account:', error);
+    //         return;
+    //       }
+
+    //       // Delete user data from DynamoDB via API Gateway
+    //       const requestData = { email: cognitoUser.email };
+    //       console.log(requestData);
+
+    //       axios.delete("https://58u6bkd13k.execute-api.us-east-1.amazonaws.com/New/userdata", { data: requestData })
+    //         .then(() => {
+    //           // Account deletion successful
+    //           localStorage.removeItem('idtoken');
+    //           navigate('/');
+    //           console.log('Account deleted successfully');
+    //         })
+    //         .catch((err) => {
+    //           // console.log(cognitoUser);
+    //           console.error('Error deleting user data:', err);
+    //         });
+    //     });
+    //   }
+    // } catch (error) {
+    //   // Handle errors
+    //   console.error('Error deleting account:', error);
+    // }
+  };
 
   // This function returns the current JWT token
 
@@ -158,12 +172,11 @@ const Auth = (props) => {
   // This function returns the current login status
 
   const getLoginStatus = () => {
-    return (localStorage.getItem("idtoken") != null);
+    return localStorage.getItem("idtoken") != null;
   };
   const getShowAlert = () => {
     return showAlert;
   };
-
 
   // Here, a new AuthContext is created with the necessary values passed in as a value object
   // These values are used throughout the application to manage user authentication and login status
@@ -171,7 +184,7 @@ const Auth = (props) => {
     <AuthContext.Provider
       value={{
         authenticate,
-        getSession,
+        DeleteAccount,
         getjwtToken,
         getShowAlert,
         getLoginStatus,
@@ -183,4 +196,4 @@ const Auth = (props) => {
 };
 // The Auth and AuthContext components are exported to be used in other parts of the application
 
-export { Auth, AuthContext, };
+export { Auths, AuthContext };

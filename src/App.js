@@ -10,7 +10,7 @@ import AdminHomePage from "./pages/UserHomePage/HomePage";
 import CommitteeMemberHomePage from "./pages/UserHomePage/CommitteeMemberHomePage";
 import RouterComponent from "./MyRoutes";
 import InternHomePage from "./pages/UserHomePage/InternHomePage";
-import { Auth } from "./pages/UserAuthentication/Auth";
+import { Auths } from "./pages/UserAuthentication/Auth";
 import Register from "./pages/UserAuthentication/createNewAccount";
 import LoginPage from "./pages/UserAuthentication/LoginPage";
 import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
@@ -76,18 +76,9 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Auth>
+        <Auths>
           <RouterComponent />
-        </Auth>
-        {/* <EmailConfirmation/> */}
-        {/* <ForceChangePasswordPage/> */}
-        {/* <Profile/> */}
-        {/* <AdminHomePage/> */}
-        {/* <ForgotPassword /> */}
-        {/* <EmailConfirmation /> */}
-        {/* <SuccessfulPasswordReset /> */}
-
-        {/* <CommitteeMemberHomePage/> */}
+        </Auths>
       </ThemeProvider>
     </div>
   );

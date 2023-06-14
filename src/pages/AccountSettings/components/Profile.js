@@ -75,6 +75,7 @@ const Profile = () => {
   const idToken = localStorage.getItem("idtoken");
   const decodedToken = jwtDecode(idToken);
   const Email = decodedToken["email"];
+  const x = {as : "rtt",rt:"weffw"}
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -133,6 +134,7 @@ const Profile = () => {
       console.log(error.response.data); // Handle error response
     }
   };
+
 
   const dataArrays = {
     Address: [lane, city, province, country],
