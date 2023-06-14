@@ -43,12 +43,11 @@ const NewPassword = (props) => {
   const [success, setSuccess] = useState(false); // Track success state
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   // Define a function to get the current user
 
   const getUser = () => {
-    
     return new CognitoUser({
       Username: props.Username,
       Pool,
@@ -58,17 +57,9 @@ const NewPassword = (props) => {
   // Define a function to handle the form submission
 
   const resetPassword = (event) => {
-
-  
     event.preventDefault();
 
-    // Check if the new passwords match
-
-    // if (password !== confirmPassword) {
-    //   console.error("Password are not the same");
-    //   // alert("Passwords do not match");
-    //   return;
-    // }
+   
 
     if (!code || !password || !confirmPassword) {
       setErrorMessage("Please fill in all fields");
@@ -81,13 +72,14 @@ const NewPassword = (props) => {
       return;
     }
 
-    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-  if (!passwordRegex.test(password)) {
-    setErrorMessage(
-      "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
-    );
-    return;
-  }
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        "Password should contain at least 1 number, 1 special character, 1 uppercase letter, 1 lowercase letter, and be at least 8 characters long"
+      );
+      return;
+    }
 
     setErrorMessage("");
 
@@ -101,14 +93,11 @@ const NewPassword = (props) => {
       },
       onFailure: (err) => {
         console.error("onFailure:", err);
-        setErrorMessage(
-          "Invalid code submitted"
-        );
+        setErrorMessage("Invalid code submitted");
       },
     });
   };
   const resendVerificationCode = () => {
-   
     getUser().forgotPassword((err, result) => {
       if (err) {
         console.error("Error resending verification code:", err);
@@ -120,9 +109,7 @@ const NewPassword = (props) => {
     });
   };
   if (success) {
-    navigate ("/successfulPasswordReset");
-    
-    
+    navigate("/successfulPasswordReset");
   }
   // Return the JSX for the component
 
@@ -222,19 +209,15 @@ const NewPassword = (props) => {
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder="New password"
                     type={passwordVisible ? "text" : "password"}
-                    endAdornment={ <IconButton
-                      edge="end"
-                      // sx={{ color: "white" }}
-                      onClick={() =>
-                        setPasswordVisible(!passwordVisible)
-                      }
-                    >
-                      {passwordVisible ? (
-                        <Visibility />
-                      ) : (
-                        <VisibilityOff />
-                      )}
-                    </IconButton>}
+                    endAdornment={
+                      <IconButton
+                        edge="end"
+                        // sx={{ color: "white" }}
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    }
                   />
                 </Grid>
               </Grid>
@@ -268,20 +251,21 @@ const NewPassword = (props) => {
                     onChange={(event) => setConfirmPassword(event.target.value)}
                     placeholder="Confirm password"
                     type={confirmPasswordVisible ? "text" : "password"}
-                    endAdornment={ <IconButton
-                      edge="end"
-                      // sx={{ color: "white" }}
-                      onClick={() =>
-                        setConfirmPasswordVisible(!confirmPasswordVisible)
-                      }
-                    >
-                      {confirmPasswordVisible ? (
-                        <Visibility />
-                      ) : (
-                        <VisibilityOff />
-                      )}
-                    </IconButton>}
-                    
+                    endAdornment={
+                      <IconButton
+                        edge="end"
+                        // sx={{ color: "white" }}
+                        onClick={() =>
+                          setConfirmPasswordVisible(!confirmPasswordVisible)
+                        }
+                      >
+                        {confirmPasswordVisible ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    }
                   />
                 </Grid>
               </Grid>
