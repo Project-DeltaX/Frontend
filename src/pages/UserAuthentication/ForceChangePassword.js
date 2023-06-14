@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { CognitoUser, AuthenticationDetails, CognitoUserPool } from 'amazon-cognito-identity-js';
-import { Button, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  CognitoUser,
+  AuthenticationDetails,
+  CognitoUserPool,
+} from "amazon-cognito-identity-js";
+import { Button, TextField, Typography } from "@mui/material";
 
 // Replace these values with your own Cognito User Pool details
-const userPoolId = 'us-east-1_JeGJ5dp7G';
-const clientId = '4b98f6bsasaj3e9bf8mva3ei6k';
-const region = 'us-east-1';
+const userPoolId = "us-east-1_JeGJ5dp7G";
+const clientId = "4b98f6bsasaj3e9bf8mva3ei6k";
+const region = "us-east-1";
 
 const ForceChangePasswordPage = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     checkAuthState();
@@ -20,15 +24,15 @@ const ForceChangePasswordPage = () => {
     const cognitoUser = getCurrentUser();
 
     if (cognitoUser === null) {
-      console.log('User not authenticated.');
+      console.log("User not authenticated.");
       // Redirect to login page or handle authentication state accordingly
     } else {
       cognitoUser.getSession((error, session) => {
         if (error) {
-          console.log('Error fetching user session:', error);
+          console.log("Error fetching user session:", error);
           // Redirect to login page or handle authentication state accordingly
         } else {
-          console.log('User authenticated. Session:', session);
+          console.log("User authenticated. Session:", session);
           // Handle authenticated state
         }
       });
@@ -46,7 +50,7 @@ const ForceChangePasswordPage = () => {
 
   const handlePasswordChange = () => {
     if (newPassword !== confirmPassword) {
-      setErrorMessage('Passwords do not match.');
+      setErrorMessage("Passwords do not match.");
       return;
     }
 
@@ -55,26 +59,30 @@ const ForceChangePasswordPage = () => {
     if (cognitoUser !== null) {
       cognitoUser.getSession((error, session) => {
         if (error) {
-          console.log('Error fetching user session:', error);
-          setErrorMessage('Error changing password. Please try again.');
+          console.log("Error fetching user session:", error);
+          setErrorMessage("Error changing password. Please try again.");
         } else {
           const authenticationDetails = new AuthenticationDetails({
             Username: cognitoUser.getUsername(),
-            Password: '', // Empty password as the user is forced to change it
+            Password: "", // Empty password as the user is forced to change it
             Session: session,
           });
 
-          cognitoUser.authenticateUser(authenticationDetails, {
-            newPassword,
-          }, (error, result) => {
-            if (error) {
-              console.log('Error changing password:', error);
-              setErrorMessage('Error changing password. Please try again.');
-            } else {
-              console.log('Password changed successfully.');
-              // Redirect to desired page
+          cognitoUser.authenticateUser(
+            authenticationDetails,
+            {
+              newPassword,
+            },
+            (error, result) => {
+              if (error) {
+                console.log("Error changing password:", error);
+                setErrorMessage("Error changing password. Please try again.");
+              } else {
+                console.log("Password changed successfully.");
+                // Redirect to desired page
+              }
             }
-          });
+          );
         }
       });
     }
