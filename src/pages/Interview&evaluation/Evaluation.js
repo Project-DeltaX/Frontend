@@ -11,6 +11,7 @@ import styled from "styled-components";
 import CandidateExam from "./CanditateExam";
 import MarkingSheet from "./MarkingSheet";
 import Scoresheet from "./Scoresheet";
+import FinalizeIntern from "./FinalizeIntern";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -114,7 +115,7 @@ const Evaluation = () => {
                 variant="h2"
                 align="center"
                 width={400}
-                fontWeight='bold'
+                fontWeight="bold"
                 sx={{ backgroundColor: "#F772D4", fontSize: "24px" }}
               >
                 Marking ScoreSheet
@@ -126,21 +127,15 @@ const Evaluation = () => {
                 variant="h2"
                 align="center"
                 width={400}
-                fontWeight='bold'
-                sx={{ backgroundColor: "#F772D4", fontSize: "24px"  }}
+                fontWeight="bold"
+                sx={{ backgroundColor: "#F772D4", fontSize: "24px" }}
               >
                 Scoresheet
               </Typography>
               <Scoresheet />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              <Typography
-                variant="h2"
-                align="center"
-                sx={{ backgroundColor: "#805ba6", fontSize: "24px" }}
-              >
-                FinalizeIntern
-              </Typography>
+              <FinalizeIntern />
             </TabPanel>
           </Grid>
         </Grid>
