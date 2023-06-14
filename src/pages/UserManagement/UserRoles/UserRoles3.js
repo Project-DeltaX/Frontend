@@ -1,4 +1,3 @@
-
 //User_Roles
 import React from "react";
 
@@ -31,7 +30,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SimpleDialog from "../../../components/ChangeRoles";
 import SimpleDialogDemo from "../../../components/ChangeRoles";
 import jwtDecode from "jwt-decode";
-import axios from 'axios';
+import axios from "axios";
 
 export default function UserRoles3() {
   const [order, setOrder] = React.useState("asc");
@@ -44,28 +43,31 @@ export default function UserRoles3() {
 
   const [data, setData] = useState([]);
 
-
-  const authorizationToken = localStorage.getItem('idtoken');
+  const authorizationToken = localStorage.getItem("idtoken");
   const decodedToken = jwtDecode(authorizationToken);
-  
+
   const requestData = {
     body: {
       U_email: selectedEmail,
       A_role: decodedToken["custom:guestRole"],
     },
   };
-  
-  console.log(JSON.stringify(requestData));
-  
+
+  // console.log(JSON.stringify(requestData));
+
   const handleDeleteClick = () => {
     axios
-      .delete("https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser", {
-        data: requestData,
-      })
+      .delete(
+        "https://bid5oqykw9.execute-api.us-east-1.amazonaws.com/dev/deleteuser",
+        {
+          data: requestData,
+        }
+      )
       .then((response) => {
         // Handle successful deletion, such as updating the UI or refreshing the data
         const updatedData = data.filter((user) => user.email !== selectedEmail);
         setData(updatedData);
+        alert("User deleted successfully");
         // console.log(updatedData);
       })
       .catch((error) => {
@@ -83,13 +85,13 @@ export default function UserRoles3() {
     }
     return 0;
   }
-  
+
   function getComparator(order, orderBy) {
     return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
-  
+
   function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -101,20 +103,19 @@ export default function UserRoles3() {
     });
     return stabilizedThis.map((el) => el[0]);
   }
-  
+
   const headCells = [
-   
     {
       id: "email",
       numeric: false,
       disablePadding: false,
       label: "email",
-    }, {
+    },
+    {
       id: "firstName",
       numeric: false,
       disablePadding: true,
       label: "firstName",
-    
     },
     {
       id: "Nationality",
@@ -152,7 +153,7 @@ export default function UserRoles3() {
       disablePadding: false,
       label: "guestRole",
     },
-    
+
     {
       id: "mobileNumber",
       numeric: false,
@@ -164,10 +165,9 @@ export default function UserRoles3() {
       numeric: false,
       disablePadding: false,
       label: "changeRole",
-     
     },
-  ] ;
-  
+  ];
+
   function EnhancedTableHead(props) {
     const {
       onSelectAllClick,
@@ -180,9 +180,9 @@ export default function UserRoles3() {
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
-  
+
     return (
-      <TableHead >
+      <TableHead>
         <TableRow>
           <TableCell padding="checkbox">
             <Checkbox
@@ -197,7 +197,7 @@ export default function UserRoles3() {
           </TableCell>
           {headCells.map((headCell) => (
             <TableCell
-            style={{ color: "#27144B" }}
+              style={{ color: "#27144B" }}
               key={headCell.id}
               align={headCell.numeric ? "right" : "left"}
               padding={headCell.disablePadding ? "none" : "normal"}
@@ -211,7 +211,9 @@ export default function UserRoles3() {
                 {headCell.label}
                 {orderBy === headCell.id ? (
                   <Box component="span" sx={visuallyHidden}>
-                    {order === "desc" ? "sorted descending" : "sorted ascending"}
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
                   </Box>
                 ) : null}
               </TableSortLabel>
@@ -221,7 +223,7 @@ export default function UserRoles3() {
       </TableHead>
     );
   }
-  
+
   EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
@@ -230,10 +232,10 @@ export default function UserRoles3() {
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
   };
-  
+
   function EnhancedTableToolbar(props) {
     const { numSelected } = props;
-  
+
     return (
       <Toolbar
         sx={{
@@ -268,28 +270,24 @@ export default function UserRoles3() {
             <b>Interns</b>
           </Typography>
         )}
-  
-  {numSelected > 0 ? (
-    <Tooltip title="Delete">
-      <IconButton onClick={handleDeleteClick}>
-        <DeleteIcon />
-      </IconButton>
-    </Tooltip>
-  ) : null}
-  
+
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton onClick={handleDeleteClick}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        ) : null}
       </Toolbar>
     );
   }
-  
+
   EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
   };
-  
 
   useEffect(() => {
-    fetch(
-      "https://2bse7r109c.execute-api.us-east-1.amazonaws.com/dev/intern"
-    )
+    fetch("https://2bse7r109c.execute-api.us-east-1.amazonaws.com/dev/intern")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
@@ -313,26 +311,22 @@ export default function UserRoles3() {
   const handleClick = (event, email) => {
     const selectedIndex = selected.indexOf(email);
     let newSelected = [];
-  
+
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, email);
       setSelectedEmail(email);
-     
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
       setSelectedEmail("");
-     
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
       setSelectedEmail("");
-     
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
       setSelectedEmail("");
-      
     }
 
     setSelected(newSelected);
@@ -361,7 +355,7 @@ export default function UserRoles3() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750}}               // border: '1px solid black'
+            sx={{ minWidth: 750 }} // border: '1px solid black'
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -391,7 +385,6 @@ export default function UserRoles3() {
                       selected={isItemSelected}
                       display={"flex"}
                       justifyContent={"center"}
-                      
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -399,7 +392,6 @@ export default function UserRoles3() {
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
-                            
                           }}
                         />
                       </TableCell>
@@ -408,25 +400,22 @@ export default function UserRoles3() {
                         id={labelId}
                         scope="row"
                         padding="none"
-                        
                       >
                         {row.email}
                       </TableCell>
-                      <TableCell align="left">{row.firstName}</TableCell>       
-                       {/* sx={{ border: '1px solid red'}}  */}
+                      <TableCell align="left">{row.firstName}</TableCell>
+                      {/* sx={{ border: '1px solid red'}}  */}
                       {/* <TableCell align="left" >{row.Country}</TableCell> */}
-                      <TableCell align="left" >{row.Nationality}</TableCell>
-                      <TableCell align="left" >{row.gender}</TableCell>
-                      <TableCell align="left" >{row.dob}</TableCell>
+                      <TableCell align="left">{row.Nationality}</TableCell>
+                      <TableCell align="left">{row.gender}</TableCell>
+                      <TableCell align="left">{row.dob}</TableCell>
                       <TableCell align="left">{row.jobTitle}</TableCell>
                       {/* <TableCell align="left">{row.Status}</TableCell> */}
-                      <TableCell align="left"  >{row.guestRole}</TableCell>
-                      <TableCell align="left"  >{row.mobileNumber}</TableCell>
-                      <SimpleDialogDemo getEmail={selectedEmail}  />
-                     
-                      
-                       <TableCell align="left">{row.changeRole}</TableCell>
-                       
+                      <TableCell align="left">{row.guestRole}</TableCell>
+                      <TableCell align="left">{row.mobileNumber}</TableCell>
+                      <SimpleDialogDemo getEmail={selectedEmail} />
+
+                      <TableCell align="left">{row.changeRole}</TableCell>
                     </TableRow>
                   );
                 })}

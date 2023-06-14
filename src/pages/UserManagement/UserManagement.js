@@ -32,7 +32,7 @@ const UserManagement = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCommitteeMembersCount(data.count);
       })
       .catch((error) => {
@@ -46,7 +46,7 @@ const UserManagement = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setPanelMembersCount(data.count);
       })
       .catch((error) => {
@@ -60,7 +60,7 @@ const UserManagement = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setInternsCount(data.count);
       })
       .catch((error) => {
