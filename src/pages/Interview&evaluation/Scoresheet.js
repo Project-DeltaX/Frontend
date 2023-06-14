@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { Box } from "@mui/system";
 import Button from '@mui/material/Button';
 import jwtDecode from "jwt-decode";
+import axios from "axios";
 import AWS from "aws-sdk";
 
 
@@ -23,32 +24,54 @@ const Scoresheet = () => {
       const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://pp6menoash.execute-api.us-east-1.amazonaws.com/New/scoresheetdata?email="+Email,
+      );
+      const data = await response.json();
+      setData(data);
+      setRowData(data);
+      console.log(data);
+      
+    };
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    const response = await fetch(
-      "https://pp6menoash.execute-api.us-east-1.amazonaws.com/New/scoresheetdata?email="+Email,
-    );
-    const data = await response.json();
-    setData(data);
-    setRowData(data);
-    console.log(data);
-    
-  };
- // loop through the data and add a sum field to each object
-// rowData.forEach(data => {
-//   data.sum = parseInt(data.Candidate_exam) + parseInt(data.Candidate_exam);
-// });
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://pp6menoash.execute-api.us-east-1.amazonaws.com/New/scoresheetmarks?email=${Email}`
+        );
+        const data = response.data;
+        setData(data);
+        setRowData(data);
+        console.log(data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  
+  
+  
+ 
+  
+//  loop through the data and add a sum field to each object
+rowData.forEach(data => {
+  data.sum = parseInt(data.CandidateExam) + parseInt(data.Interview);
+});
 
-// // calculate the total
-// let Total = rowData.reduce((acc, data) => acc + data.sum, 0);
-//   const handleGotoInterview = (event) => {
-//     // This function handles the action you want to perform when the button is clicked
-//     console.log("Goto Interview button clicked!");
-//     alert("Scores submitted successfully!");
-//   };
-// onClick={handleGotoInterview}
+
+let Total = rowData.reduce((acc, data) => acc + data.sum, 0);
+  const handleGotoInterview = (event) => {
+
+    console.log("Goto Interview button clicked!");
+    alert("Scores submitted successfully!");
+  };
+
 
 
       return(
@@ -77,11 +100,11 @@ const Scoresheet = () => {
                 </TableCell>
                 
                 <TableCell align="center">{data.candidateEmail}</TableCell>
-                <TableCell align="center">{data.Candidate_exam}</TableCell>
-                <TableCell align="center">{data.Candidate_exam}</TableCell>
-                <TableCell align="center">{data.Total}</TableCell>
+                <TableCell align="center">{data.CandidateExam}</TableCell>
+                <TableCell align="center">{data.Interview}</TableCell>
+                <TableCell align="center">{Total}</TableCell>
                 <TableCell align="center">
-                <Button variant="contained" color="primary" >
+                <Button variant="contained" color="primary"  onClick={handleGotoInterview}>
                  submit
                   </Button>
                 </TableCell>

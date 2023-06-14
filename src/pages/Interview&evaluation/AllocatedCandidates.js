@@ -13,15 +13,22 @@ import AWS from "aws-sdk";
 import { Box } from "@mui/system";
 import jwtDecode from "jwt-decode";
 
+import { Document, Page } from "react-pdf";
+
+const PDFViewer = ({ pdfPath }) => {
+  return (
+    <div>
+      <Document file={pdfPath}>
+        <Page pageNumber={1} />
+      </Document>
+    </div>
+  );
+};
 
 
 
-// const rows = [
-//   createData(1, "Tharanika", "Perinparasah", 23, "vk123@gmail.com", "CV"),
-//   createData(2, "Danuraha", "Thevanayagam", 23, "vk123@gmail.com", "CV"),
-//   createData(3, "Thanushiyan", "Sivapalasundaram", 23, "vk123@gmail.com", "CV"),
-//   createData(4, "Mahilan", "Shanmuganathan", 23, "vk123@gmail.com", "CV"),
-// ];
+
+
 
 
 
@@ -73,6 +80,11 @@ const AllocatedCandidates = () => {
                   </TableCell> */}
                   <TableCell align="left">{data.candidateEmail}</TableCell>
                   <TableCell align="left">{data.candidateName}</TableCell>
+                  <TableCell align="left">
+                  <a href="https://www.msnlabs.com/img/resume-sample.pdf" target="_blank" rel="noopener noreferrer">
+  View resume
+</a>
+                </TableCell>
                   {/* <TableCell align="left">{data.Last_name}</TableCell> */}
                   {/* <TableCell align="left">{data.LastName}</TableCell> */}
                   

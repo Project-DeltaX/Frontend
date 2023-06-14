@@ -37,6 +37,7 @@ const CandidateExam = () => {
   const handleGotoInterview = (index) => {
     const data ={dataArray: [rowData[index].email, rowData[index].Total]} ;
     console.log(data);
+    alert("Scores submitted successfully!");
 
     const updateData = async () =>{
       try {

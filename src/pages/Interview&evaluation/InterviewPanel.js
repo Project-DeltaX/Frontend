@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { red } from "@mui/material/colors";
 import Button from '@mui/material/Button';
+import axios from "axios";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AWS from "aws-sdk";
@@ -64,10 +65,39 @@ const InterviewPanel = () => {
     setRowData(data);
     
   };
-  const handleGotoInterview = (event) => {
-    // This function handles the action you want to perform when the button is clicked
+  const handleGotoInterview = async (email) => {
+    
     console.log("Goto Interview button clicked!");
     alert("Interview started");
+    try {
+      const response = await axios.delete(
+        "https://4k3r35xbr5.execute-api.us-east-1.amazonaws.com/New/deletedata/${email}"
+      );
+      if (response.status === 200) {
+       
+        console.log('Attributes deleted successfully');
+        
+      } else {
+        
+        console.log('Failed to delete attributes');
+        
+      }
+    } catch (error) {
+     
+      console.log('Error deleting attributes:', error);
+      
+    }
+
+  };
+
+  const YourComponent = () => {
+    const [email, setEmail] = useState('');
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      // Call the delete function with the email value
+      handleGotoInterview(email);
+    };
   };
   
 

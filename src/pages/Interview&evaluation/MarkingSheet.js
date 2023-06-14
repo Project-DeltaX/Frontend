@@ -50,15 +50,15 @@ const MarkingSheet = () => {
         `https://8h66zb4an0.execute-api.us-east-1.amazonaws.com/new10/markingsheet?email=${Email}`
       );
       const data = response.data;
-      
-      setEmail(data);
+      console.log(data);
+      // setEmail(data);
       
     } catch (error) {
       console.log("Error fetching data:", error);
     }
     
   };
-console.log(email[0].candidateName);
+// console.log(email[0].candidateName);
   const handleChange = (event) => {
     setEmail(event.target.value);
   };
@@ -87,6 +87,35 @@ console.log(email[0].candidateName);
     console.log('email:', email);
     console.log('Selected Options:', rowData.map((row) => row.selectedOption));
   };
+  const handleGotoInterview = (index) => {
+    const data ={dataArray: [rowData[index].email, rowData[index].Total]} ;
+    console.log(data);
+    alert("Scores submitted successfully!");
+
+    const updateData = async () =>{
+      try {
+        // This function handles the action you want to perform when the button is clicked
+        console.log("Submit button clicked!");
+      
+        const response = await axios.post(
+          "https://wxnahc193j.execute-api.us-east-1.amazonaws.com/new10/scoresheet",
+          data
+        );
+      
+        if (response.status === 200) {
+          // alert("Scores submitted successfully!");
+        } else {
+          // alert("Failed to submit scores.");
+        }
+      } catch (error) {
+        console.log("Error submitting scores.");
+      }
+      
+    }
+
+    updateData();
+    
+  };
 
   return (
     <Box m={10} sx={{ minWidth: 10 }}>
@@ -101,7 +130,7 @@ console.log(email[0].candidateName);
         >
           {email.map((data, index) => (
             <MenuItem key={index} value={data.candidateName}>
-              {data[index].candidateName}
+              {data.candidateName}
             </MenuItem>
           ))}
         </Select>
